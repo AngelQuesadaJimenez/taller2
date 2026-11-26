@@ -123,7 +123,8 @@ for (const locale of locales) {
   });
 }
 
-test("el catálogo filtra por componente, amplía las fotos y cotiza la referencia elegida", async ({ page }) => {
+test("el catálogo abre la tarjeta completa, filtra, amplía las fotos y cotiza la referencia elegida", async ({ page, isMobile }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
   const t = messages.es;
   const product = catalog.find(({ id }) => id === "cat-mit")!;
   const title = t.catalog.titles[product.id];
@@ -168,7 +169,14 @@ test("el catálogo filtra por componente, amplía las fotos y cotiza la referenc
   await expect(section.getByRole("heading", { name: t.catalog.titles["ford-mazda"] })).toBeVisible();
 
   const quote = section.getByRole("button", { name: t.catalog.availability + " · " + title });
-  await quote.click();
+  const starterPhoto = cards.first().locator(".catalog-photo");
+  await starterPhoto.evaluate((photo) => photo.scrollIntoView({ block: "center" }));
+  const photoBox = await starterPhoto.boundingBox();
+  expect(photoBox).not.toBeNull();
+  const x = photoBox!.x + photoBox!.width / 2;
+  const y = photoBox!.y + photoBox!.height / 2;
+  if (isMobile) await page.touchscreen.tap(x, y);
+  else await page.mouse.click(x, y);
   const dialog = page.getByRole("dialog", { name: title });
   await expect(dialog.getByText("24 V", { exact: true })).toBeVisible();
   await expect(dialog.getByText("10D", { exact: true })).toBeVisible();
@@ -189,6 +197,10 @@ test("el catálogo filtra por componente, amplía las fotos y cotiza la referenc
   expect(parsed.searchParams.get("text")).toContain(t.whatsapp.plate + ": 234567");
   await page.keyboard.press("Escape");
   await expect(dialog).toBeHidden();
+  await expect(quote).toBeFocused();
+  await quote.press("Enter");
+  await expect(dialog).toBeVisible();
+  await page.keyboard.press("Escape");
   await expect(quote).toBeFocused();
   await section.getByRole("button", { name: t.catalog.all, exact: true }).click();
   await expect(cards).toHaveCount(4);

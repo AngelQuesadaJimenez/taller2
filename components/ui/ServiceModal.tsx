@@ -4,6 +4,7 @@ import { useEffect, useId, useRef, type ReactNode } from "react";
 import { X } from "lucide-react";
 import { usePreferences } from "@/components/Preferences";
 import { AppIcon } from "./AppIcon";
+import { Button } from "./Button";
 import { GlassPanel } from "./GlassPanel";
 import "@/components/service-dialog.css";
 
@@ -21,6 +22,7 @@ export function ServiceModal({ title, emblem, footer, children, compact = false,
   const close = useRef<HTMLButtonElement>(null);
   const content = useRef<HTMLDivElement>(null);
   const closing = useRef(false);
+  const backdropPressed = useRef(false);
 
   useEffect(() => {
     const element = dialog.current;
@@ -103,14 +105,20 @@ export function ServiceModal({ title, emblem, footer, children, compact = false,
   return (
     <dialog ref={dialog} className={compact ? "service-dialog service-dialog--compact" : "service-dialog"}
       aria-modal="true" aria-labelledby={titleId} onCancel={(event) => { event.preventDefault(); dismiss(); }}
-      onClick={(event) => { if (event.currentTarget === event.target) dismiss(); }}>
+      onPointerDown={(event) => { backdropPressed.current = event.currentTarget === event.target; }}
+      onPointerUp={(event) => { backdropPressed.current &&= event.currentTarget === event.target; }}
+      onPointerCancel={() => { backdropPressed.current = false; }}
+      onClick={(event) => {
+        if (backdropPressed.current && event.currentTarget === event.target) dismiss();
+        backdropPressed.current = false;
+      }}>
       <GlassPanel variant="floating" className="service-dialog-frame">
         <header className="service-dialog-header">
           <h2 id={titleId}><span className="service-dialog-emblem" aria-hidden="true">{emblem}</span>{title}</h2>
-          <button ref={close} type="button" className="icon-button service-dialog-close" aria-label={t.serviceDetail.close}
-            onClick={dismiss}><AppIcon icon={X} /></button>
+          <Button ref={close} variant="secondary" size="icon" className="service-dialog-close" aria-label={t.serviceDetail.close}
+            onClick={dismiss}><AppIcon icon={X} /></Button>
         </header>
-        <div ref={content} className="service-dialog-scroll">{children}</div>
+        <div ref={content} className="service-dialog-scroll" tabIndex={0}>{children}</div>
         <footer className="service-dialog-footer">{footer}</footer>
       </GlassPanel>
     </dialog>

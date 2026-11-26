@@ -18,9 +18,9 @@ export function HomePage() {
         <main id="contenido" tabIndex={-1}>
           <Hero />
           <CommercialServices />
-          <PaymentMethods />
-          <Repairs />
           <Process />
+          <Repairs />
+          <PaymentMethods />
           <BusinessLocationSection />
           <Contact />
         </main>

@@ -18,10 +18,12 @@ async function verifyAppearance(locator: Locator, name: string, testInfo: TestIn
   await expect.soft(locator).toHaveScreenshot(name);
 }
 
-for (const width of [375, 768, 1440]) {
+const screenshotWidths = new Set([375, 768, 1440]);
+
+for (const width of [320, 375, 390, 768, 1024, 1440]) {
   test(`responsive y visual en ${width} px`, async ({ page }, testInfo) => {
     await page.setViewportSize({ width, height: 900 });
-    await page.emulateMedia({ colorScheme: width === 375 ? "light" : "dark", reducedMotion: "reduce" });
+    await page.emulateMedia({ colorScheme: width < 768 ? "light" : "dark", reducedMotion: "reduce" });
     await page.goto("/es/");
     await expect(page.locator('#contacto button[type="submit"]')).toBeEnabled();
     await page.evaluate(() => document.fonts.ready);
@@ -32,7 +34,9 @@ for (const width of [375, 768, 1440]) {
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
     const heroPhoto = page.locator(".hero-visual img");
     await expect.poll(() => heroPhoto.evaluate((image: HTMLImageElement) => image.naturalWidth)).toBeGreaterThan(0);
-    await verifyAppearance(header.locator(".header-glass"), `encabezado-${width}.png`, testInfo);
+    if (screenshotWidths.has(width)) {
+      await verifyAppearance(header.locator(".header-glass"), `encabezado-${width}.png`, testInfo);
+    }
 
     const service = page.locator("#servicios .service-card").first();
     await expect(service.getByRole("button")).toBeVisible();
@@ -44,7 +48,9 @@ for (const width of [375, 768, 1440]) {
     await expect(plate).toBeVisible();
     await expect(dialog.getByRole("button", { name: messages.es.common.consult, exact: true })).toBeInViewport({ ratio: 1 });
     expect(await dialog.evaluate((element) => element.scrollWidth)).toBeLessThanOrEqual(width);
-    await verifyAppearance(dialog, `consulta-${width}.png`, testInfo);
+    if (screenshotWidths.has(width)) {
+      await verifyAppearance(dialog, `consulta-${width}.png`, testInfo);
+    }
     await page.keyboard.press("Escape");
     await expect(service.getByRole("button")).toBeFocused();
 
@@ -53,7 +59,7 @@ for (const width of [375, 768, 1440]) {
     await expect(page.locator("#contacto form")).toBeVisible();
     await expect(page.locator("#pagos .payment-card")).toHaveCount(5);
     const overflow = await page.evaluate(() => {
-      const selectors = [".site-header", ".services-grid", ".catalog-grid", ".parts-grid", ".payment-grid", ".contact-form", ".footer-grid"];
+      const selectors = [".site-header", ".services-grid", ".catalog-grid", ".parts-grid", ".payment-grid", ".location-layout", ".contact-form", ".footer-grid"];
       const wide = Array.from(document.querySelectorAll(selectors.join(",")))
         .filter((element) => element.scrollWidth > element.clientWidth + 1)
         .map((element) => element.className);

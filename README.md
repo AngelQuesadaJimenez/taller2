@@ -28,7 +28,7 @@ Los datos comerciales y el WhatsApp **8939-1999** se gestionan en [data/business
 2. Publicá la rama y abrí un PR a `main`. Usá la plantilla para explicar cómo probarlo y adjuntar comparaciones visuales.
 3. Revisá **Calidad y build** y **Playwright**. Resuelve las conversaciones y fusioná por squash cuando el cambio esté aprobado.
 
-**Calidad y build** ejecuta `npm ci`, lint, TypeScript y el export estático. **Playwright** prueba ese mismo artefacto en Chromium, con escritorio, móvil y comprobaciones de 375, 768 y 1440 px. Las teselas de prueba son locales y los enlaces de WhatsApp se verifican sin enviar mensajes. Axe cubre contraste y accesibilidad en los flujos de prueba. La validación manual sigue siendo necesaria para una auditoría WCAG completa.
+**Calidad y build** ejecuta `npm ci`, lint, TypeScript y el export estático. **Playwright** prueba ese mismo artefacto en Chromium, con escritorio, móvil y comprobaciones de 320, 375, 390, 768, 1024 y 1440 px. Las comparaciones visuales versionadas usan 375, 768 y 1440 px. Las teselas de prueba son locales y los enlaces de WhatsApp se verifican sin enviar mensajes. Axe cubre contraste y accesibilidad en los flujos de prueba. La validación manual sigue siendo necesaria para una auditoría WCAG completa.
 
 ```sh
 npm run lint
@@ -59,4 +59,4 @@ Para **revertir una versión**, abrí un PR con `git revert <commit>` sobre una 
 
 ## Créditos y recursos
 
-La cartografía usa [IGN/SNIT](https://www.snitcr.go.cr/servicios_ogc_completo), [OpenStreetMap](https://www.openstreetmap.org/) y [OpenFreeMap](https://openfreemap.org/). El worker de MapLibre y su licencia se copian desde la dependencia durante el build. SINPE Móvil usa el [arte oficial del BCCR](https://www.bccr.fi.cr/content/dam/bccr/bccr-espanol/sistema-de-pagos/informacion-general/manual-marca-sinpe-movil.pdf). El distintivo BAC queda pendiente de la versión autorizada para la web del comercio.
+La cartografía usa [IGN/SNIT](https://www.snitcr.go.cr/servicios_ogc_completo), [OpenStreetMap](https://www.openstreetmap.org/) y [OpenFreeMap](https://openfreemap.org/). El worker de MapLibre y su licencia se copian desde la dependencia durante el build. SINPE Móvil usa el [arte oficial del BCCR](https://www.bccr.fi.cr/content/dam/bccr/bccr-espanol/sistema-de-pagos/informacion-general/manual-marca-sinpe-movil.pdf). La tarjeta Tasa Cero muestra el [logotipo corporativo de BAC](https://www.baccredomatic.com/themes/custom/bac_theme/images/bac_logo.svg) y su [variante oficial en rojo oscuro](https://www.baccredomatic.com/themes/custom/bac_theme/images/bac_logo_dark_red.svg).

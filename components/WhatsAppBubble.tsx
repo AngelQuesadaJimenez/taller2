@@ -11,7 +11,7 @@ export function WhatsAppBubble() {
   const [overControls, setOverControls] = useState(false);
 
   useEffect(() => {
-    const areas = document.querySelectorAll(".location-layout, .contact-phones, #contacto .contact-form, .parts-grid, .payment-grid");
+    const areas = document.querySelectorAll(".location-layout, .contact-phones, #contacto .contact-form, .catalog-grid, .parts-grid, .payment-grid");
     if (!areas.length || !("IntersectionObserver" in window)) return;
     let observer: IntersectionObserver | undefined;
 

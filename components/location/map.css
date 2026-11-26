@@ -47,7 +47,7 @@
 .map-caption strong { font-size: .92rem; }
 .map-caption span { color: var(--muted); font-size: .81rem; }
 .map-controls { position: absolute; top: .8rem; right: .8rem; display: grid; gap: .38rem; z-index: var(--z-map-overlay); }
-.map-controls .map-tool { width: var(--control-height); padding: 0; box-shadow: var(--shadow-control); }
+.map-controls .map-tool { box-shadow: var(--shadow-control); }
 .map-toolbar { background: var(--glass-subtle); min-height: 3.55rem; padding: .35rem .65rem; display: flex; flex-wrap: wrap; align-items: center; gap: .2rem .4rem; }
 .map-toolbar p { color: var(--muted); font-size: .86rem; margin-inline: .3rem; }
 .map-toolbar .button { padding-inline: .6rem; font-size: var(--text-sm); }
@@ -145,7 +145,7 @@
     -webkit-backdrop-filter: blur(var(--blur-subtle)) saturate(var(--glass-saturation));
     backdrop-filter: blur(var(--blur-subtle)) saturate(var(--glass-saturation));
   }
-  .map-controls .map-tool:hover { background: var(--glass-hover); }
+  .map-controls .map-tool:hover:not(:disabled) { background: var(--glass-hover); }
 }
 
 .geo-marker {
@@ -266,7 +266,6 @@
   .map-display-controls .map-view-option { padding-inline: var(--space-05); }
 }
 .location-info .directions-actions .button { font-size: .84rem; }
-.map-view-option { padding-inline: var(--space-1); font-size: .82rem; }
 .map-view-option[aria-pressed="true"] { border-color: var(--accent); color: var(--accent-hover); }
 .map-route-controls { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-1); padding: 0 var(--space-2) var(--space-1); }
 .map-gesture-toggle { display: none; }

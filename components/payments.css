@@ -10,8 +10,6 @@
 
 .glass-panel.payment-card {
   height: 100%;
-  --panel-background: var(--glass-default);
-  --panel-blur: var(--blur);
   box-shadow: var(--shadow);
 }
 .payment-card .glass-card-copy {

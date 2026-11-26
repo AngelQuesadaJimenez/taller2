@@ -20,8 +20,8 @@ export function Hero() {
           <h1 id="titulo"><span className="hero-service">{hero.emphasis}</span>{" "}<span className="hero-component">{hero.suffix}</span></h1>
           <p className="hero-intro">{hero.description}</p>
           <div className="hero-actions">
-            <WhatsAppCTA variant="primary">{t.common.consult}</WhatsAppCTA>
-            <GlassButton href="#servicios" variant="glass">{viewServices} <AppIcon icon={ArrowUpRight} size="small" /></GlassButton>
+            <WhatsAppCTA variant="primary" size="large">{t.common.consult}</WhatsAppCTA>
+            <GlassButton href="#servicios" variant="glass" size="large">{viewServices} <AppIcon icon={ArrowUpRight} size="small" /></GlassButton>
           </div>
           <a className="hero-access" href="#ubicacion">
             <AppIcon icon={MapPin} size="small" />

@@ -98,7 +98,10 @@ export const business = {
       { id: "efectivo", icon: "banknote" },
       { id: "tarjeta", icon: "creditCard" },
       { id: "transferencia", icon: "landmark" },
-      { id: "bac", brand: null, months: 3 },
+      { id: "bac", brand: {
+        light: { src: "/brands/bac-rojo.svg", width: 157, height: 42 },
+        dark: { src: "/brands/bac.svg", width: 157, height: 42 },
+      } satisfies PaymentBrandImages, months: 3 },
     ],
   },
   socials: [

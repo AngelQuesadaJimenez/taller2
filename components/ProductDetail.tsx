@@ -21,7 +21,7 @@ export function ProductDetail({ product }: { product: CatalogProduct }) {
       <div className="product-gallery">
         <div className="product-gallery-photo">
           <AutomotivePhoto photo={{ ...asset, alt: title + " · " + catalog.angle[angle] }} sizes={zoomed ? "(max-width: 767px) 90vw, 480px" : "(max-width: 767px) 90vw, 340px"} />
-          <GlassButton className="product-zoom" variant="glass" aria-pressed={zoomed}
+          <GlassButton className="product-zoom" variant="glass" size="icon" aria-pressed={zoomed}
             aria-label={zoomed ? catalog.zoomOut : catalog.zoomIn} onClick={() => setZoomed(!zoomed)}>
             <AppIcon icon={zoomed ? ZoomOut : ZoomIn} />
           </GlassButton>

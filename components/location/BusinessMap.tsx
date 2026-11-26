@@ -251,7 +251,7 @@ export function BusinessMap({ view, onViewChange, onUnavailable, onReadyChange }
               onZoomIn={() => readyMap.zoomIn({ duration: 0 })}
               onZoomOut={() => readyMap.zoomOut({ duration: 0 })}
               onReset={reset} onExpand={expand} canCenter={coordinates !== null} onCenter={(event) => focusBusiness(event.currentTarget)}
-              rotation={<Button className="map-tool" variant="glass" aria-label={copy.rotate} title={copy.rotate} onClick={mapCamera.rotate}><AppIcon icon={RotateCw} /></Button>} />
+              rotation={<Button className="map-tool" variant="glass" size="icon" aria-label={copy.rotate} title={copy.rotate} onClick={mapCamera.rotate}><AppIcon icon={RotateCw} /></Button>} />
             {coordinates && <MapLocationMarker map={readyMap} point={coordinates} kind="business"
               label={business.name} shortLabel={business.shortName} selected={selected === "business"} onSelect={focusBusiness} />}
             {distinctEntrance && entranceCoordinates && <MapLocationMarker map={readyMap} point={entranceCoordinates} kind="entrance"
