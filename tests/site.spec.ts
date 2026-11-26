@@ -28,7 +28,7 @@ test("portada responsive, imágenes, navegación y carga diferida", async ({ pag
   await expect(page.getByText("Logotipo y fotografías del taller.", { exact: true })).toHaveCount(1);
   const brand = page.getByRole("banner").locator(".brand-logo");
   await expect(page.getByRole("banner").getByRole("link", { name: business.tradeName + ", Inicio" })).toBeVisible();
-  await expect(brand.locator(".brand-name")).toHaveText(business.tradeName);
+  await expect(brand.locator(".brand-name")).toHaveText("Alternadores y Arrancadores Río Segundo");
   await expect(brand.locator(".brand-isotype")).toHaveCSS("mask-image", /rs-silueta-dorado\.png/);
   await expect(brand.locator(".brand-isotype")).toHaveAttribute("aria-hidden", "true");
   await expect(page.getByRole("contentinfo").locator(".brand-name")).toHaveText(business.tradeName);

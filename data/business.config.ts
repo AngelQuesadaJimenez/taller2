@@ -5,7 +5,7 @@ export type PaymentBrandImages = Readonly<Record<"light" | "dark", {
 }>>;
 
 const district = "Río Segundo";
-const tradeName = "Taller y Repuestos Eléctricos " + district;
+const tradeName = "Alternadores y Arrancadores " + district;
 
 export type Coordinates = readonly [latitude: number, longitude: number];
 
