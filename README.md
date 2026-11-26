@@ -43,12 +43,12 @@ Para ejecutar las pruebas contra el export, definí `PLAYWRIGHT_BASE_URL=http://
 
 El dominio público está en Wix. El build Next.js genera `out/`. Para vincularlo con el sitio existente, el dueño o copropietario abre **Headless Settings → Headless Migration** en ese sitio, revisa las apps y habilita la vista previa. Usá el artefacto `sitio-estatico` de un PR aprobado para la vista previa de Wix. Si el proyecto ya está vinculado con el CLI, `wix preview` permite subir `out/` y compartir un enlace. Revisá también el formulario de reseñas y las redirecciones del sitio anterior antes de completar la transición. [Transición en Wix](https://support.wix.com/en/article/wix-headless-moving-your-site-to-a-custom-frontend) · [Vista previa con el CLI](https://dev.wix.com/docs/wix-cli/cli-for-headless/command-reference/project-commands/preview)
 
-Cuando se haya validado la vista previa y autorizado el cambio público, configurá el Environment **production** en GitHub.
+Cuando se haya validado la vista previa y autorizado el cambio público, configurá el Environment **wix-production** en GitHub.
 
 | Configuración | Valor |
 | --- | --- |
-| Variables de `production` | `WIX_SITE_ID` y `WIX_APP_ID` de la vinculación real, y `SITE_SMOKE_URL` con la raíz HTTPS publicada |
-| Secreto de `production` | `WIX_API_KEY` con el acceso necesario al sitio |
+| Variables de `wix-production` | `WIX_SITE_ID` y `WIX_APP_ID` de la vinculación real, y `SITE_SMOKE_URL` con la raíz HTTPS publicada |
+| Secreto de `wix-production` | `WIX_API_KEY` con el acceso necesario al sitio |
 | Variable del repositorio | `WIX_DEPLOY_ENABLED=true` activa la publicación al actualizar `main` |
 
 El job **Producción en Wix** publica el artefacto validado por los dos checks. Comprueba el SHA público, la portada, las secciones, el enlace de contacto y los recursos CSS y JavaScript. Las publicaciones se serializan por entorno y se omite una revisión que ya esté publicada. [CLI de Wix](https://dev.wix.com/docs/go-headless/wix-managed-headless/other-frameworks/your-own-frontend/deploy-your-own-frontend-with-the-cli) · [Variables y secretos de entorno](https://docs.github.com/en/actions/how-tos/deploy/configure-and-manage-deployments/manage-environments)

@@ -11,8 +11,8 @@ permissions:
   contents: read
 
 concurrency:
-  group: taller-${{ github.workflow }-${{ github.ref }
-  cancel-in-progress: ${{ github.event_name == 'pull_request' }
+  group: taller-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   quality:
@@ -76,7 +76,7 @@ jobs:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main' && vars.WIX_DEPLOY_ENABLED == 'true'
     needs: [quality, browser]
     runs-on: ubuntu-24.04
-    environment: production
+    environment: wix-production
     timeout-minutes: 15
     concurrency:
       group: wix-production
@@ -95,11 +95,11 @@ jobs:
           path: out/
       - name: Comprobar la vinculación y publicar la revisión probada
         env:
-          WIX_APP_ID: ${{ vars.WIX_APP_ID }
-          WIX_SITE_ID: ${{ vars.WIX_SITE_ID }
-          WIX_API_KEY: ${{ secrets.WIX_API_KEY }
-          SITE_SMOKE_URL: ${{ vars.SITE_SMOKE_URL }
-          GH_TOKEN: ${{ github.token }
+          WIX_APP_ID: ${{ vars.WIX_APP_ID }}
+          WIX_SITE_ID: ${{ vars.WIX_SITE_ID }}
+          WIX_API_KEY: ${{ secrets.WIX_API_KEY }}
+          SITE_SMOKE_URL: ${{ vars.SITE_SMOKE_URL }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           gh api "repos/$GITHUB_REPOSITORY/branches/main" --jq '.commit.sha' > latest-main.txt
           if [[ "$(cat latest-main.txt)" != "$GITHUB_SHA" ]]; then
