@@ -1,8 +1,25 @@
-import { expect, test } from "./map-fixture";
+import { existsSync } from "node:fs";
+import type { Locator, TestInfo } from "@playwright/test";
 import { messages } from "../i18n/messages";
+import { expect, test } from "./map-fixture";
+
+async function verifyAppearance(locator: Locator, name: string, testInfo: TestInfo) {
+  if (process.platform !== "linux") return;
+
+  if (!existsSync(testInfo.snapshotPath(name, { kind: "screenshot" }))) {
+    await locator.screenshot({
+      path: testInfo.outputPath(`candidata-${name}`),
+      animations: "disabled",
+      caret: "hide",
+      scale: "css",
+    });
+  }
+
+  await expect.soft(locator).toHaveScreenshot(name);
+}
 
 for (const width of [375, 768, 1440]) {
-  test(`responsive y visual en ${width} px`, async ({ page }) => {
+  test(`responsive y visual en ${width} px`, async ({ page }, testInfo) => {
     await page.setViewportSize({ width, height: 900 });
     await page.emulateMedia({ colorScheme: width === 375 ? "light" : "dark", reducedMotion: "reduce" });
     await page.goto("/es/");
@@ -15,9 +32,7 @@ for (const width of [375, 768, 1440]) {
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
     const heroPhoto = page.locator(".hero-visual img");
     await expect.poll(() => heroPhoto.evaluate((image: HTMLImageElement) => image.naturalWidth)).toBeGreaterThan(0);
-    if (process.platform === "linux") {
-      await expect.soft(header.locator(".header-glass")).toHaveScreenshot(`encabezado-${width}.png`);
-    }
+    await verifyAppearance(header.locator(".header-glass"), `encabezado-${width}.png`, testInfo);
 
     const service = page.locator("#servicios .service-card").first();
     await expect(service.getByRole("button")).toBeVisible();
@@ -29,9 +44,7 @@ for (const width of [375, 768, 1440]) {
     await expect(plate).toBeVisible();
     await expect(dialog.getByRole("button", { name: messages.es.common.consult, exact: true })).toBeInViewport({ ratio: 1 });
     expect(await dialog.evaluate((element) => element.scrollWidth)).toBeLessThanOrEqual(width);
-    if (process.platform === "linux") {
-      await expect(dialog).toHaveScreenshot(`consulta-${width}.png`);
-    }
+    await verifyAppearance(dialog, `consulta-${width}.png`, testInfo);
     await page.keyboard.press("Escape");
     await expect(service.getByRole("button")).toBeFocused();
 
