@@ -291,7 +291,15 @@
       "kicker": "Starting and charging specialists",
       "emphasis": "Sales and repair of",
       "suffix": "alternators and starters",
-      "description": "Automotive electrical workshop in Río Segundo, Alajuela. Contact us about the replacement part or repair you need."
+      "description": "Contact us about the replacement part or repair you need.",
+      "gallery": {
+        "label": "Alternator and starter photos",
+        "previous": "Previous photo",
+        "next": "Next photo",
+        "pause": "Pause rotation",
+        "play": "Start rotation",
+        "angles": { "oblique": "Angled view", "front": "Front view", "side": "Side view" }
+      }
     },
     "services": {
       "title": "Our services",

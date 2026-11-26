@@ -27,8 +27,15 @@ export const catalogPhotos = {
   fordFront: catalogPhoto("ford-mazda-frente", 320),
 };
 
+export const heroPhotos = [
+  { asset: catalogPhotos.toyotaOblique, product: "toyota-lexus", angle: "oblique" },
+  { asset: catalogPhotos.toyotaSide, product: "toyota-lexus", angle: "side" },
+  { asset: catalogPhotos.catOblique, product: "cat-mit", angle: "oblique" },
+  { asset: catalogPhotos.catFront, product: "cat-mit", angle: "front" },
+  { asset: catalogPhotos.catSide, product: "cat-mit", angle: "side" },
+] as const;
+
 export const photos = {
-  starterPerspective: catalogPhotos.catOblique,
   alternatorProduct: photo("taller-alternador-catalogo", 400, 400, [320, 400]),
   alternatorDetail: photo("taller-alternador-detalle", 480, 400, [320, 480]),
   starterDetail: photo("taller-arrancador-detalle", 480, 400, [320, 480]),

@@ -28,14 +28,15 @@ test("portada responsive, imágenes, navegación y carga diferida", async ({ pag
   await expect(page.getByText("Logotipo y fotografías del taller.", { exact: true })).toHaveCount(1);
   const brand = page.getByRole("banner").locator(".brand-logo");
   await expect(page.getByRole("banner").getByRole("link", { name: business.tradeName + ", Inicio" })).toBeVisible();
-  await expect(brand.locator(".brand-name")).toHaveText(business.tradeName);
+  await expect(brand.locator(".brand-name")).toHaveText("Alternadores y Arrancadores Río Segundo");
   await expect(brand.locator(".brand-isotype")).toHaveCSS("mask-image", /rs-silueta-dorado\.png/);
   await expect(brand.locator(".brand-isotype")).toHaveAttribute("aria-hidden", "true");
   await expect(page.getByRole("contentinfo").locator(".brand-name")).toHaveText(business.tradeName);
   await expect(page.locator("main")).not.toContainText(/Calle Coricaf[eé]/i);
   const hero = page.locator("#inicio");
+  await expect(hero.locator(".hero-intro")).toHaveText("Consultá por el repuesto o la reparación que necesitás.");
   const image = hero.locator("picture img");
-  await expect(image).toHaveAttribute("src", /\/photos\/cat-mit-angular-480\.webp$/);
+  await expect(image).toHaveAttribute("src", /\/photos\/toyota-frente-480\.webp$/);
   await expect(image).toHaveAttribute("fetchpriority", "high");
   await expect(image).toHaveJSProperty("complete", true);
   expect(await image.evaluate((node: HTMLImageElement) => node.naturalWidth)).toBeGreaterThan(0);
@@ -128,6 +129,65 @@ test("el submenú Glass se puede usar con teclado y lleva a la ficha elegida", a
   await expect(page.locator("html")).not.toHaveCSS("overflow-y", "hidden");
 });
 
+test("el carrusel muestra distintos ángulos y permite iniciar o pausar la rotación", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.clock.install();
+  await page.goto("/es/");
+  const copy = messages.es.home.hero.gallery;
+  const gallery = page.getByRole("figure", { name: copy.label });
+  const photo = gallery.getByRole("img");
+  const play = gallery.getByRole("button", { name: copy.play, exact: true });
+  const next = gallery.getByRole("button", { name: copy.next, exact: true });
+  const previous = gallery.getByRole("button", { name: copy.previous, exact: true });
+
+  await expect(photo).toHaveAccessibleName("Alternador Toyota / Lexus · Vista en ángulo");
+  await expect(play).toBeVisible();
+  await page.clock.fastForward(7000);
+  await expect(photo).toHaveAccessibleName("Alternador Toyota / Lexus · Vista en ángulo");
+
+  await next.click();
+  await expect(photo).toHaveAccessibleName("Alternador Toyota / Lexus · Vista lateral");
+  await previous.press("Enter");
+  await expect(photo).toHaveAccessibleName("Alternador Toyota / Lexus · Vista en ángulo");
+  await previous.press("Enter");
+  await expect(photo).toHaveAccessibleName("Arrancador CAT/MIT · Vista lateral");
+  await next.click();
+
+  await play.click();
+  await page.mouse.move(0, 0);
+  const pause = gallery.getByRole("button", { name: copy.pause, exact: true });
+  await expect(pause).toBeVisible();
+  await page.clock.fastForward(7000);
+  await expect(photo).toHaveAccessibleName("Alternador Toyota / Lexus · Vista lateral");
+  await pause.click();
+  await page.mouse.move(0, 0);
+  await page.clock.fastForward(7000);
+  await expect(photo).toHaveAccessibleName("Alternador Toyota / Lexus · Vista lateral");
+});
+
+test("la leyenda del mapa abre y cierra con el teclado", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/es/#ubicacion");
+  const disclosure = page.locator(".map-legend-disclosure");
+  const toggle = disclosure.locator("summary");
+  const legend = disclosure.getByRole("list", { name: messages.es.map.legend, includeHidden: true });
+  await expect(toggle).toBeVisible();
+  await toggle.scrollIntoViewIfNeeded();
+  await expect(disclosure).toHaveJSProperty("open", false);
+  await expect(legend).toBeHidden();
+
+  await toggle.press("Enter");
+  await expect(toggle).toBeFocused();
+  await expect(disclosure).toHaveJSProperty("open", true);
+  await expect(legend.getByText(messages.es.map.shopPin)).toBeVisible();
+  await expect(legend.getByText(messages.es.map.property)).toBeVisible();
+  await expect(legend.getByText(messages.es.map.access, { exact: true })).toBeVisible();
+
+  await toggle.press("Space");
+  await expect(disclosure).toHaveJSProperty("open", false);
+  await expect(legend).toBeHidden();
+});
+
 test("la ortofoto carga y los controles cambian cámara y base sin recrear el mapa", async ({ page }) => {
   test.setTimeout(60000);
   await page.emulateMedia({ reducedMotion: "reduce" });
@@ -200,16 +260,6 @@ test("la ortofoto carga y los controles cambian cámara y base sin recrear el ma
   await expect(expand).toBeVisible();
   await expect(page.getByRole("link", { name: "Abrir en Waze", exact: true }).locator("img")).toHaveAttribute("src", "/brands/waze.svg");
   await expect(page.getByRole("link", { name: "Abrir en Google Maps", exact: true }).locator("img")).toHaveAttribute("src", "/brands/google-maps.svg");
-  const legendToggle = mapShell.locator(".map-legend-disclosure summary");
-  const legend = mapShell.getByRole("list", { name: messages.es.map.legend, includeHidden: true });
-  await expect(legend).toBeHidden();
-  await legendToggle.press("Enter");
-  await expect(legendToggle).toBeFocused();
-  await expect(legend.getByText(messages.es.map.shopPin)).toBeVisible();
-  await expect(legend.getByText(messages.es.map.property)).toBeVisible();
-  await expect(legend.getByText(messages.es.map.access, { exact: true })).toBeVisible();
-  await legendToggle.press("Enter");
-  await expect(legend).toBeHidden();
   await page.getByRole("button", { name: "Mostrar acceso" }).click();
   await expect(page.locator(".map-toolbar").getByRole("status")).toHaveText(messages.es.map.accessInstructions);
   const shop = page.getByRole("button", { name: business.name, exact: true });
@@ -385,14 +435,14 @@ test("el formulario arma mensajes de compra y reparación y omite campos vacíos
     await page.setViewportSize({ ...viewport, width: 480 });
     await expect(contact.locator(".fields")).toHaveCSS("grid-template-columns", /^\d+(\.\d+)?px$/);
   }
-  await expect(contact.getByRole("link", { name: /Llamadas al taller/ })).toHaveAttribute("href", "tel:+50689391999");
-  const mobileChat = contact.getByRole("link", { name: "Consultar por WhatsApp · 8939-1999" });
-  await expect(mobileChat).toHaveAttribute("href", /^https:\/\/wa\.me\/50689391999\?/);
-  await expect(mobileChat.locator("img")).toHaveAttribute("src", "/brands/whatsapp.webp");
-  const mobileCard = contact.locator(".contact-phones > .contact-method").filter({
-    has: page.getByRole("link", { name: "Consultar por WhatsApp · 8939-1999" }),
-  });
-  await expect(mobileCard.getByRole("link", { name: /Llamadas al taller/ })).toHaveAttribute("href", "tel:+50689391999");
+  const contactMethods = contact.locator(".contact-phones");
+  await expect(contactMethods.getByRole("link")).toHaveCount(3);
+  const mainChat = contactMethods.getByRole("link", { name: "WhatsApp 8939-1999", exact: true });
+  const secondaryChat = contactMethods.getByRole("link", { name: "WhatsApp 8392-7096", exact: true });
+  await expect(mainChat).toHaveAttribute("href", /^https:\/\/wa\.me\/50689391999\?/);
+  await expect(secondaryChat).toHaveAttribute("href", /^https:\/\/wa\.me\/50683927096\?/);
+  await expect(contactMethods.locator('.contact-method-icon img[src="/brands/whatsapp.webp"]')).toHaveCount(2);
+  await expect(contactMethods.locator(".contact-method-icon svg")).toHaveCount(1);
   const alignment = await contact.locator(".contact-phones > .contact-method").evaluateAll((cards) => cards.map((card) => {
     const icon = card.querySelector(".contact-method-icon")!.getBoundingClientRect();
     const text = card.querySelector(".contact-method-main")!.getBoundingClientRect();
@@ -401,8 +451,7 @@ test("el formulario arma mensajes de compra y reparación y omite campos vacíos
   }));
   expect(alignment).toHaveLength(3);
   expect(alignment).toEqual(Array(3).fill({ ...alignment[0], iconOnLeft: true }));
-  await expect(contact.getByRole("link", { name: /Teléfono fijo 2440-2131/ })).toHaveAttribute("href", "tel:+50624402131");
-  await expect(contact.getByRole("link", { name: /WhatsApp 8939-1999/ })).toHaveAttribute("href", /^https:\/\/wa\.me\/50689391999/);
+  await expect(contactMethods.getByRole("link", { name: "Teléfono fijo 2440-2131", exact: true })).toHaveAttribute("href", "tel:+50624402131");
   const name = page.getByLabel("Nombre", { exact: true });
   const intent = page.getByLabel("Compra o reparación");
   const component = page.getByLabel("Componente");
