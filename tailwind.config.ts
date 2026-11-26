@@ -1,64 +1,35 @@
 import type { Config } from "tailwindcss";
+import { compactNavigation } from "./data/layout.config";
 
 const config: Config = {
-  content: [
-    "./app/**/*.{ts,tsx}",
-    "./components/**/*.{ts,tsx}",
-    "./data/**/*.{ts,tsx}",
-  ],
+  content: ["./app/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}"],
   theme: {
     extend: {
       colors: {
-        // Azul eléctrico = confianza, energía, tecnología
-        brand: {
-          50: "#eaf2fb",
-          100: "#cfe0f4",
-          200: "#9dc0e8",
-          300: "#6a9fdb",
-          400: "#3d80ce",
-          500: "#0b4f9e", // primario
-          600: "#093f80",
-          700: "#0a2f5e",
-          800: "#0a2540", // navy profundo
-          900: "#071a2e",
-        },
-        // Ámbar = la "chispa" del arranque, energía, acción
-        spark: {
-          50: "#fff8e6",
-          100: "#ffedbf",
-          200: "#ffdd85",
-          300: "#ffca4d",
-          400: "#ffb300", // acento CTA
-          500: "#e69a00",
-          600: "#b87a00",
-        },
+        background: "var(--background)",
+        surface: "var(--surface)",
+        foreground: "var(--text)",
+        "glass-border": "var(--glass-border)",
+        muted: "var(--muted)",
+        accent: "var(--accent)",
+        primary: "var(--primary)",
+        "rs-gold": "var(--rs-gold)",
+        focus: "var(--secondary-accent)",
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
-        heading: ["var(--font-poppins)", "system-ui", "sans-serif"],
+        sans: ["var(--body-font)"],
+        heading: ["var(--heading-font)"],
       },
-      boxShadow: {
-        card: "0 4px 24px -6px rgba(10, 37, 64, 0.12)",
-        cardHover: "0 12px 40px -8px rgba(10, 37, 64, 0.22)",
-      },
-      keyframes: {
-        "fade-up": {
-          "0%": { opacity: "0", transform: "translateY(16px)" },
-          "100%": { opacity: "1", transform: "translateY(0)" },
-        },
-        "pulse-ring": {
-          "0%": { transform: "scale(0.95)", opacity: "0.7" },
-          "70%": { transform: "scale(1.3)", opacity: "0" },
-          "100%": { opacity: "0" },
-        },
-      },
-      animation: {
-        "fade-up": "fade-up 0.6s ease-out both",
-        "pulse-ring": "pulse-ring 2s ease-out infinite",
+      screens: {
+        navigation: { raw: compactNavigation },
+        tablet: { max: "850px" },
+        mobile: { max: "767px" },
+        compact: { max: "420px" },
+        narrow: { max: "383px" },
+        wide: { min: "1480px" },
       },
     },
   },
-  plugins: [],
 };
 
 export default config;

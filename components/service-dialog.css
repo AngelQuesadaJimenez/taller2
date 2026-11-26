@@ -1,0 +1,220 @@
+html:has(.service-dialog[open]) { overflow: hidden; }
+
+.service-dialog {
+  --dialog-max-block: min(48rem, calc(var(--dialog-visible-height, 100dvh) - 2 * var(--gutter)));
+  position: fixed;
+  inset: var(--dialog-visible-top, 0px) 0 var(--dialog-visible-bottom, 0px);
+  margin: auto;
+  inline-size: min(var(--service-dialog-width, 42rem), calc(100% - 2 * var(--gutter)));
+  max-inline-size: none;
+  max-block-size: var(--dialog-max-block);
+  overflow: visible;
+  background: transparent;
+  color: var(--text);
+}
+.service-dialog--compact { --service-dialog-width: 36rem; }
+.service-dialog::backdrop {
+  background: color-mix(in srgb, var(--dialog-scrim) 73%, transparent);
+}
+.service-dialog[open] { animation: dialog-enter var(--duration-menu) var(--easing) both; }
+@keyframes dialog-enter {
+  from { opacity: 0; transform: translateY(.4rem); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.glass-panel.service-dialog-frame {
+  --panel-background: color-mix(in srgb, var(--surface-elevated) 87%, transparent);
+  --panel-fallback: var(--surface-elevated);
+  --panel-blur: var(--blur-elevated);
+  border-radius: 1.5rem;
+  box-shadow: var(--shadow-elevated);
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  max-block-size: var(--dialog-max-block);
+  overflow: hidden;
+}
+.service-dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border-bottom: 1px solid var(--glass-border);
+}
+.service-dialog-header h2 { display: flex; align-items: center; gap: var(--space-2); font-size: var(--text-card); letter-spacing: var(--tracking-tight); }
+.service-dialog-emblem {
+  display: grid;
+  place-items: center;
+  flex: none;
+  inline-size: 2.875rem;
+  block-size: 2.875rem;
+  border-radius: var(--radius-medium);
+  color: var(--accent);
+  background: var(--glass-option-active);
+}
+.service-dialog-close {
+  align-self: flex-start;
+  color: var(--muted);
+  min-inline-size: var(--control-height);
+  min-block-size: var(--control-height);
+  flex: none;
+}
+.service-dialog-scroll {
+  min-block-size: 0;
+  min-inline-size: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scroll-padding: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+}
+.service-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-05);
+  padding: var(--space-05);
+  margin-block-end: var(--space-3);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-medium);
+  background: var(--glass-subtle);
+}
+.service-tab { min-inline-size: 0; padding-inline: var(--space-1); color: var(--muted); }
+.service-tab:hover { color: var(--text); }
+.service-tab[aria-selected="true"] {
+  background: var(--glass-option-active);
+  color: var(--accent-on-tint);
+  border-color: var(--accent);
+}
+.service-tab-panel { border-radius: var(--radius-small); }
+.service-detail-intro {
+  display: grid;
+  grid-template-columns: minmax(0, .39fr) minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+.service-detail-photo {
+  inline-size: min(100%, 12rem);
+  overflow: hidden;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-medium);
+  background: var(--photo-background);
+}
+.service-detail-intro h3 { font-size: var(--text-card); }
+.service-detail-intro p, .service-caveat,
+.service-disclosure p, .service-disclosure li, .service-steps p { color: var(--muted); font-size: var(--text-sm); }
+.service-detail-intro p, .service-caveat { margin-block-start: var(--space-1); }
+.service-caveat {
+  display: flex;
+  align-items: start;
+  gap: var(--space-2);
+  margin-block: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-small);
+  border-inline-start: 3px solid var(--accent);
+  background: var(--glass-option-active);
+  color: var(--text-soft);
+}
+.service-caveat .app-icon { color: var(--accent); margin-block-start: .15em; }
+.service-disclosure {
+  margin-block: var(--space-1);
+  padding-inline: var(--space-3);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-medium);
+}
+.service-disclosure summary {
+  min-block-size: var(--control-height);
+  padding-block: var(--space-15);
+  border-radius: var(--radius-small);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  cursor: pointer;
+}
+.service-disclosure summary::marker { color: var(--accent); }
+.service-disclosure summary:hover { color: var(--accent); }
+.service-disclosure p { margin-bottom: var(--space-1); }
+.service-disclosure ul { padding: 0 0 var(--space-2) var(--space-4); list-style: disc; }
+.service-steps { display: grid; gap: var(--space-1); margin-block: var(--space-1) var(--space-2); list-style: none; }
+.service-steps li { display: flex; align-items: start; gap: var(--space-2); }
+.service-steps strong { color: var(--text); font-size: var(--text-sm); }
+.service-tab-panel .service-step-index {
+  flex: none;
+  color: var(--accent);
+  font: 700 var(--text-sm)/1.7 var(--heading-font);
+  font-variant-numeric: tabular-nums;
+}
+.contact-form.service-inquiry { margin-top: var(--space-3); padding: 0; }
+.service-inquiry .fields { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-2); }
+.service-inquiry .service-disclosure > .fields { padding-block-end: var(--space-2); }
+
+.vehicle-identification {
+  min-inline-size: 0;
+  margin: var(--space-3) 0 0;
+  padding: 0;
+  border: 0;
+}
+.vehicle-identification legend { padding: 0; margin-block-end: var(--space-1); font-weight: 700; font-size: var(--text-sm); }
+.vehicle-modes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-1); }
+.vehicle-mode {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-05);
+  min-block-size: var(--control-height-large);
+  padding: var(--space-05) var(--space-1);
+  border: 1px solid var(--field-border);
+  border-radius: var(--radius-small);
+  color: var(--text-soft);
+  font-size: var(--text-sm);
+  font-weight: 650;
+  line-height: 1.25;
+}
+.vehicle-mode input { position: absolute; inset: 0; margin: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+.vehicle-mode svg { flex: none; color: var(--accent); }
+.vehicle-mode:has(input:checked) { background: var(--glass-option-active); border-color: var(--accent); color: var(--accent-on-tint); }
+.vehicle-mode:has(input:checked) svg { transform: rotate(180deg); }
+.vehicle-mode:has(input:focus-visible) { outline: 2px solid var(--secondary-accent); outline-offset: 2px; }
+.vehicle-mode-fields { min-inline-size: 0; margin: 0; padding: var(--space-2) 0 0; border: 0; }
+
+@container (min-width: 26rem) {
+  .service-inquiry .vehicle-details-fields { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .vehicle-mode, .vehicle-mode svg { transition: background-color var(--duration) var(--easing), transform var(--duration) var(--easing); }
+  .vehicle-mode-fields:not([hidden]) { animation: vehicle-fields-enter var(--duration) var(--easing) both; }
+}
+@keyframes vehicle-fields-enter {
+  from { opacity: .7; transform: translateY(.2rem); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.service-dialog-footer .button { min-block-size: var(--control-height-large); }
+.service-dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: var(--space-2) var(--space-4);
+  background: color-mix(in srgb, var(--surface) 60%, transparent);
+  border-top: 1px solid var(--glass-border);
+}
+
+@screen mobile {
+  .service-dialog {
+    --dialog-max-block: min(48rem, calc(var(--dialog-visible-height, 100dvh) - max(var(--safe-top), var(--space-2))));
+    inset: auto 0 var(--dialog-visible-bottom, 0px);
+    margin: 0 auto;
+    inline-size: 100%;
+  }
+  .glass-panel.service-dialog-frame { border-end-start-radius: 0; border-end-end-radius: 0; }
+  .service-dialog-header, .service-dialog-scroll, .service-dialog-footer { padding-inline: var(--gutter); }
+  .service-dialog-footer { padding-block-end: calc(var(--space-2) + var(--safe-bottom)); }
+  .service-dialog-footer .button { width: 100%; }
+  .service-detail-intro { gap: var(--space-2); align-items: start; }
+}
+
+@screen compact {
+  .service-detail-intro { grid-template-columns: minmax(0, .43fr) minmax(0, 1fr); }
+  .service-inquiry .service-disclosure > .fields { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .service-dialog[open] { animation: none; }
+}

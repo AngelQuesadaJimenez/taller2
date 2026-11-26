@@ -1,14 +1,17 @@
 import type { MetadataRoute } from "next";
+import { business } from "@/data/business.config";
+import { locales, localizedPath } from "@/i18n/config";
+import { pageMetadata } from "@/i18n/metadata";
+
+export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base =
-    process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.alternadoresyarrancadoresrio2.com";
-  const now = new Date();
-
-  return [
-    { url: `${base}/`, lastModified: now, changeFrequency: "monthly", priority: 1 },
-    { url: `${base}/privacidad`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
-    { url: `${base}/terminos`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
-    { url: `${base}/cookies`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
-  ];
+  return locales.map((locale) => ({
+    url: new URL(localizedPath(locale, "home"), business.website).href,
+    alternates: {
+      languages: Object.fromEntries(Object.entries(pageMetadata(locale, "home").alternates).map(
+        ([tag, path]) => [tag, new URL(path, business.website).href],
+      )),
+    },
+  }));
 }

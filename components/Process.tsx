@@ -1,40 +1,37 @@
-import { process } from "@/data/site";
+"use client";
+
+import { usePreferences } from "@/components/Preferences";
+import { ClipboardList, MessageCircle, CalendarCheck } from "lucide-react";
+import { process } from "@/data/site-content";
+import { AppIcon } from "@/components/ui/AppIcon";
+import { GlassPanel } from "@/components/ui/GlassPanel";
+import { GlassSection } from "@/components/ui/GlassSection";
+import { SectionHeading } from "@/components/ui/SectionHeading";
+
+const stepIcons = { consulta: MessageCircle, revision: ClipboardList, atencion: CalendarCheck };
 
 export function Process() {
+  const { t } = usePreferences();
+  const copy = t.home;
   return (
-    <section id="proceso" className="section bg-brand-800 text-white">
-      <div className="container-x">
-        <div className="mx-auto max-w-2xl text-center">
-          <span className="mb-3 inline-block text-sm font-semibold uppercase tracking-wider text-spark-400">
-            Cómo trabajamos
-          </span>
-          <h2 className="font-heading text-3xl font-bold sm:text-4xl">
-            Solicitar tu servicio es muy sencillo
-          </h2>
-          <p className="mt-4 text-lg text-brand-100">
-            En cuatro pasos tienes tu alternador o arrancador listo para rodar.
-          </p>
-        </div>
-
-        <ol className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {process.map((p, i) => (
-            <li key={p.step} className="relative">
-              {/* Línea conectora en desktop */}
-              {i < process.length - 1 && (
-                <span
-                  className="absolute left-12 top-6 hidden h-px w-full bg-white/15 lg:block"
-                  aria-hidden="true"
-                />
-              )}
-              <span className="relative grid h-12 w-12 place-items-center rounded-full bg-spark-400 font-heading text-lg font-bold text-brand-900">
-                {p.step}
-              </span>
-              <h3 className="mt-4 font-heading text-lg font-semibold">{p.title}</h3>
-              <p className="mt-2 text-sm text-brand-200">{p.text}</p>
+    <GlassSection className="wrap process" id="proceso" aria-labelledby="proceso-titulo">
+      <SectionHeading id="proceso-titulo" {...copy.process} />
+      <GlassPanel variant="elevated" className="process-panel" data-reveal="">
+        <ol className="process-grid" role="list">
+          {process.map((id, index) => (
+            <li className="process-step" key={id}>
+              <GlassPanel variant="interactive" className="step-icon" aria-hidden="true">
+                <AppIcon icon={stepIcons[id]} size="large" />
+              </GlassPanel>
+              <div className="step-copy">
+                <span className="step-number" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+                <h3>{t.process[id].title}</h3>
+                <p>{t.process[id].text}</p>
+              </div>
             </li>
           ))}
         </ol>
-      </div>
-    </section>
+      </GlassPanel>
+    </GlassSection>
   );
 }

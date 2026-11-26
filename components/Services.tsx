@@ -1,77 +1,54 @@
-import { services } from "@/data/site";
-import { Icon } from "@/components/ui/Icon";
-import { waLink } from "@/lib/whatsapp";
+"use client";
 
-export function Services() {
+import { ArrowUpRight } from "lucide-react";
+import { useServiceExperience } from "@/components/ServiceExperience";
+import { Catalog } from "@/components/Catalog";
+import { usePreferences } from "@/components/Preferences";
+import { services } from "@/data/site-content";
+import { AppIcon } from "@/components/ui/AppIcon";
+import { AutomotivePhoto } from "@/components/ui/AutomotivePhoto";
+import { GlassButton } from "@/components/ui/Button";
+import { GlassCard } from "@/components/ui/GlassCard";
+import { GlassSection } from "@/components/ui/GlassSection";
+import { SectionHeading } from "@/components/ui/SectionHeading";
+
+export function CommercialServices() {
+  const openService = useServiceExperience();
+  const { t } = usePreferences();
+  const copy = t.home;
+
   return (
-    <section id="servicios" className="section bg-brand-50">
-      <div className="container-x">
-        <div className="mx-auto max-w-2xl text-center">
-          <span className="eyebrow">Productos y servicios</span>
-          <h2 className="h2">Todo para el arranque y la generación de tu equipo</h2>
-          <p className="mt-4 text-lg text-brand-600">
-            Vendemos y reparamos alternadores y arrancadores para todo tipo de vehículo y
-            maquinaria. Elige tu categoría y cotiza sin compromiso.
-          </p>
-        </div>
-
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((s) => (
-            <article
-              key={s.slug}
-              className="group flex flex-col rounded-2xl bg-white p-6 shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-cardHover"
-            >
-              <span className="grid h-14 w-14 place-items-center rounded-xl bg-brand-500/10 text-brand-500 transition-colors group-hover:bg-brand-500 group-hover:text-white">
-                <Icon name={s.icon} className="h-7 w-7" />
-              </span>
-              <h3 className="mt-5 font-heading text-lg font-bold text-brand-800">
-                {s.name}
-              </h3>
-              <p className="mt-2 text-sm text-brand-600">{s.description}</p>
-
-              <p className="mt-4 flex items-start gap-2 rounded-lg bg-spark-50 px-3 py-2 text-sm text-brand-700">
-                <Icon name="spark" className="mt-0.5 h-4 w-4 flex-none text-spark-500" />
-                <span>{s.benefit}</span>
-              </p>
-
-              <a
-                href={waLink(
-                  `Hola, quiero información sobre "${s.name}". Mi vehículo/equipo es: `
-                )}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-outline mt-6"
-              >
-                Cotizar este servicio
-                <Icon name="arrow" className="h-4 w-4" />
-              </a>
-            </article>
+    <>
+      <GlassSection id="servicios" className="wrap" aria-labelledby="servicios-titulo">
+        <SectionHeading id="servicios-titulo" {...copy.services} />
+        <p className="service-scope">{t.serviceDetail.scope}</p>
+        <div className="services-grid" data-reveal="">
+          {services.map((service) => (
+            <GlassCard key={service.id} id={service.id} className="service-card"
+              title={t.parts[service.component].plural} description={t.parts[service.component].description}
+              icon={<AppIcon size="large" icon={service.icon} />}
+              action={
+                <div className="service-card-actions">
+                  <GlassButton variant="quiet" className="service-explore" aria-haspopup="dialog"
+                    aria-label={t.serviceDetail.explore + " · " + t.parts[service.component].plural}
+                    onClick={(event) => openService(service, event.currentTarget)}>
+                    {t.serviceDetail.explore} <AppIcon icon={ArrowUpRight} size="small" />
+                  </GlassButton>
+                </div>
+              }
+              image={
+                <div className="service-photo">
+                  <AutomotivePhoto photo={{ ...service.image, alt: t.photos[service.photoKey] }} sizes="(max-width: 767px) 94vw, (max-width: 1280px) 46vw, 592px" />
+                </div>
+              }
+            />
           ))}
-
-          {/* Tarjeta CTA */}
-          <article className="flex flex-col justify-center rounded-2xl bg-brand-800 p-6 text-white shadow-card">
-            <h3 className="font-heading text-xl font-bold">
-              ¿No sabes cuál necesitas?
-            </h3>
-            <p className="mt-2 text-sm text-brand-100">
-              Escríbenos con la marca y modelo de tu vehículo o equipo y te asesoramos gratis.
-            </p>
-            <a
-              href={waLink()}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary mt-6"
-            >
-              <Icon name="whatsapp" className="h-5 w-5" />
-              Habla con un técnico
-            </a>
-          </article>
         </div>
-
-        <p className="mt-6 text-center text-sm text-brand-500">
-          Precios según marca, modelo y estado de la pieza. Cotización sin compromiso.
-        </p>
-      </div>
-    </section>
+      </GlassSection>
+      <Catalog onSelect={(product, trigger) => {
+        const service = services.find(({ component }) => component === product.category);
+        if (service) openService(service, trigger, product);
+      }} />
+    </>
   );
 }

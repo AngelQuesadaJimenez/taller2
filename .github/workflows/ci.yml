@@ -1,0 +1,116 @@
+name: CI y despliegue
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: taller-${{ github.workflow }-${{ github.ref }
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }
+
+jobs:
+  quality:
+    name: Calidad y build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .node-version
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm run build
+      - name: Identificar el artefacto
+        run: printf '%s\n' "$GITHUB_SHA" > out/release.txt
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: sitio-estatico
+          path: out/
+          if-no-files-found: error
+          retention-days: 7
+
+  browser:
+    name: Playwright
+    needs: quality
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .node-version
+          cache: npm
+      - run: npm ci
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: sitio-estatico
+          path: out/
+      - run: npx --no-install playwright install --with-deps chromium
+      - run: npm test -- --workers=1
+      - name: Guardar evidencia de fallos
+        if: failure()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: informe-playwright
+          path: |
+            playwright-report/
+            test-results/
+          if-no-files-found: ignore
+          retention-days: 7
+
+  deploy:
+    name: Producción en Wix
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && vars.WIX_DEPLOY_ENABLED == 'true'
+    needs: [quality, browser]
+    runs-on: ubuntu-24.04
+    environment: production
+    timeout-minutes: 15
+    concurrency:
+      group: wix-production
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24.22.1
+          package-manager-cache: false
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: sitio-estatico
+          path: out/
+      - name: Comprobar la vinculación y publicar la revisión probada
+        env:
+          WIX_APP_ID: ${{ vars.WIX_APP_ID }
+          WIX_SITE_ID: ${{ vars.WIX_SITE_ID }
+          WIX_API_KEY: ${{ secrets.WIX_API_KEY }
+          SITE_SMOKE_URL: ${{ vars.SITE_SMOKE_URL }
+          GH_TOKEN: ${{ github.token }
+        run: |
+          gh api "repos/$GITHUB_REPOSITORY/branches/main" --jq '.commit.sha' > latest-main.txt
+          if [[ "$(cat latest-main.txt)" != "$GITHUB_SHA" ]]; then
+            echo "Main avanzó. Se omite la revisión anterior."
+            exit 0
+          fi
+          node scripts/wix-config.mjs
+          if node scripts/smoke.mjs --revision-only; then
+            echo "Esta revisión ya está publicada."
+          else
+            npm exec --yes --package=@wix/cli@1.2.20 -- wix login --api-key "$WIX_API_KEY"
+            npm exec --yes --package=@wix/cli@1.2.20 -- wix release --comment "$GITHUB_SHA"
+          fi
+          node scripts/smoke.mjs

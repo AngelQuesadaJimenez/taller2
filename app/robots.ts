@@ -1,10 +1,11 @@
 import type { MetadataRoute } from "next";
+import { business } from "@/data/business.config";
+
+export const dynamic = "force-static";
 
 export default function robots(): MetadataRoute.Robots {
-  const base =
-    process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.alternadoresyarrancadoresrio2.com";
   return {
     rules: { userAgent: "*", allow: "/" },
-    sitemap: `${base}/sitemap.xml`,
+    sitemap: new URL("/sitemap.xml", business.website).href,
   };
 }

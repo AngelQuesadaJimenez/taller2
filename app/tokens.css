@@ -1,0 +1,143 @@
+:root {
+  color-scheme: dark;
+
+  /* Workshop palette, ordered light / dark. */
+  --background: light-dark(#EEF3F8, #0B1017);
+  --surface: light-dark(#F8FAFC, #18232F);
+  --surface-elevated: light-dark(#FFFFFF, #202D3A);
+  --background-secondary: var(--surface);
+  --text: light-dark(#17212E, #F5F7FA);
+  --text-soft: light-dark(#17212E, #C8D0DA);
+  --muted: light-dark(#5D6875, #9AA7B5);
+  --border: color-mix(in srgb, var(--text) 18%, var(--surface));
+  --field-border: light-dark(#687482, #84909D);
+  --field-fill: var(--surface-elevated);
+
+  --accent: light-dark(#B45309, #F59E0B);
+  --accent-bright: light-dark(#D97706, #FBBF24);
+  --accent-hover: light-dark(#B45309, #FBBF24);
+  --accent-on-tint: light-dark(color-mix(in srgb, var(--accent) 74%, var(--text)), var(--accent-bright));
+  --primary: light-dark(#D97706, #F59E0B);
+  --primary-hover: color-mix(in srgb, var(--primary) 85%, white);
+  --primary-active: color-mix(in srgb, var(--primary) 92%, #13100A);
+  --on-primary: #13100A;
+  --brand-mark: var(--accent);
+  --rs-gold: var(--accent);
+  --whatsapp: #22C55E;
+  --whatsapp-hover: #34D66F;
+  --whatsapp-active: color-mix(in srgb, var(--whatsapp) 88%, #07140B);
+  --on-whatsapp: #07140B;
+  --secondary-accent: var(--accent);
+  --success: var(--whatsapp);
+  --success-text: light-dark(color-mix(in srgb, var(--success) 49%, #07140B), var(--success));
+  --warning: var(--accent);
+  --error: #DC2626;
+  --error-text: light-dark(var(--error), color-mix(in srgb, var(--error) 59%, white));
+
+  --glass-border: light-dark(rgb(23 33 46 / 12%), rgb(255 255 255 / 12%));
+  --glass-default: light-dark(rgb(248 250 252 / 72%), rgb(24 35 47 / 72%));
+  --glass-elevated: color-mix(in srgb, var(--surface-elevated) 92%, transparent);
+  --glass-subtle: color-mix(in srgb, var(--surface) 64%, transparent);
+  --glass-interactive: var(--glass-default);
+  --glass-floating: color-mix(in srgb, var(--surface-elevated) 94%, transparent);
+  --glass-navbar: var(--glass-default);
+  --glass-navbar-border: var(--glass-border);
+  --glass-map: color-mix(in srgb, var(--surface) 94%, transparent);
+  --glass-dialog: color-mix(in srgb, var(--surface-elevated) 97%, transparent);
+  --glass-hover: var(--surface-elevated);
+  --glass-option-active: light-dark(rgb(180 83 9 / 12%), rgb(245 158 11 / 12%));
+  --glass-option: var(--glass-option-active);
+  --dialog-scrim: rgb(3 7 12 / 76%);
+  --glass-saturation: 112%;
+  --section-light: var(--glass-option-active);
+  --shadow: 0 8px 28px light-dark(rgb(23 33 46 / 8%), rgb(3 7 12 / 26%));
+  --shadow-elevated: 0 20px 48px light-dark(rgb(23 33 46 / 14%), rgb(3 7 12 / 40%));
+  --shadow-control: 0 3px 12px light-dark(rgb(23 33 46 / 16%), rgb(3 7 12 / 35%));
+  --blur-subtle: 8px;
+  --blur: 12px;
+  --blur-elevated: 16px;
+  --disabled-opacity: .55;
+
+  --photo-background: var(--background-secondary);
+  --skeleton-fill: var(--surface);
+  --skeleton-highlight: color-mix(in srgb, var(--surface) 83%, var(--muted));
+  --process-node-border: color-mix(in srgb, var(--accent) 42%, transparent);
+  --process-connector: color-mix(in srgb, var(--accent) 34%, transparent);
+  --footer-background: #080D13;
+  --map-base: #17231D;
+  --map-paper: var(--map-base);
+  --map-property: #F5F7FA;
+  --map-access: #FBBF24;
+  --map-mask: #111111;
+  --map-marker: #F59E0B;
+  --map-link: #17212E;
+  --map-outline: #111111;
+  --map-label: #FFFFFF;
+  --map-key-property: light-dark(#5D6875, #F5F7FA);
+  --map-key-access: var(--accent);
+  --map-pin-accent: var(--accent);
+
+  --body-font: "Inter Variable", system-ui, sans-serif;
+  --heading-font: "Space Grotesk Variable", system-ui, sans-serif;
+  --text-xs: .75rem;
+  --text-sm: .875rem;
+  --text-base: 1rem;
+  --text-lead: clamp(1rem, 1.55vw, 1.125rem);
+  --text-card: clamp(1.25rem, 2vw, 1.65rem);
+  --text-section: clamp(2rem, 4.4vw, 3.75rem);
+  --text-display: clamp(2.5rem, 5.4vw, 4.8rem);
+  --leading-body: 1.65;
+  --leading-tight: 1.1;
+  --leading-display: 1.03;
+  --tracking-tight: -.045em;
+  --tracking-display: -.06em;
+  --tracking-label: .09em;
+
+  --space-05: .25rem;
+  --space-1: .5rem;
+  --space-15: .625rem;
+  --space-2: .75rem;
+  --space-3: 1rem;
+  --space-35: 1.25rem;
+  --space-4: 1.5rem;
+  --space-5: 2rem;
+  --space-6: 2.5rem;
+  --space-7: 3rem;
+  --section-space: clamp(3.75rem, 7.2vw, 6.5rem);
+  --section-heading-space: clamp(1.5rem, 3.25vw, 2.75rem);
+  --hero-space: clamp(2.75rem, 5.4vw, 5rem);
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --gutter: max(clamp(1rem, 3vw, 2rem), env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
+  --wrap: 76rem;
+  --copy-width: 40rem;
+
+  --radius-small: .55rem;
+  --radius-medium: .85rem;
+  --radius-large: 1.15rem;
+  --radius-round: 50%;
+  --control-height: 2.75rem;
+  --control-height-large: 3rem;
+  --header-height: 4.5rem;
+  --header-height-compact: 4.125rem;
+  --header-offset: calc(var(--space-1) + var(--safe-top));
+  --header-space: calc(var(--header-height) + var(--header-offset));
+  --icon-small: 1rem;
+  --icon-regular: 1.125rem;
+  --icon-large: 1.375rem;
+  --icon-box: 2.75rem;
+
+  --duration: 170ms;
+  --duration-menu: 220ms;
+  --motion-shift: .25rem;
+  --easing: cubic-bezier(.22, .65, .33, 1);
+  --z-map-overlay: 500;
+  --z-map-fallback: 1000;
+  --z-header: 20;
+  --z-skip: 30;
+}
+
+:root[data-theme="light"] { color-scheme: light; }
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) { color-scheme: light; }
+}
