@@ -4,15 +4,13 @@ import { ArrowUpRight, MapPin } from "lucide-react";
 import { usePreferences } from "@/components/Preferences";
 import { WhatsAppCTA } from "@/components/WhatsAppCTA";
 import { AppIcon } from "@/components/ui/AppIcon";
-import { AutomotivePhoto } from "@/components/ui/AutomotivePhoto";
+import { HeroGallery } from "@/components/HeroGallery";
 import { GlassButton } from "@/components/ui/Button";
 import { businessLocation } from "@/data/business.config";
-import { photos } from "@/data/photos";
 
 export function Hero() {
   const { t } = usePreferences();
   const { hero, viewServices } = t.home;
-  const imageLabel = t.catalog.titles["cat-mit"];
 
   return (
     <section id="inicio" className="hero" aria-labelledby="titulo">
@@ -31,11 +29,7 @@ export function Hero() {
             <span>{businessLocation.street}</span>
           </a>
         </div>
-        <figure className="hero-visual">
-          <AutomotivePhoto photo={{ ...photos.starterPerspective, alt: t.photos.starter }}
-            sizes="(max-width: 767px) 94vw, (max-width: 1279px) 46vw, 575px" priority />
-          <figcaption>{imageLabel}</figcaption>
-        </figure>
+        <HeroGallery />
       </div>
     </section>
   );

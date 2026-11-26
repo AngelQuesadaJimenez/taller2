@@ -5,7 +5,7 @@ export type PaymentBrandImages = Readonly<Record<"light" | "dark", {
 }>>;
 
 const district = "Río Segundo";
-const tradeName = "Taller y Repuestos Eléctricos " + district;
+const tradeName = "Alternadores y Arrancadores " + district;
 
 export type Coordinates = readonly [latitude: number, longitude: number];
 
@@ -88,6 +88,7 @@ export const business = {
     number: mobilePhone.tel.slice(1),
     display: mobilePhone.display,
   },
+  whatsappSecondary: { number: "50683927096", display: "8392-7096" },
   payments: {
     methods: [
       { id: "sinpe", brand: {

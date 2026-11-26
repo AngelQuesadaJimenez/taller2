@@ -366,18 +366,33 @@ html { scroll-padding-block-start: calc(var(--sticky-header-height, var(--header
   box-shadow: var(--shadow-elevated);
 }
 .hero-visual .automotive-photo { position: absolute; inset: 0; }
-.hero-visual .automotive-photo img { height: 100%; object-fit: cover; object-position: center 25%; }
-.hero-visual figcaption {
-  position: absolute;
-  inset: auto var(--space-2) var(--space-2) auto;
-  padding: var(--space-05) var(--space-1);
+.hero-visual .automotive-photo img { height: 100%; object-fit: contain; }
+.hero-gallery-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  margin-block-start: var(--space-1);
+  padding: var(--space-1);
   border: 1px solid var(--glass-border);
-  border-radius: var(--radius-small);
+  border-radius: var(--radius-medium);
   background: var(--surface);
+}
+.hero-gallery-caption {
+  display: grid;
   color: var(--text-soft);
-  font-size: var(--text-xs);
-  font-weight: 650;
-  pointer-events: none;
+  font-size: var(--text-sm);
+}
+.hero-gallery-caption strong { color: var(--text); }
+.hero-gallery-controls {
+  display: flex;
+  gap: var(--space-05);
+  margin-inline-start: auto;
+}
+.hero-gallery-controls .button {
+  inline-size: var(--control-height);
+  padding-inline: 0;
 }
 @media (prefers-reduced-motion: no-preference) {
   .hero h1, .hero-intro, .hero-visual { animation: hero-arrival 340ms var(--easing) both; }
@@ -575,7 +590,6 @@ html { scroll-padding-block-start: calc(var(--sticky-header-height, var(--header
   min-block-size: var(--control-height-large);
   color: var(--accent-hover);
 }
-.contact-method-chat { position: relative; z-index: 1; border-radius: var(--radius-small); }
 .contact-method-main { display: grid; text-decoration: none; }
 .contact-method-main::after { position: absolute; inset: 0; content: ""; }
 .contact-method-main:focus-visible { outline: none; }

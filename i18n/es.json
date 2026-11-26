@@ -291,7 +291,15 @@
       "kicker": "Especialistas en arranque y generación",
       "emphasis": "Venta y reparación de",
       "suffix": "alternadores y arrancadores",
-      "description": "Taller eléctrico automotriz en Río Segundo, Alajuela. Consultá por el repuesto o la reparación que necesitás."
+      "description": "Consultá por el repuesto o la reparación que necesitás.",
+      "gallery": {
+        "label": "Fotos de alternadores y arrancadores",
+        "previous": "Foto anterior",
+        "next": "Foto siguiente",
+        "pause": "Pausar la rotación",
+        "play": "Iniciar la rotación",
+        "angles": { "oblique": "Vista en ángulo", "front": "Vista frontal", "side": "Vista lateral" }
+      }
     },
     "services": {
       "title": "Nuestros servicios",

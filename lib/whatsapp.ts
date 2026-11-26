@@ -86,6 +86,6 @@ export function consultationMessage(consultation: Consultation = {}, locale: Loc
   ].filter(Boolean).join("\n\n");
 }
 
-export function waLink(consultation?: Consultation, locale: Locale = defaultLocale) {
-  return "https://wa.me/" + business.whatsapp.number + "?text=" + encodeURIComponent(consultationMessage(consultation, locale));
+export function waLink(consultation?: Consultation, locale: Locale = defaultLocale, number = business.whatsapp.number) {
+  return "https://wa.me/" + number + "?text=" + encodeURIComponent(consultationMessage(consultation, locale));
 }
