@@ -215,6 +215,9 @@ test("la ortofoto carga y los controles cambian cámara y base sin recrear el ma
   await infoPanel.getByText(messages.es.map.contactHours, { exact: true }).click();
 
   const canvas = page.locator(".maplibregl-canvas");
+  const screenshot = async () => Uint8Array.from(await canvas.screenshot({ scale: "css" }));
+  const differs = (first: Uint8Array, second: Uint8Array) =>
+    first.length !== second.length || first.some((value, index) => value !== second[index]);
   const turn = page.getByRole("button", { name: "Girar mapa" });
   await expect(turn).toBeVisible({ timeout: 15000 });
   await expect.poll(() => imagery.length).toBeGreaterThan(0);
@@ -222,20 +225,20 @@ test("la ortofoto carga y los controles cambian cámara y base sin recrear el ma
   await expect(page.getByRole("link", { name: /OpenMapTiles/ })).toBeVisible();
   await expect(page.getByRole("link", { name: /OpenStreetMap/ })).toBeVisible();
   const mapElement = await canvas.elementHandle();
-  const renderBefore = await canvas.screenshot({ scale: "css" });
+  const renderBefore = await screenshot();
   await page.getByRole("button", { name: "Vista superior" }).click();
   await expect(page.getByRole("button", { name: "Vista superior" })).toHaveAttribute("aria-pressed", "true");
-  await expect.poll(async () => !(await canvas.screenshot({ scale: "css" })).equals(renderBefore)).toBeTruthy();
-  const beforeRotation = await canvas.screenshot({ scale: "css" });
+  await expect.poll(async () => differs(await screenshot(), renderBefore)).toBeTruthy();
+  const beforeRotation = await screenshot();
   await turn.click();
-  await expect.poll(async () => !(await canvas.screenshot({ scale: "css" })).equals(beforeRotation)).toBeTruthy();
+  await expect.poll(async () => differs(await screenshot(), beforeRotation)).toBeTruthy();
   await page.getByRole("button", { name: "Vista 3D" }).click();
   await expect(page.getByRole("button", { name: "Vista 3D" })).toHaveAttribute("aria-pressed", "true");
 
-  const beforeZoom = await canvas.screenshot({ scale: "css" });
+  const beforeZoom = await screenshot();
   await page.getByRole("button", { name: "Acercar", exact: true }).focus();
   await page.keyboard.press("Enter");
-  await expect.poll(async () => !(await canvas.screenshot({ scale: "css" })).equals(beforeZoom)).toBeTruthy();
+  await expect.poll(async () => differs(await screenshot(), beforeZoom)).toBeTruthy();
   await page.getByRole("button", { name: "Alejar", exact: true }).click();
   await page.getByRole("button", { name: "Restablecer vista" }).click();
   await page.getByRole("button", { name: "Vista general" }).click();
