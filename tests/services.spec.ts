@@ -272,7 +272,7 @@ test("el recorrido conserva las anclas y respeta el movimiento reducido", async 
   await page.goto("/es/");
   const sections = page.locator("main > section");
   expect(await sections.evaluateAll((nodes) => nodes.map(({ id }) => id))).toEqual([
-    "inicio", "servicios", "repuestos", "pagos", "reparaciones", "proceso", "ubicacion", "contacto",
+    "inicio", "servicios", "repuestos", "proceso", "reparaciones", "pagos", "ubicacion", "contacto",
   ]);
   const process = page.locator(".process-panel");
   await process.scrollIntoViewIfNeeded();

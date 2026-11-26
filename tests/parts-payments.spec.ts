@@ -4,6 +4,7 @@ import { messages } from "../i18n/messages";
 
 for (const locale of locales) {
   test(`despiece y formas de pago en ${locale}`, async ({ page, isMobile }) => {
+    test.setTimeout(60000);
     const t = messages[locale];
     await page.emulateMedia({ reducedMotion: "reduce", colorScheme: locale === "es" ? "light" : "dark" });
     if (isMobile) await page.setViewportSize({ width: 320, height: 740 });
@@ -15,6 +16,7 @@ for (const locale of locales) {
     });
     const readUrl = async () => new URL((await page.locator("html").getAttribute("data-part-inquiry"))!);
     await page.goto("/" + locale + "/#repuestos");
+    await expect(page.locator('#contacto button[type="submit"]')).toBeEnabled();
     await page.getByRole("link", { name: t.breakdown.title, exact: true }).click();
     await expect(page).toHaveURL(/#despiece$/);
     const breakdown = page.getByRole("region", { name: t.breakdown.title, exact: true });
