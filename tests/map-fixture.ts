@@ -4,7 +4,7 @@ import { resolve } from "node:path";
 
 const cors = { "access-control-allow-origin": "*" };
 // Empty MVT layer named like the production layer, version 2.
-const labels = Buffer.concat([Buffer.from([0x1a, 0x17, 0x0a, 0x13]), Buffer.from("transportation_name"), Buffer.from([0x78, 0x02])]);
+const labels = Buffer.from([0x1a, 0x17, 0x0a, 0x13, ...new TextEncoder().encode("transportation_name"), 0x78, 0x02]);
 
 export const test = base.extend<{ mapTiles: void }>({
   mapTiles: [async ({ context }, run) => {

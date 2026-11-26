@@ -1,4 +1,4 @@
-# Taller y Repuestos Eléctricos Río Segundo
+# Alternadores y Arrancadores Río Segundo
 
 Web comercial en español e inglés con venta y reparación de alternadores y arrancadores, catálogo, consultas por WhatsApp y mapa del taller en Alajuela. [Dominio público](https://www.alternadoresyarrancadoresrio2.com/) · [CI en GitHub](https://github.com/AngelQuesadaJimenez/taller2/actions/workflows/ci.yml)
 
