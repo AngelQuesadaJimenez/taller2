@@ -41,9 +41,11 @@ Para ejecutar las pruebas contra el export, definí `PLAYWRIGHT_BASE_URL=http://
 
 ## Wix y rollback
 
-El dominio público está en Wix. El build Next.js genera `out/`. Para vincularlo con el sitio existente, el dueño o copropietario abre **Headless Settings → Headless Migration** en ese sitio, revisa las apps y habilita la vista previa. Usá el artefacto `sitio-estatico` de un PR aprobado para la vista previa de Wix. Si el proyecto ya está vinculado con el CLI, `wix preview` permite subir `out/` y compartir un enlace. Revisá también el formulario de reseñas y las redirecciones del sitio anterior antes de completar la transición. [Transición en Wix](https://support.wix.com/en/article/wix-headless-moving-your-site-to-a-custom-frontend) · [Vista previa con el CLI](https://dev.wix.com/docs/wix-cli/cli-for-headless/command-reference/project-commands/preview)
+El dominio público está en Wix. En el panel del sitio existente, el dueño o copropietario abre **Headless Settings → Headless Migration**, inicia la migración y revisa las apps compatibles. **Copy prompt** entrega los datos de vinculación del sitio de prueba. En el `wix.config.json` local de esa vinculación, configurá `site.outputDirectory` como `./out/`. Usá como `out/` el artefacto `sitio-estatico` de los checks del PR. Con Node.js 24.22.1 o superior y la sesión de Wix activa, ejecutá `npm exec --yes --package=@wix/cli@1.2.20 -- wix preview`.
 
-Cuando se haya validado la vista previa y autorizado el cambio público, configurá el Environment **wix-production** en GitHub.
+En el enlace de Wix de esa vista previa comprobá `/`, `/es/` y `/en/`, los recursos y el contacto. Si la vista requiere sesión, verificá en un navegador autorizado. Revisá el formulario de reseñas y las redirecciones del sitio anterior antes de completar la transición. [Transición en Wix](https://support.wix.com/en/article/wix-headless-moving-your-site-to-a-custom-frontend) · [Vista previa con el CLI](https://dev.wix.com/docs/wix-cli/cli-for-headless/command-reference/project-commands/preview)
+
+Cuando se haya validado la vista previa y autorizado el cambio público, completá la migración en Wix. Después, configurá el Environment **wix-production** en GitHub con los identificadores de producción que indica Wix para esa vinculación.
 
 | Configuración | Valor |
 | --- | --- |
