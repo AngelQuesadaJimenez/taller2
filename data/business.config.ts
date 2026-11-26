@@ -88,6 +88,7 @@ export const business = {
     number: mobilePhone.tel.slice(1),
     display: mobilePhone.display,
   },
+  whatsappSecondary: { number: "50683927096", display: "8392-7096" },
   payments: {
     methods: [
       { id: "sinpe", brand: {
