@@ -1,115 +1,134 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { Logo } from "@/components/ui/Logo";
-import { Icon } from "@/components/ui/Icon";
-import { waLink } from "@/lib/whatsapp";
-
-const nav = [
-  { href: "#servicios", label: "Servicios" },
-  { href: "#nosotros", label: "Nosotros" },
-  { href: "#por-que", label: "Por qué elegirnos" },
-  { href: "#proceso", label: "Proceso" },
-  { href: "#faq", label: "Preguntas" },
-  { href: "#contacto", label: "Contacto" },
-];
+import { ChevronDown } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { usePreferences } from "@/components/Preferences";
+import { useServiceExperience } from "@/components/ServiceExperience";
+import { ThemeSwitcher } from "@/components/ThemeSwitcher";
+import { WhatsAppCTA } from "@/components/WhatsAppCTA";
+import { AppIcon } from "@/components/ui/AppIcon";
+import { BrandLogo } from "@/components/ui/BrandLogo";
+import { GlassNavbar } from "@/components/ui/GlassNavbar";
+import { GlassPanel } from "@/components/ui/GlassPanel";
+import { business } from "@/data/business.config";
+import { navigation, services } from "@/data/site-content";
 
 export function Header() {
-  const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const { t } = usePreferences();
+  const openService = useServiceExperience();
+  const copy = t.nav;
+  const [servicesOpen, setServicesOpen] = useState(false);
+  const [current, setCurrent] = useState<string>("inicio");
+  const header = useRef<HTMLDivElement>(null);
+  const servicesToggle = useRef<HTMLButtonElement>(null);
+  const servicesGroup = useRef<HTMLDivElement>(null);
+
+  function navigate(section: string) {
+    setCurrent(section);
+    setServicesOpen(false);
+  }
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    if (!servicesOpen) return;
+    function dismissOutside(event: PointerEvent) {
+      if (event.target instanceof Node && !servicesGroup.current?.contains(event.target)) setServicesOpen(false);
+    }
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key !== "Escape") return;
+      event.preventDefault();
+      setServicesOpen(false);
+      servicesToggle.current?.focus();
+    }
+    window.addEventListener("pointerdown", dismissOutside);
+    window.addEventListener("keydown", onKeyDown);
+    return () => {
+      window.removeEventListener("pointerdown", dismissOutside);
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [servicesOpen]);
+
+  useEffect(() => {
+    const sections = navigation.map(({ id }) => document.getElementById(id)).reverse();
+    const root = document.documentElement;
+    const sticky = header.current?.closest(".site-header");
+    let headerHeight = 0;
+    let frame = 0;
+    function scheduleActive() {
+      if (frame) return;
+      frame = requestAnimationFrame(() => {
+        const readingLine = Math.max(headerHeight + 16, Math.min(window.innerHeight * 0.28, 180));
+        const active = sections.find((section) => section && section.getBoundingClientRect().top <= readingLine);
+        setCurrent(active?.id ?? "inicio");
+        frame = 0;
+      });
+    }
+    function measureHeader() {
+      if (sticky) {
+        headerHeight = Math.ceil(sticky.getBoundingClientRect().height);
+        root.style.setProperty("--sticky-header-height", headerHeight + "px");
+      }
+      scheduleActive();
+    }
+    const observer = sticky && "ResizeObserver" in window ? new ResizeObserver(measureHeader) : null;
+    if (sticky) observer?.observe(sticky);
+    measureHeader();
+    window.addEventListener("scroll", scheduleActive, { passive: true });
+    window.addEventListener("resize", measureHeader);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", scheduleActive);
+      window.removeEventListener("resize", measureHeader);
+      observer?.disconnect();
+      root.style.removeProperty("--sticky-header-height");
+    };
   }, []);
 
-  // Bloquea el scroll del body cuando el menú móvil está abierto
-  useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [open]);
-
   return (
-    <header
-      className={`fixed inset-x-0 top-0 z-40 transition-all duration-300 ${
-        scrolled
-          ? "bg-white/95 shadow-card backdrop-blur"
-          : "bg-white/80 backdrop-blur-sm"
-      }`}
-    >
-      <div className="container-x flex h-16 items-center justify-between lg:h-20">
-        <a href="#top" className="flex-none" aria-label="Ir al inicio">
-          <Logo />
+    <GlassNavbar>
+      <div ref={header} className="header-inner header-inner--home">
+        <a href="#inicio" className="header-brand" aria-label={business.tradeName + ", " + copy.labels.inicio} onClick={() => navigate("inicio")}>
+          <BrandLogo name={business.tradeName} size="small" />
         </a>
-
-        <nav className="hidden items-center gap-7 lg:flex" aria-label="Principal">
-          {nav.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              className="text-sm font-medium text-brand-700 transition-colors hover:text-brand-500"
-            >
-              {item.label}
-            </a>
-          ))}
+        <nav id="navegacion" className="nav" aria-label={copy.main}>
+          {navigation.map(({ id }) => {
+            const link = (
+              <a className="nav-link" href={"#" + id} aria-current={current === id ? "location" : undefined} onClick={() => navigate(id)}>
+                {copy.labels[id]}
+              </a>
+            );
+            if (id !== "servicios") return <div key={id} className="nav-item">{link}</div>;
+            return (
+              <div key={id} className="nav-item nav-item--services" ref={servicesGroup}
+                onBlur={(event) => {
+                  if (event.relatedTarget && !event.currentTarget.contains(event.relatedTarget)) setServicesOpen(false);
+                }}>
+                {link}
+                <button type="button" ref={servicesToggle} className="nav-disclosure" aria-label={copy.services} title={copy.services}
+                  aria-expanded={servicesOpen} aria-controls="servicios-menu" onClick={() => setServicesOpen(!servicesOpen)}>
+                  <AppIcon icon={ChevronDown} size="small" />
+                </button>
+                <GlassPanel variant="floating" className="nav-dropdown" id="servicios-menu" hidden={!servicesOpen}>
+                  {services.map((service) => (
+                    <button type="button" key={service.id} aria-haspopup="dialog" onClick={(event) => {
+                      setServicesOpen(false);
+                      openService(service, servicesToggle.current ?? event.currentTarget);
+                    }}>
+                      <AppIcon icon={service.icon} />{t.parts[service.component].plural}
+                    </button>
+                  ))}
+                </GlassPanel>
+              </div>
+            );
+          })}
         </nav>
-
-        <div className="hidden lg:block">
-          <a
-            href={waLink()}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-primary"
-          >
-            <Icon name="whatsapp" className="h-5 w-5" />
-            Cotizar ahora
-          </a>
+        <div className="header-actions">
+          <div className="header-preferences"><LanguageSwitcher /><ThemeSwitcher /></div>
+          <WhatsAppCTA className="header-whatsapp" variant="glass" ariaLabel="WhatsApp">
+            <span className="header-whatsapp-label">WhatsApp</span>
+          </WhatsAppCTA>
         </div>
-
-        <button
-          type="button"
-          onClick={() => setOpen((v) => !v)}
-          className="grid h-11 w-11 place-items-center rounded-lg text-brand-800 hover:bg-brand-50 lg:hidden"
-          aria-label={open ? "Cerrar menú" : "Abrir menú"}
-          aria-expanded={open}
-          aria-controls="mobile-menu"
-        >
-          <Icon name={open ? "close" : "menu"} className="h-6 w-6" />
-        </button>
       </div>
-
-      {/* Menú móvil */}
-      <div
-        id="mobile-menu"
-        className={`lg:hidden ${open ? "block" : "hidden"} border-t border-brand-100 bg-white`}
-      >
-        <nav className="container-x flex flex-col py-4" aria-label="Móvil">
-          {nav.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              onClick={() => setOpen(false)}
-              className="rounded-lg px-2 py-3 text-base font-medium text-brand-700 hover:bg-brand-50"
-            >
-              {item.label}
-            </a>
-          ))}
-          <a
-            href={waLink()}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => setOpen(false)}
-            className="btn-primary mt-3"
-          >
-            <Icon name="whatsapp" className="h-5 w-5" />
-            Cotizar por WhatsApp
-          </a>
-        </nav>
-      </div>
-    </header>
+    </GlassNavbar>
   );
 }

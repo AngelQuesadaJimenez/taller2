@@ -1,0 +1,537 @@
+{
+  "common": {
+    "landline": "Landline",
+    "skip": "Skip to content",
+    "consult": "Ask on WhatsApp",
+    "directions": "Get directions",
+    "call": "Call the shop",
+    "privacy": "Privacy",
+    "socialSuffix": "for the shop",
+    "credits": "Logo and photos from the shop.",
+    "specialty": "Alternator & Starter Sales and Repair",
+    "homeLink": "Back to home",
+    "colorTheme": "Theme",
+    "language": "Language",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System",
+    "switchLanguage": "Switch to Spanish",
+    "switchLight": "Switch to light mode",
+    "switchDark": "Switch to dark mode"
+  },
+  "nav": {
+    "labels": {
+      "inicio": "Home",
+      "servicios": "Services",
+      "repuestos": "Parts",
+      "proceso": "How We Work",
+      "ubicacion": "Location",
+      "contacto": "Contact"
+    },
+    "main": "Main",
+    "services": "Service options",
+    "open": "Open menu",
+    "close": "Close menu"
+  },
+  "footer": {
+    "links": "Links",
+    "repairs": "Repairs",
+    "hours": "Hours",
+    "description": "Alternator and starter sales and repair in Río Segundo, Alajuela."
+  },
+  "legal": {
+    "privacidad": {
+      "title": "Privacy",
+      "paragraphs": [
+        "The form prepares your message in your browser. When you continue to WhatsApp, the app receives the prefilled message so you can review it before sending. This site does not store inquiries in a database.",
+        "Your browser requests your location when you choose “Get directions from my location.” If Google Maps has a verified destination, you can open directions there using your location as the starting point. If you choose Waze, its app handles navigation.",
+        "The map loads streets from a mapping provider. WhatsApp, Waze, Google Maps, and the mapping provider each handle their own data processing.",
+        "The site keeps your theme and language preferences in your browser’s local storage."
+      ]
+    },
+    "cookies": {
+      "title": "Cookies",
+      "paragraphs": [
+        "This site runs without first-party cookies or analytics tools. When you open an external service, its privacy settings apply."
+      ]
+    },
+    "terminos": {
+      "title": "Inquiries and services",
+      "paragraphs": [
+        "Contact the shop directly for availability, compatibility, pricing, and sales or repair terms."
+      ]
+    },
+    "privacyLink": "Read the privacy notice",
+    "contactLink": "Contact the shop"
+  },
+  "serviceDetail": {
+    "scope": "Bring your alternator or starter after it has been removed from the vehicle.",
+    "explore": "Explore options",
+    "modes": "Sales and repair",
+    "close": "Close service details",
+    "tabs": "Service options",
+    "purchase": "Purchase",
+    "repair": "Repair",
+    "purchaseSteps": "How to ask about a part",
+    "purchaseReady": "Details that help identify the part",
+    "repairSteps": "How to arrange an assessment",
+    "symptoms": "Signs that may warrant an assessment",
+    "assessment": "What may be checked",
+    "advice": "These signs are a guide. The battery, wiring, or other components can cause similar symptoms.",
+    "processNote": "General guide. The shop confirms how to assess the component and which options apply to each case.",
+    "consultPurchase": "Ask about buying on WhatsApp",
+    "consultRepair": "Ask about repair on WhatsApp",
+    "addDetails": "Add more information",
+    "detailsHelp": "Fill in whichever details you have.",
+    "engine": "Engine",
+    "engineExample": "E.g. 2.0 diesel",
+    "partNumber": "Part number",
+    "partExample": "As shown on the part label",
+    "problem": "What’s wrong",
+    "problemExample": "Describe what the vehicle does, when it started, and when it happens.",
+    "purchaseFields": [
+      "Vehicle make, model, and year.",
+      "Engine and part number, if known.",
+      "A photo of the part or its label, if you can share it on WhatsApp."
+    ],
+    "buySteps": [
+      {
+        "title": "Identify the part",
+        "text": "Confirm whether you need an alternator or a starter."
+      },
+      {
+        "title": "Share the details",
+        "text": "Include any information you have about the vehicle or the part."
+      },
+      {
+        "title": "Ask about availability",
+        "text": "The shop can review the request and help with the next steps."
+      }
+    ],
+    "fixSteps": [
+      {
+        "title": "Describe the problem",
+        "text": "Tell us what symptoms the vehicle has and when they occur."
+      },
+      {
+        "title": "Initial review",
+        "text": "The shop can advise on how to assess the component."
+      },
+      {
+        "title": "Review the options",
+        "text": "Based on the findings, repairing or replacing parts may be an option."
+      },
+      {
+        "title": "Arrange the next steps",
+        "text": "The shop lets you know how to proceed with your inquiry."
+      }
+    ],
+    "alternador": {
+      "purchaseTitle": "Buying an alternator",
+      "purchaseIntro": "Ask about an alternator for your vehicle. Details about the part help the shop check compatibility and availability.",
+      "repairTitle": "Repairing an alternator",
+      "repairIntro": "If you’ve noticed charging problems, describe what’s happening with the battery, dashboard, or electrical system.",
+      "symptoms": [
+        "The battery loses its charge.",
+        "The battery warning light is on.",
+        "Electrical problems or inconsistent charging.",
+        "Noise that seems to come from the alternator."
+      ],
+      "assessment": [
+        "Alternator condition and electrical connections.",
+        "Charging system operation and voltage regulation.",
+        "Internal parts and repair or replacement options, when applicable."
+      ]
+    },
+    "arrancador": {
+      "purchaseTitle": "Buying a starter",
+      "purchaseIntro": "Ask about a starter for your vehicle. Engine details and the part number can help the shop identify options.",
+      "repairTitle": "Repairing a starter",
+      "repairIntro": "Tell us what happens when you try to start the vehicle. The sound, cranking speed, and how often it happens help explain the issue.",
+      "symptoms": [
+        "The engine doesn’t crank or you hear a click.",
+        "The vehicle starts intermittently.",
+        "The engine cranks slowly or makes unusual noises."
+      ],
+      "assessment": [
+        "Starter condition and electrical connections.",
+        "Solenoid and electric motor operation.",
+        "Internal mechanical parts and repair or replacement options, when applicable."
+      ]
+    }
+  },
+  "media": {
+    "unavailable": "Image unavailable"
+  },
+  "mapLoading": {
+    "style": "Loading the map style…",
+    "tiles": "Loading map imagery…",
+    "streets": "Loading the street map…"
+  },
+  "serviceMessage": {
+    "product": "Part reference",
+    "engine": "Engine",
+    "partNumber": "Part number",
+    "problem": "The problem is:",
+    "purchase": "I’d like to check availability and how to arrange a purchase.",
+    "repair": "I’d like to know how to arrange an assessment."
+  },
+  "catalog": {
+    "filters": "Part categories",
+    "all": "All",
+    "empty": "There are no references in this category.",
+    "availability": "Check availability",
+    "gallery": "Part views",
+    "zoomIn": "Enlarge photo",
+    "zoomOut": "Reduce photo size",
+    "details": "Product sheet details",
+    "fit": "Confirm compatibility and availability with the shop before choosing a part.",
+    "titles": {
+      "toyota-lexus": "Toyota / Lexus alternator",
+      "mini": "MINI alternator",
+      "cat-mit": "CAT/MIT starter",
+      "ford-mazda": "Ford / Mazda starter"
+    },
+    "angle": {
+      "front": "Front view",
+      "side": "Side view",
+      "oblique": "Angled view"
+    },
+    "specs": {
+      "models": "Models listed on the product sheet",
+      "voltage": "Voltage",
+      "amperage": "Amperage",
+      "signal": "Signal",
+      "pinion": "Pinion code on the product sheet",
+      "rotation": "Rotation on the product sheet"
+    }
+  },
+  "breakdown": {
+    "title": "Replacement parts and components",
+    "description": "We also carry individual parts for alternators and starters. Ask us about the part you need.",
+    "groups": {
+      "alternator": "For alternators",
+      "starter": "For starters",
+      "byDesign": "Depending on the unit’s design"
+    },
+    "details": "You can share a photo of the label on WhatsApp.",
+    "inquiry": "I’d like to check availability for the following part: {piece}.",
+    "followup": "Could you help me verify that it’s the right part?",
+    "items": {
+      "placas-diodos": {
+        "name": "Rectifier assemblies",
+        "description": "Convert the alternator’s AC output to DC."
+      },
+      "reguladores": {
+        "name": "Voltage regulators",
+        "description": "Control the alternator’s charging voltage."
+      },
+      "roles": {
+        "name": "Bearings",
+        "description": "Support rotating shafts, depending on the unit’s design."
+      },
+      "poleas": {
+        "name": "Pulleys",
+        "description": "Transfer belt motion to the alternator rotor."
+      },
+      "carbones": {
+        "name": "Brushes",
+        "description": "Carry electrical current to rotating parts."
+      },
+      "porta-carbones": {
+        "name": "Brush holders",
+        "description": "Guide and hold the brushes in place."
+      },
+      "planetarios": {
+        "name": "Planetary gear sets",
+        "description": "Reduce speed and increase torque in planetary-reduction starters."
+      },
+      "bendix": {
+        "name": "Starter drives",
+        "description": "The pinion drives the ring gear, and the overrunning clutch protects the starter."
+      },
+      "automaticos": {
+        "name": "Starter solenoids",
+        "description": "Magnetic switches that power the starter and engage the pinion, depending on the design."
+      }
+    }
+  },
+  "payments": {
+    "title": "Choose how to pay",
+    "description": "We offer several payment options for your convenience.",
+    "methods": {
+      "sinpe": {
+        "name": "SINPE Móvil",
+        "description": "Transfer via SINPE Móvil"
+      },
+      "efectivo": {
+        "name": "Cash",
+        "description": "Pay in cash"
+      },
+      "tarjeta": {
+        "name": "Card",
+        "description": "We accept card payments"
+      },
+      "transferencia": {
+        "name": "Bank transfer",
+        "description": "Pay by bank transfer."
+      },
+      "bac": {
+        "name": "BAC Tasa Cero",
+        "description": "{months}-month Tasa Cero with a BAC credit card. Terms apply."
+      }
+    }
+  },
+  "seo": {
+    "title": "Alternators and starters in Alajuela",
+    "description": "Alternator and starter sales and repair in Río Segundo, Alajuela. Contact the shop on WhatsApp or get directions."
+  },
+  "home": {
+    "hero": {
+      "kicker": "Starting and charging specialists",
+      "emphasis": "Sales and repair of",
+      "suffix": "alternators and starters",
+      "description": "Automotive electrical workshop in Río Segundo, Alajuela. Contact us about the replacement part or repair you need."
+    },
+    "services": {
+      "title": "Our services",
+      "description": "Alternator and starter sales, repair, and diagnostics. We also sell individual parts for these units."
+    },
+    "products": {
+      "title": "Find the right replacement part",
+      "description": "Alternators and starters for light vehicles, heavy-duty vehicles, and machinery."
+    },
+    "process": {
+      "title": "How We Work"
+    },
+    "location": {
+      "title": "Find our shop",
+      "description": "We’re in Río Segundo, Alajuela. Find the shop on the map and get directions."
+    },
+    "contact": {
+      "title": "Contact the shop",
+      "description": "Share your vehicle details and tell us whether you need a replacement part or a repair."
+    },
+    "viewServices": "Explore services",
+    "viewPhoto": "Enlarge photo",
+    "repairs": "Results from our workshop",
+    "repairGallery": "Explore a few repairs completed in our shop.",
+    "moreRepairs": "See more repairs",
+    "repairCta": "Ask about a repair",
+    "before": "Before",
+    "after": "After"
+  },
+  "parts": {
+    "alternador": {
+      "singular": "Alternator",
+      "plural": "Alternators",
+      "description": "Alternator sales, diagnostics, and repair. Share the vehicle details or the part reference so we can help.",
+      "productDescription": "Share the vehicle make, model, year, and part reference so we can check compatible options."
+    },
+    "arrancador": {
+      "singular": "Starter",
+      "plural": "Starters",
+      "description": "Starter sales, diagnostics, and repair. Tell us what component you need or what issue you’ve noticed.",
+      "productDescription": "Share your equipment details so we can check compatibility and availability for this part."
+    },
+    "orientacion": {
+      "singular": "I need help choosing"
+    }
+  },
+  "process": {
+    "consulta": {
+      "title": "Tell Us What You Need",
+      "text": "Tell us whether you need to purchase or repair an alternator or a starter."
+    },
+    "revision": {
+      "title": "We Review Your Request",
+      "text": "We review the details you share to help you find the right service."
+    },
+    "atencion": {
+      "title": "We Arrange the Next Steps",
+      "text": "We coordinate how to proceed with your purchase or repair."
+    }
+  },
+  "photos": {
+    "alternator": "Alternator with a pulley photographed at the shop",
+    "starter": "Starter on the shop’s workbench",
+    "catStarter": "24 V CAT/MIT starter shown from three angles"
+  },
+  "repairs": {
+    "audi-q5": {
+      "title": "Audi Q5 alternator",
+      "before": "Audi Q5 alternator before repair",
+      "after": "Audi Q5 alternator after repair"
+    },
+    "audi-q7": {
+      "title": "Audi Q7 alternator",
+      "before": "Audi Q7 alternator before repair",
+      "after": "Audi Q7 alternator after repair"
+    },
+    "land-cruiser": {
+      "title": "Land Cruiser V8 starter",
+      "before": "Land Cruiser V8 starter housing and pinion before repair",
+      "after": "Land Cruiser V8 starter housing and pinion after repair"
+    },
+    "lexus": {
+      "title": "Lexus IS250 starter",
+      "before": "Side view of the Lexus IS250 starter before repair",
+      "after": "Side view of the Lexus IS250 starter after repair"
+    }
+  },
+  "vehicleIdentification": {
+    "question": "How would you like to identify your vehicle?",
+    "plate": "Use the license plate",
+    "details": "Use make, model, and year"
+  },
+  "form": {
+    "name": "Name",
+    "intent": "Purchase or repair",
+    "part": "Part",
+    "plate": "License plate (optional)",
+    "plateHelp": "If you only have the license plate, share it as a reference so the shop can review your inquiry.",
+    "make": "Vehicle make",
+    "model": "Model",
+    "year": "Year",
+    "description": "Additional details",
+    "selectIntent": "Choose an option",
+    "selectPart": "Choose a part",
+    "compra": "Purchase",
+    "reparacion": "Repair",
+    "makeExample": "E.g. Toyota",
+    "modelExample": "E.g. Corolla",
+    "yearExample": "E.g. 2016",
+    "yearHelp": "Enter a four-digit year",
+    "detailsPlaceholder": "Tell us what part you need or what problem you’ve noticed.",
+    "notice": "The form prepares a message for you to review and send in WhatsApp.",
+    "requiredFields": "Enter your name, the type of inquiry, and the part. The other fields are optional.",
+    "directContact": "If the form is unavailable, use one of the WhatsApp links in this section.",
+    "submit": "Continue to WhatsApp",
+    "ready": "Your message is ready.",
+    "review": "Review it in WhatsApp",
+    "invalidName": "Enter your name.",
+    "invalidIntent": "Choose purchase or repair.",
+    "invalidPart": "Choose a part or ask for help choosing.",
+    "invalidYear": "Enter a four-digit year.",
+    "invalid": "Check the details of your inquiry."
+  },
+  "whatsapp": {
+    "greeting": "Hello,",
+    "name": "My name is {name}.",
+    "part": {
+      "alternador": "an alternator",
+      "arrancador": "a starter",
+      "any": "an alternator or a starter"
+    },
+    "inquiry": {
+      "compra": "I would like to inquire about purchasing {part}.",
+      "reparacion": "I would like to inquire about repairing {part}.",
+      "general": "I would like to inquire about {part}."
+    },
+    "guidance": "I would appreciate help identifying the part I need.",
+    "vehicle": "Vehicle details:",
+    "plate": "License plate",
+    "make": "Make",
+    "model": "Model",
+    "year": "Year",
+    "detail": "Additional details:",
+    "next": "I would appreciate information about the next steps.",
+    "thanks": "Thank you."
+  },
+  "map": {
+    "contactHours": "Hours and contact",
+    "extraReferences": "Additional landmarks",
+    "shopPin": "Shop location",
+    "openLegend": "Legend",
+    "ctrl": "Use Ctrl and the wheel to zoom the map",
+    "cmd": "Use ⌘ and the wheel to zoom the map",
+    "fingers": "Use two fingers to move the map",
+    "attribution": "Show map attribution",
+    "region": "Interactive map of Calle Arias, Río Segundo",
+    "webgl": "3D view requires WebGL.",
+    "lost": "The 3D view was interrupted.",
+    "tileFailure": "The 3D map couldn’t load.",
+    "partialTileFailure": "Part of the map didn’t load. You can open directions in Waze or Google Maps.",
+    "importFailure": "3D view is unavailable.",
+    "overview": "Overview",
+    "rotate": "Rotate map",
+    "streetMap": "Street map",
+    "aerialImage": "IGN orthophoto · 2015–2018",
+    "providerImage": "Provider imagery",
+    "entrance": "Shop entrance",
+    "information": "Shop information",
+    "closeInfo": "Close shop information",
+    "call": "Call",
+    "wazeLocation": "Open this location in Waze",
+    "hideLandmarks": "Hide landmarks",
+    "showLandmarks": "Show landmarks",
+    "release": "Release map",
+    "move": "Move map",
+    "showAccess": "Show access route",
+    "showEntrance": "Show entrance",
+    "loading": "Loading the interactive map…",
+    "imageryError": "Aerial imagery is unavailable. The street map is shown.",
+    "landmark": "Landmark",
+    "accessInstructions": "Find the shop on the map and follow the directions to get there.",
+    "wazeDestination": "Use Waze for directions to the shop.",
+    "mapOf": "Map of ",
+    "unavailable": "The map is unavailable",
+    "preparing": "Preparing the interactive map…",
+    "retry": "Retry map",
+    "osm": "View streets in OpenStreetMap",
+    "osmArea": "View the area in OpenStreetMap",
+    "views": "Map views",
+    "controls": "Map controls",
+    "zoomIn": "Zoom in",
+    "zoomOut": "Zoom out",
+    "reset": "Reset view",
+    "center": "Center on the shop",
+    "collapse": "Collapse map",
+    "fullscreen": "Fullscreen",
+    "route": "Access route",
+    "pause": "Pause route",
+    "play": "Play route",
+    "restart": "Restart",
+    "exit": "Exit route",
+    "address": "Address",
+    "vehicleEntrance": "Vehicle entrance",
+    "vehiclePin": "Vehicle entrance",
+    "legend": "Map legend",
+    "property": "Marked shop area",
+    "access": "Access route reference",
+    "more": "Hours, phone, and landmarks",
+    "hours": "Opening hours",
+    "reference": "South of Multicentro Río Segundo",
+    "closePopup": "Close map popup"
+  },
+  "views": {
+    "oblique": "3D View",
+    "aerial": "Top View",
+    "streets": "Streets"
+  },
+  "hours": {
+    "weekdays": {
+      "day": "Monday–Friday",
+      "display": "7:00 a.m. – 5:00 p.m."
+    },
+    "saturday": {
+      "day": "Saturday",
+      "display": "7:00 a.m. – noon"
+    }
+  },
+  "directions": {
+    "unavailable": "Your browser doesn’t support location. Enter your starting point in your navigation app.",
+    "requesting": "Requesting your location…",
+    "ready": "Your location is ready to use for directions.",
+    "wazeReady": "Waze can use your location to calculate directions to the shop.",
+    "denied": "Location access is disabled. You can choose your starting point manually.",
+    "failed": "We couldn’t get your location. You can choose your starting point manually.",
+    "apps": "Navigation apps",
+    "waze": "Open in Waze",
+    "google": "Open in Google Maps",
+    "pending": "Finding your location…",
+    "fromHere": "Get directions from my location",
+    "continueWaze": "Continue in Waze",
+    "viewRoute": "View directions in Google Maps"
+  }
+}

@@ -1,0 +1,537 @@
+{
+  "common": {
+    "landline": "Teléfono fijo",
+    "skip": "Saltar al contenido",
+    "consult": "Consultar por WhatsApp",
+    "directions": "Cómo llegar",
+    "call": "Llamadas al taller",
+    "privacy": "Privacidad",
+    "socialSuffix": "del taller",
+    "credits": "Logotipo y fotografías del taller.",
+    "specialty": "Venta y reparación de alternadores y arrancadores",
+    "homeLink": "Volver al inicio",
+    "colorTheme": "Tema",
+    "language": "Idioma",
+    "light": "Claro",
+    "dark": "Oscuro",
+    "system": "Sistema",
+    "switchLanguage": "Cambiar a inglés",
+    "switchLight": "Cambiar a modo claro",
+    "switchDark": "Cambiar a modo oscuro"
+  },
+  "nav": {
+    "labels": {
+      "inicio": "Inicio",
+      "servicios": "Servicios",
+      "repuestos": "Repuestos",
+      "proceso": "Cómo trabajamos",
+      "ubicacion": "Ubicación",
+      "contacto": "Contacto"
+    },
+    "main": "Principal",
+    "services": "Opciones de servicios",
+    "open": "Abrir menú",
+    "close": "Cerrar menú"
+  },
+  "footer": {
+    "links": "Enlaces",
+    "repairs": "Reparaciones",
+    "hours": "Horario",
+    "description": "Venta y reparación de alternadores y arrancadores en Río Segundo, Alajuela."
+  },
+  "legal": {
+    "privacidad": {
+      "title": "Privacidad",
+      "paragraphs": [
+        "El formulario prepara el texto en tu navegador. Al continuar a WhatsApp, la aplicación recibe el mensaje prellenado para que lo revisés antes de enviarlo. Este sitio carece de una base de datos de consultas.",
+        "El navegador pide tu ubicación al seleccionar «Cómo llegar desde mi ubicación». Si hay un destino validado en Google Maps, podés abrir allí la ruta con el origen obtenido. Si elegís Waze, su aplicación gestiona la navegación.",
+        "El mapa carga las calles desde un proveedor cartográfico. WhatsApp, Waze, Google Maps y el proveedor del mapa gestionan su propio tratamiento de datos.",
+        "El sitio guarda el tema y el idioma elegidos en el almacenamiento local de tu navegador."
+      ]
+    },
+    "cookies": {
+      "title": "Cookies",
+      "paragraphs": [
+        "El sitio funciona sin cookies propias ni herramientas de analítica. Al abrir un servicio externo, se aplican sus preferencias de privacidad."
+      ]
+    },
+    "terminos": {
+      "title": "Consultas y servicios",
+      "paragraphs": [
+        "Consultá directamente con el taller para conocer disponibilidad, compatibilidad, precio y condiciones de compra o reparación."
+      ]
+    },
+    "privacyLink": "Consultar el aviso de privacidad",
+    "contactLink": "Contactar al taller"
+  },
+  "serviceDetail": {
+    "scope": "Recibimos los alternadores y arrancadores ya desmontados.",
+    "explore": "Explorar opciones",
+    "modes": "Compra y reparación",
+    "close": "Cerrar detalle",
+    "tabs": "Modalidad de atención",
+    "purchase": "Compra",
+    "repair": "Reparación",
+    "purchaseSteps": "Cómo consultar una compra",
+    "purchaseReady": "Datos que ayudan a buscar el repuesto",
+    "repairSteps": "Cómo se puede coordinar una revisión",
+    "symptoms": "Señales que motivan una revisión",
+    "assessment": "Aspectos que se podrían evaluar",
+    "advice": "Estas señales son orientativas. La batería, el cableado u otros componentes pueden causar síntomas parecidos.",
+    "processNote": "Guía orientativa. El taller confirma cómo evalúa el componente y qué opciones tiene cada caso.",
+    "consultPurchase": "Consultar compra por WhatsApp",
+    "consultRepair": "Consultar reparación por WhatsApp",
+    "addDetails": "Agregar información adicional",
+    "detailsHelp": "Completá los datos que tengás disponibles.",
+    "engine": "Motorización",
+    "engineExample": "Ej. 2.0 diésel",
+    "partNumber": "Número de parte",
+    "partExample": "Según la etiqueta de la pieza",
+    "problem": "Problema que presenta",
+    "problemExample": "Contanos qué hace el vehículo, desde cuándo y en qué condiciones ocurre.",
+    "purchaseFields": [
+      "Marca, modelo y año del vehículo.",
+      "Motorización y número de parte, si los conocés.",
+      "Una foto de la pieza o su etiqueta, si podés compartirla en WhatsApp."
+    ],
+    "buySteps": [
+      {
+        "title": "Indicá el componente",
+        "text": "Confirmá si buscás un alternador o un arrancador."
+      },
+      {
+        "title": "Compartí los datos",
+        "text": "Incluí la información disponible del vehículo o del repuesto."
+      },
+      {
+        "title": "Consultá disponibilidad",
+        "text": "El taller puede revisar la solicitud y orientarte sobre los siguientes pasos."
+      }
+    ],
+    "fixSteps": [
+      {
+        "title": "Describí el problema",
+        "text": "Contá qué síntomas presenta el vehículo y cuándo ocurren."
+      },
+      {
+        "title": "Revisión inicial",
+        "text": "El taller puede indicar cómo conviene evaluar el componente."
+      },
+      {
+        "title": "Evaluación de alternativas",
+        "text": "Según lo que se encuentre, se puede valorar reparar o sustituir piezas."
+      },
+      {
+        "title": "Coordinación de atención",
+        "text": "El taller te indica cómo continuar con tu consulta."
+      }
+    ],
+    "alternador": {
+      "purchaseTitle": "Comprar un alternador",
+      "purchaseIntro": "Consultá por un alternador para tu vehículo. Los datos de la pieza ayudan al taller a revisar compatibilidad y disponibilidad.",
+      "repairTitle": "Reparar un alternador",
+      "repairIntro": "Si notás fallas de carga, describí qué pasa con la batería, el tablero o el sistema eléctrico.",
+      "symptoms": [
+        "Batería que pierde carga.",
+        "Testigo de batería encendido.",
+        "Fallas eléctricas o carga irregular.",
+        "Ruidos que parecen venir del alternador."
+      ],
+      "assessment": [
+        "Condición del alternador y sus conexiones.",
+        "Funcionamiento del sistema de carga y de la regulación de voltaje.",
+        "Componentes internos y opciones de reparación o sustitución cuando corresponda."
+      ]
+    },
+    "arrancador": {
+      "purchaseTitle": "Comprar un arrancador",
+      "purchaseIntro": "Consultá por un arrancador para tu vehículo. La motorización y la referencia de la pieza ayudan al taller a identificar opciones.",
+      "repairTitle": "Reparar un arrancador",
+      "repairIntro": "Contanos qué ocurre cuando intentás encender el vehículo. El ruido, la velocidad de giro y la frecuencia de la falla ayudan a orientar la consulta.",
+      "symptoms": [
+        "El motor no gira o solo se escucha un clic.",
+        "El vehículo arranca de forma intermitente.",
+        "El motor gira despacio o se oyen ruidos anormales."
+      ],
+      "assessment": [
+        "Condición general y conexiones eléctricas del arrancador.",
+        "Funcionamiento del solenoide y del motor eléctrico.",
+        "Piezas mecánicas internas y opciones de reparación o sustitución cuando corresponda."
+      ]
+    }
+  },
+  "media": {
+    "unavailable": "Imagen no disponible"
+  },
+  "mapLoading": {
+    "style": "Cargando estilo del mapa…",
+    "tiles": "Cargando cartografía…",
+    "streets": "Cargando mapa de calles…"
+  },
+  "serviceMessage": {
+    "product": "Repuesto de referencia",
+    "engine": "Motorización",
+    "partNumber": "Número de parte",
+    "problem": "El problema que presenta es:",
+    "purchase": "Me gustaría consultar disponibilidad y cómo coordinar la compra.",
+    "repair": "Quisiera conocer cómo puedo coordinar la revisión."
+  },
+  "catalog": {
+    "filters": "Categorías de repuestos",
+    "all": "Todos",
+    "empty": "No hay referencias en esta categoría.",
+    "availability": "Consultar disponibilidad",
+    "gallery": "Vistas del repuesto",
+    "zoomIn": "Ampliar fotografía",
+    "zoomOut": "Reducir fotografía",
+    "details": "Datos de la ficha",
+    "fit": "Confirmá la compatibilidad y disponibilidad con el taller antes de elegir el repuesto.",
+    "titles": {
+      "toyota-lexus": "Alternador Toyota / Lexus",
+      "mini": "Alternador MINI",
+      "cat-mit": "Arrancador CAT/MIT",
+      "ford-mazda": "Arrancador Ford / Mazda"
+    },
+    "angle": {
+      "front": "Vista frontal",
+      "side": "Vista lateral",
+      "oblique": "Vista en perspectiva"
+    },
+    "specs": {
+      "models": "Modelos indicados en la ficha",
+      "voltage": "Voltaje",
+      "amperage": "Amperaje",
+      "signal": "Señal",
+      "pinion": "Piñón según ficha",
+      "rotation": "Sentido de giro según ficha"
+    }
+  },
+  "breakdown": {
+    "title": "Repuestos y despiece",
+    "description": "También contamos con piezas para alternadores y arrancadores. Consultá por el repuesto que necesitás.",
+    "groups": {
+      "alternator": "Para alternadores",
+      "starter": "Para arrancadores",
+      "byDesign": "Según el diseño de la unidad"
+    },
+    "details": "Podés compartir una foto de la etiqueta en WhatsApp.",
+    "inquiry": "Quisiera consultar por la disponibilidad del repuesto «{piece}».",
+    "followup": "¿Me pueden ayudar a verificar si es el repuesto que necesito?",
+    "items": {
+      "placas-diodos": {
+        "name": "Placas de diodos",
+        "description": "Convierten la corriente alterna del alternador en corriente continua."
+      },
+      "reguladores": {
+        "name": "Reguladores",
+        "description": "Controlan el voltaje de carga que entrega el alternador."
+      },
+      "roles": {
+        "name": "Roles",
+        "description": "Rodamientos que sostienen los ejes giratorios, según el diseño de la unidad."
+      },
+      "poleas": {
+        "name": "Poleas",
+        "description": "Transmiten el giro de la correa al rotor del alternador."
+      },
+      "carbones": {
+        "name": "Carbones",
+        "description": "Escobillas que conducen corriente hacia las partes giratorias."
+      },
+      "porta-carbones": {
+        "name": "Porta carbones",
+        "description": "Guían las escobillas y las mantienen en posición."
+      },
+      "planetarios": {
+        "name": "Planetarios",
+        "description": "Reducen la velocidad y aumentan el torque en arrancadores de reducción planetaria."
+      },
+      "bendix": {
+        "name": "Bendix",
+        "description": "El piñón transmite el giro a la corona y la rueda libre protege el arrancador."
+      },
+      "automaticos": {
+        "name": "Automáticos",
+        "description": "Solenoides que activan el arrancador y accionan el piñón según el diseño."
+      }
+    }
+  },
+  "payments": {
+    "title": "Pagá como prefirás",
+    "description": "Contamos con diferentes opciones de pago para tu comodidad.",
+    "methods": {
+      "sinpe": {
+        "name": "SINPE Móvil",
+        "description": "Transferencia mediante SINPE Móvil"
+      },
+      "efectivo": {
+        "name": "Efectivo",
+        "description": "Pago en efectivo"
+      },
+      "tarjeta": {
+        "name": "Tarjeta",
+        "description": "Aceptamos pagos con tarjeta"
+      },
+      "transferencia": {
+        "name": "Transferencia bancaria",
+        "description": "Pago mediante transferencia bancaria."
+      },
+      "bac": {
+        "name": "BAC Tasa Cero",
+        "description": "Tasa Cero a {months} meses con tarjeta de crédito BAC. Aplican condiciones."
+      }
+    }
+  },
+  "seo": {
+    "title": "Alternadores y arrancadores en Alajuela",
+    "description": "Venta y reparación de alternadores y arrancadores en Río Segundo, Alajuela. Consultá por WhatsApp o encontrá indicaciones para visitar el taller."
+  },
+  "home": {
+    "hero": {
+      "kicker": "Especialistas en arranque y generación",
+      "emphasis": "Venta y reparación de",
+      "suffix": "alternadores y arrancadores",
+      "description": "Taller eléctrico automotriz en Río Segundo, Alajuela. Consultá por el repuesto o la reparación que necesitás."
+    },
+    "services": {
+      "title": "Nuestros servicios",
+      "description": "Venta, reparación y diagnóstico de alternadores y arrancadores. También vendemos piezas individuales para ambos componentes."
+    },
+    "products": {
+      "title": "Encontrá el repuesto que necesitás",
+      "description": "Alternadores y arrancadores para vehículos livianos, pesados y maquinaria."
+    },
+    "process": {
+      "title": "Cómo trabajamos"
+    },
+    "location": {
+      "title": "Encontranos fácilmente",
+      "description": "Estamos en Río Segundo, Alajuela. Ubicá el taller en el mapa y consultá las indicaciones para llegar."
+    },
+    "contact": {
+      "title": "Consultá con el taller",
+      "description": "Pasanos los datos de tu vehículo y contanos si necesitás una pieza o una reparación."
+    },
+    "viewServices": "Explorar servicios",
+    "viewPhoto": "Ampliar fotografía",
+    "repairs": "Resultados que hablan por nosotros",
+    "repairGallery": "Conocé algunos de los trabajos realizados en nuestro taller.",
+    "moreRepairs": "Ver más trabajos",
+    "repairCta": "Consultar una reparación",
+    "before": "Antes",
+    "after": "Después"
+  },
+  "parts": {
+    "alternador": {
+      "singular": "Alternador",
+      "plural": "Alternadores",
+      "description": "Venta, diagnóstico y reparación de alternadores. Te orientamos según los datos del vehículo o la referencia de la pieza.",
+      "productDescription": "Compartí marca, modelo, año y la referencia de la pieza para revisar opciones compatibles."
+    },
+    "arrancador": {
+      "singular": "Arrancador",
+      "plural": "Arrancadores",
+      "description": "Venta, diagnóstico y reparación de arrancadores. Compartinos qué componente buscás o qué falla presenta.",
+      "productDescription": "Compartí los datos de tu equipo para revisar la compatibilidad y disponibilidad de esta referencia."
+    },
+    "orientacion": {
+      "singular": "Necesito orientación"
+    }
+  },
+  "process": {
+    "consulta": {
+      "title": "Contanos qué necesitás",
+      "text": "Indicá si buscás comprar un alternador o arrancador, o si necesitás reparar alguno de estos componentes."
+    },
+    "revision": {
+      "title": "Revisamos tu consulta",
+      "text": "Evaluamos la información que compartís para orientarte sobre la atención correspondiente."
+    },
+    "atencion": {
+      "title": "Coordinamos la atención",
+      "text": "Acordamos cómo continuar con la compra o reparación."
+    }
+  },
+  "photos": {
+    "alternator": "Alternador con polea fotografiado por el taller",
+    "starter": "Arrancador sobre la mesa del taller",
+    "catStarter": "Arrancador CAT/MIT de 24 V desde tres ángulos"
+  },
+  "repairs": {
+    "audi-q5": {
+      "title": "Alternador de Audi Q5",
+      "before": "Alternador de Audi Q5 antes de la reparación",
+      "after": "Alternador de Audi Q5 después de la reparación"
+    },
+    "audi-q7": {
+      "title": "Alternador de Audi Q7",
+      "before": "Alternador de Audi Q7 antes de la reparación",
+      "after": "Alternador de Audi Q7 después de la reparación"
+    },
+    "land-cruiser": {
+      "title": "Arrancador de Land Cruiser V8",
+      "before": "Carcasa y piñón del arrancador Land Cruiser V8 al ingresar",
+      "after": "Carcasa y piñón del arrancador Land Cruiser V8 reparado"
+    },
+    "lexus": {
+      "title": "Arrancador de Lexus IS250",
+      "before": "Vista lateral del arrancador Lexus IS250 al ingresar",
+      "after": "Vista lateral del arrancador Lexus IS250 reparado"
+    }
+  },
+  "vehicleIdentification": {
+    "question": "¿Cómo preferís identificar tu vehículo?",
+    "plate": "Con la placa",
+    "details": "Con marca, modelo y año"
+  },
+  "form": {
+    "name": "Nombre",
+    "intent": "Compra o reparación",
+    "part": "Componente",
+    "plate": "Placa del vehículo (opcional)",
+    "plateHelp": "Si solo tenés la placa, compartila como referencia para que el taller pueda revisar tu consulta.",
+    "make": "Marca del vehículo",
+    "model": "Modelo",
+    "year": "Año",
+    "description": "Detalles adicionales",
+    "selectIntent": "Seleccioná una opción",
+    "selectPart": "Seleccioná el componente",
+    "compra": "Compra",
+    "reparacion": "Reparación",
+    "makeExample": "Ej. Toyota",
+    "modelExample": "Ej. Corolla",
+    "yearExample": "Ej. 2016",
+    "yearHelp": "Escribí el año con cuatro dígitos",
+    "detailsPlaceholder": "Contanos qué pieza buscás o qué problema notaste.",
+    "notice": "El formulario prepara el mensaje para que lo revisés y lo enviés en WhatsApp.",
+    "requiredFields": "Completá tu nombre, el tipo de consulta y el componente. Los demás campos son opcionales.",
+    "directContact": "Si el formulario no está disponible, usá uno de los enlaces de WhatsApp de esta sección.",
+    "submit": "Continuar a WhatsApp",
+    "ready": "Tu mensaje está listo.",
+    "review": "Revisalo en WhatsApp",
+    "invalidName": "Escribí tu nombre.",
+    "invalidIntent": "Elegí compra o reparación.",
+    "invalidPart": "Elegí un componente o pedí orientación.",
+    "invalidYear": "Escribí el año con cuatro dígitos.",
+    "invalid": "Revisá los datos de tu consulta."
+  },
+  "whatsapp": {
+    "greeting": "Hola, buenas.",
+    "name": "Mi nombre es {name}.",
+    "part": {
+      "alternador": "un alternador",
+      "arrancador": "un arrancador",
+      "any": "un alternador o un arrancador"
+    },
+    "inquiry": {
+      "compra": "Quisiera consultar por la compra de {part}.",
+      "reparacion": "Quisiera consultar por la reparación de {part}.",
+      "general": "Quisiera consultar por {part}."
+    },
+    "guidance": "Quisiera orientación para identificar el componente que necesito.",
+    "vehicle": "Datos del vehículo:",
+    "plate": "Placa",
+    "make": "Marca",
+    "model": "Modelo",
+    "year": "Año",
+    "detail": "Detalles:",
+    "next": "Me gustaría recibir información sobre cómo coordinar la atención.",
+    "thanks": "Muchas gracias."
+  },
+  "map": {
+    "contactHours": "Horarios y contacto",
+    "extraReferences": "Referencias adicionales",
+    "shopPin": "Ubicación del taller",
+    "openLegend": "Leyenda",
+    "ctrl": "Usá Ctrl y la rueda para acercar el mapa",
+    "cmd": "Usá ⌘ y la rueda para acercar el mapa",
+    "fingers": "Usá dos dedos para mover el mapa",
+    "attribution": "Mostrar atribución cartográfica",
+    "region": "Mapa interactivo de Calle Arias, Río Segundo",
+    "webgl": "La vista 3D requiere WebGL.",
+    "lost": "Se interrumpió la vista 3D.",
+    "tileFailure": "El mapa 3D no pudo cargar.",
+    "partialTileFailure": "Parte del mapa no cargó. Podés abrir la ruta en Waze o Google Maps.",
+    "importFailure": "La vista 3D no está disponible.",
+    "overview": "Vista general",
+    "rotate": "Girar mapa",
+    "streetMap": "Mapa de calles",
+    "aerialImage": "Ortofoto IGN · 2015–2018",
+    "providerImage": "Imagen del proveedor",
+    "entrance": "Entrada al taller",
+    "information": "Información del taller",
+    "closeInfo": "Cerrar información",
+    "call": "Llamar",
+    "wazeLocation": "Abrir esta ubicación en Waze",
+    "hideLandmarks": "Ocultar referencias",
+    "showLandmarks": "Mostrar referencias",
+    "release": "Soltar mapa",
+    "move": "Mover mapa",
+    "showAccess": "Mostrar acceso",
+    "showEntrance": "Mostrar entrada",
+    "loading": "Cargando mapa interactivo…",
+    "imageryError": "La imagen aérea no está disponible. Se muestra el mapa de calles.",
+    "landmark": "Referencia",
+    "accessInstructions": "Consultá la ubicación del taller y utilizá las indicaciones del mapa para llegar.",
+    "wazeDestination": "Para el destino del taller, usá Waze.",
+    "mapOf": "Mapa de ",
+    "unavailable": "El mapa no está disponible",
+    "preparing": "Preparando mapa interactivo…",
+    "retry": "Reintentar mapa",
+    "osm": "Ver calles en OpenStreetMap",
+    "osmArea": "Ver el entorno en OpenStreetMap",
+    "views": "Vistas del mapa",
+    "controls": "Controles del mapa",
+    "zoomIn": "Acercar",
+    "zoomOut": "Alejar",
+    "reset": "Restablecer vista",
+    "center": "Centrar en el taller",
+    "collapse": "Reducir mapa",
+    "fullscreen": "Ver mapa más grande",
+    "route": "Recorrido de acceso",
+    "pause": "Pausar recorrido",
+    "play": "Reproducir recorrido",
+    "restart": "Reiniciar",
+    "exit": "Salir del recorrido",
+    "address": "Dirección",
+    "vehicleEntrance": "Acceso vehicular",
+    "vehiclePin": "Entrada vehicular",
+    "legend": "Referencias del mapa",
+    "property": "Área señalada del taller",
+    "access": "Referencia de acceso",
+    "more": "Horarios, teléfono y referencias",
+    "hours": "Horario publicado",
+    "reference": "Al sur de Multicentro Río Segundo",
+    "closePopup": "Cerrar información del mapa"
+  },
+  "views": {
+    "oblique": "Vista 3D",
+    "aerial": "Vista superior",
+    "streets": "Calles"
+  },
+  "hours": {
+    "weekdays": {
+      "day": "Lunes a viernes",
+      "display": "7:00 a. m. – 5:00 p. m."
+    },
+    "saturday": {
+      "day": "Sábado",
+      "display": "7:00 a. m. – 12:00 m."
+    }
+  },
+  "directions": {
+    "unavailable": "Tu navegador no ofrece ubicación. Podés indicar el origen manualmente en el navegador de rutas.",
+    "requesting": "Solicitando tu ubicación…",
+    "ready": "Tu ubicación está lista para preparar la ruta.",
+    "wazeReady": "Waze puede usar tu ubicación para calcular la ruta hacia el taller.",
+    "denied": "El permiso de ubicación está desactivado. Podés elegir el punto de partida manualmente.",
+    "failed": "No pudimos obtener tu ubicación. Podés elegir el punto de partida manualmente.",
+    "apps": "Aplicaciones de navegación",
+    "waze": "Abrir en Waze",
+    "google": "Abrir en Google Maps",
+    "pending": "Buscando tu ubicación…",
+    "fromHere": "Cómo llegar desde mi ubicación",
+    "continueWaze": "Continuar en Waze",
+    "viewRoute": "Ver ruta en Google Maps"
+  }
+}

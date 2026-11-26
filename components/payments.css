@@ -1,0 +1,76 @@
+.payment-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-auto-rows: 1fr;
+  gap: clamp(var(--space-2), 2vw, var(--space-4));
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.glass-panel.payment-card {
+  height: 100%;
+  --panel-background: var(--glass-default);
+  --panel-blur: var(--blur);
+  box-shadow: var(--shadow);
+}
+.payment-card .glass-card-copy {
+  padding: clamp(var(--space-2), 2vw, var(--space-4));
+}
+.payment-card .glass-card-title {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+  inline-size: 100%;
+}
+.payment-card .glass-card-title h3 {
+  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+  line-height: 1.2;
+}
+.payment-card p { font-size: var(--text-sm); line-height: 1.5; }
+
+.payment-mark {
+  display: flex;
+  align-items: center;
+  inline-size: 100%;
+  block-size: 5rem;
+  color: var(--accent-on-tint);
+}
+.payment-mark > .app-icon { inline-size: 2.25rem; block-size: 2.25rem; }
+
+.payment-brand-logo {
+  display: block;
+  inline-size: 6.5rem;
+  max-inline-size: 100%;
+  block-size: 100%;
+}
+.payment-brand-logo img {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: contain;
+}
+.payment-brand-logo [data-logo-theme="dark"] { display: none; }
+:root[data-theme="dark"] .payment-brand-logo [data-logo-theme="light"] { display: none; }
+:root[data-theme="dark"] .payment-brand-logo [data-logo-theme="dark"] { display: block; }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .payment-brand-logo [data-logo-theme="light"] { display: none; }
+  :root:not([data-theme="light"]) .payment-brand-logo [data-logo-theme="dark"] { display: block; }
+}
+
+@media (380px <= width < 760px) {
+  .payment-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .payment-grid > li { grid-column: span 2; }
+  .payment-grid > li:last-child:nth-child(odd) { grid-column: 2 / span 2; }
+  .payment-card .glass-card-title h3 { min-block-size: 2.4em; }
+}
+@media (760px <= width < 1200px) {
+  .payment-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .payment-grid > li { grid-column: span 2; }
+  .payment-grid > li:nth-child(3n + 1):nth-last-child(2) { grid-column: 2 / span 2; }
+}
+@media (width >= 1200px) {
+  .payment-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .payment-card .glass-card-title h3 { min-block-size: 2.4em; }
+}

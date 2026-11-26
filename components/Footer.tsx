@@ -1,117 +1,74 @@
-import { site } from "@/data/site";
-import { Logo } from "@/components/ui/Logo";
-import { Icon } from "@/components/ui/Icon";
-import { waLink } from "@/lib/whatsapp";
+"use client";
 
-const nav = [
-  { href: "#servicios", label: "Servicios" },
-  { href: "#nosotros", label: "Nosotros" },
-  { href: "#proceso", label: "Proceso" },
-  { href: "#galeria", label: "Galería" },
-  { href: "#faq", label: "Preguntas frecuentes" },
-  { href: "#contacto", label: "Contacto" },
-];
+import { ArrowUpRight, MapPin, Phone } from "lucide-react";
+import { usePreferences } from "@/components/Preferences";
+import { WhatsAppCTA } from "@/components/WhatsAppCTA";
+import { business, businessLocation } from "@/data/business.config";
+import { navigation } from "@/data/site-content";
+import { AppIcon } from "@/components/ui/AppIcon";
+import { BrandIcon } from "@/components/ui/BrandIcon";
+import { GlassButton } from "@/components/ui/Button";
+import { BrandLogo } from "@/components/ui/BrandLogo";
+import { localizedPath } from "@/i18n/config";
 
-export function Footer() {
-  const year = new Date().getFullYear();
+export function Footer({ copyrightYear }: { copyrightYear: number }) {
+  const { t, locale } = usePreferences();
+  const { common, footer } = t;
   return (
-    <footer className="bg-brand-900 text-brand-200">
-      <div className="container-x grid gap-10 py-14 md:grid-cols-4">
-        <div className="md:col-span-2">
-          <Logo variant="light" />
-          <p className="mt-4 max-w-sm text-sm">
-            {site.description}
-          </p>
-          <div className="mt-5 flex gap-3">
-            <Social href={site.social.facebook} icon="facebook" label="Facebook" />
-            <Social href={site.social.instagram} icon="instagram" label="Instagram" />
-            <Social href={site.social.tiktok} icon="tiktok" label="TikTok" />
-            <Social href={waLink()} icon="whatsapp" label="WhatsApp" />
+    <footer className="site-footer">
+      <div className="wrap">
+        <div className="footer-grid">
+          <div className="footer-identity">
+            <a href="#inicio" className="footer-brand"><BrandLogo size="large" name={business.tradeName} /></a>
+            <p>{footer.description}</p>
           </div>
-        </div>
-
-        <div>
-          <h3 className="font-heading text-sm font-semibold uppercase tracking-wider text-white">
-            Navegación
-          </h3>
-          <ul className="mt-4 space-y-2 text-sm">
-            {nav.map((n) => (
-              <li key={n.href}>
-                <a href={n.href} className="hover:text-spark-400">
-                  {n.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div>
-          <h3 className="font-heading text-sm font-semibold uppercase tracking-wider text-white">
-            Contacto
-          </h3>
-          <ul className="mt-4 space-y-2 text-sm">
-            <li className="flex items-center gap-2">
-              <Icon name="phone" className="h-4 w-4 text-spark-400" />
-              <a href={`tel:${site.phones[0].tel}`} className="hover:text-spark-400">
-                {site.phones[0].number}
-              </a>
-            </li>
-            <li className="flex items-center gap-2">
-              <Icon name="mail" className="h-4 w-4 text-spark-400" />
-              <a href={`mailto:${site.email}`} className="break-all hover:text-spark-400">
-                {site.email}
-              </a>
-            </li>
-            <li className="flex items-start gap-2">
-              <Icon name="pin" className="mt-0.5 h-4 w-4 flex-none text-spark-400" />
-              <span>
-                {site.address.district}, {site.address.city}, {site.address.country}
-              </span>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <div className="border-t border-white/10">
-        <div className="container-x flex flex-col items-center justify-between gap-3 py-5 text-xs sm:flex-row">
-          <p>
-            © {year} {site.legalName}. Todos los derechos reservados.
-          </p>
-          <nav className="flex flex-wrap items-center gap-x-4 gap-y-1" aria-label="Legal">
-            <a href="/privacidad" className="hover:text-spark-400">
-              Aviso de Privacidad
-            </a>
-            <a href="/terminos" className="hover:text-spark-400">
-              Términos y Condiciones
-            </a>
-            <a href="/cookies" className="hover:text-spark-400">
-              Política de Cookies
-            </a>
+          <nav className="footer-column" aria-labelledby="footer-links-title">
+            <h2 id="footer-links-title">{footer.links}</h2>
+            <ul className="footer-list">
+              {navigation.map(({ id }) => <li key={id}><a href={"#" + id}>{t.nav.labels[id]}</a></li>)}
+              <li><a href="#reparaciones">{footer.repairs}</a></li>
+            </ul>
           </nav>
+          <section className="footer-column" aria-labelledby="footer-contact-title">
+            <h2 id="footer-contact-title">{t.nav.labels.contacto}</h2>
+            <ul className="footer-list">
+              <li><a href={"tel:" + business.voice.mobile.tel} aria-label={common.call + " " + business.voice.mobile.display}>
+                <AppIcon icon={Phone} size="small" />{business.voice.mobile.display}
+              </a></li>
+              <li><a href={"tel:" + business.voice.landline.tel} aria-label={common.landline + " " + business.voice.landline.display}>
+                <AppIcon icon={Phone} size="small" />{business.voice.landline.display}
+              </a></li>
+            </ul>
+            <WhatsAppCTA variant="glass" className="footer-whatsapp">
+              <span>WhatsApp <span className="whitespace-nowrap">{business.whatsapp.display}</span></span>
+            </WhatsAppCTA>
+            <div className="footer-socials">
+              {business.socials.map(({ brand, label, url }) => (
+                <GlassButton key={brand} href={url} target="_blank" rel="noopener noreferrer" variant="glass"
+                  aria-label={label + " " + common.socialSuffix} title={label}>
+                  <BrandIcon brand={brand} />
+                </GlassButton>
+              ))}
+            </div>
+          </section>
+          <section className="footer-column" aria-labelledby="footer-location-title">
+            <h2 id="footer-location-title">{t.nav.labels.ubicacion}</h2>
+            <address className="footer-address"><AppIcon icon={MapPin} size="small" />{businessLocation.address}</address>
+            <h3>{footer.hours}</h3>
+            <dl className="footer-hours">
+              {business.hours.map(({ id }) => <div key={id}><dt>{t.hours[id].day}</dt><dd>{t.hours[id].display}</dd></div>)}
+            </dl>
+            <GlassButton href="#ubicacion" variant="outline" className="footer-directions">
+              {common.directions} <AppIcon icon={ArrowUpRight} size="small" />
+            </GlassButton>
+          </section>
+        </div>
+        <div className="footer-meta">
+          <p>© {copyrightYear} <span lang="es-CR">{business.tradeName}</span></p>
+          <a href={localizedPath(locale, "privacidad")}>{common.privacy}</a>
+          <p id="creditos">{common.credits}</p>
         </div>
       </div>
     </footer>
-  );
-}
-
-function Social({
-  href,
-  icon,
-  label,
-}: {
-  href: string;
-  icon: "facebook" | "instagram" | "tiktok" | "whatsapp";
-  label: string;
-}) {
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label={label}
-      className="grid h-9 w-9 place-items-center rounded-lg bg-white/10 transition-colors hover:bg-spark-400 hover:text-brand-900"
-    >
-      <Icon name={icon} className="h-4.5 w-4.5" />
-    </a>
   );
 }

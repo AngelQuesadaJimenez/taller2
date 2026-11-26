@@ -1,0 +1,82 @@
+.glass-panel {
+  --panel-fallback: var(--surface);
+  --panel-background: var(--glass-default);
+  --panel-blur: var(--blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-large);
+  background: var(--panel-fallback);
+}
+
+.glass-panel--elevated {
+  --panel-fallback: var(--surface-elevated);
+  --panel-background: var(--glass-elevated);
+  --panel-blur: var(--blur-elevated);
+  box-shadow: var(--shadow-elevated);
+}
+
+.glass-panel--floating {
+  --panel-fallback: var(--background-secondary);
+  --panel-background: var(--glass-floating);
+  --panel-blur: var(--blur-elevated);
+  box-shadow: var(--shadow);
+}
+
+.glass-panel--subtle {
+  --panel-fallback: var(--background-secondary);
+  --panel-background: var(--glass-subtle);
+  --panel-blur: var(--blur-subtle);
+}
+
+.glass-panel--interactive {
+  --panel-fallback: var(--surface);
+  --panel-background: var(--glass-interactive);
+  transition: border-color var(--duration) var(--easing), box-shadow var(--duration) var(--easing);
+}
+
+.glass-panel--interactive:hover,
+.glass-panel--interactive:focus-within {
+  border-color: var(--field-border);
+  box-shadow: var(--shadow);
+}
+
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass-panel {
+    background: var(--panel-background);
+    -webkit-backdrop-filter: blur(var(--panel-blur)) saturate(var(--glass-saturation));
+    backdrop-filter: blur(var(--panel-blur)) saturate(var(--glass-saturation));
+  }
+
+  .button--glass {
+    background: var(--glass-default);
+    -webkit-backdrop-filter: blur(var(--blur-subtle)) saturate(var(--glass-saturation));
+    backdrop-filter: blur(var(--blur-subtle)) saturate(var(--glass-saturation));
+  }
+}
+
+.glass-info-badge {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-medium);
+}
+
+.glass-info-badge > svg { flex: none; color: var(--accent); }
+.glass-info-badge > div { min-width: 0; }
+.glass-info-badge strong,
+.glass-info-badge span { display: block; line-height: var(--leading-tight); }
+.glass-info-badge span { margin-top: var(--space-05); color: var(--muted); font-size: var(--text-sm); }
+
+.glass-section--band, .glass-section--feature {
+  background:
+    radial-gradient(ellipse at 85% 0, var(--section-light), transparent 64%),
+    linear-gradient(115deg, var(--background-secondary), var(--background) 150%);
+}
+
+.glass-section--band {
+  border-block: 1px solid var(--glass-border);
+}
+
+.glass-section--feature {
+  border-top: 1px solid var(--glass-border);
+}

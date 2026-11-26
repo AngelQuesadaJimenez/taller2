@@ -1,0 +1,51 @@
+.catalog-toolbar, .catalog-filters {
+  display: flex;
+  gap: var(--space-1);
+  flex-wrap: wrap;
+}
+.catalog-toolbar { align-items: center; justify-content: space-between; margin-block-end: var(--space-3); }
+.catalog-filters .button[aria-pressed="true"], .product-thumbnails .button[aria-pressed="true"] {
+  background: var(--glass-option-active);
+  color: var(--accent-on-tint);
+  border-color: var(--accent);
+}
+.catalog-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3); }
+.glass-panel.catalog-card {
+  --panel-background: var(--glass-elevated);
+  --panel-fallback: var(--surface-elevated);
+  display: flex;
+  flex-direction: column;
+  border-radius: 1.25rem;
+}
+.catalog-card .glass-card-copy { flex: 1; gap: var(--space-05); }
+.catalog-photo { aspect-ratio: 4 / 3; background: var(--photo-background); }
+.catalog-photo .photo-frame { height: 100%; overflow: hidden; }
+.catalog-photo .automotive-photo { position: absolute; inset: 0; }
+.catalog-photo .automotive-photo img { height: 100%; object-fit: contain; }
+.catalog-quote { margin-block-start: var(--space-2); }
+.product-detail { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: var(--space-4); }
+.product-detail--zoomed { grid-template-columns: minmax(0, 1fr); }
+.product-gallery { min-width: 0; }
+.product-gallery-photo { position: relative; max-inline-size: 30rem; border-radius: var(--radius-medium); overflow: hidden; }
+.product-zoom { position: absolute; inset: auto var(--space-1) var(--space-1) auto; min-inline-size: var(--control-height); padding: 0; }
+.product-thumbnails { display: flex; gap: var(--space-1); flex-wrap: wrap; margin-block-start: var(--space-1); }
+.product-thumbnails .button { flex: 0 1 4.5rem; padding: var(--space-05); overflow: hidden; }
+.product-thumbnails .photo-frame { overflow: hidden; border-radius: calc(var(--radius-small) / 2); }
+.product-specifications { min-width: 0; align-self: center; }
+.product-specifications h3 { font-size: var(--text-card); margin-block-end: var(--space-2); }
+.product-specifications dl > div { padding: var(--space-1) 0; border-block-start: 1px solid var(--glass-border); }
+.product-specifications dt { color: var(--muted); font-size: var(--text-sm); }
+.product-specifications dd { font-weight: 600; overflow-wrap: anywhere; }
+.product-specifications p { padding-inline-start: var(--space-2); border-inline-start: 2px solid var(--accent); margin-block-start: var(--space-2); color: var(--muted); font-size: var(--text-sm); }
+@media (min-width: 900px) {
+  .glass-panel.catalog-card { display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr); }
+  .catalog-card .glass-card-media { display: grid; align-items: center; background: var(--photo-background); }
+  .catalog-card .glass-card-copy { justify-content: center; padding: clamp(var(--space-2), 2vw, var(--space-4)); }
+  .catalog-card .glass-card-copy p { flex: 0; }
+}
+@media (max-width: 580px) {
+  .catalog-grid, .product-detail { grid-template-columns: minmax(0, 1fr); }
+  .product-gallery-photo { max-inline-size: min(100%, 18rem); margin-inline: auto; }
+  .product-detail--zoomed .product-gallery-photo { max-inline-size: 100%; }
+  .product-thumbnails { justify-content: center; }
+}
