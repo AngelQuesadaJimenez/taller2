@@ -310,6 +310,8 @@ test("Leaflet y Waze siguen disponibles sin WebGL", async ({ page }) => {
 });
 
 test("el mapa de calles se recupera si las teselas llegan después del aviso", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.clock.install();
   await disableWebGL(page);
   let release = () => {};
   const waitForTiles = new Promise<void>((resolve) => { release = resolve; });
@@ -321,9 +323,14 @@ test("el mapa de calles se recupera si las teselas llegan después del aviso", a
     });
   });
   try {
-    await page.goto("/es/#ubicacion");
+    const firstTile = page.waitForRequest(tilePattern);
+    await page.goto("/es/#ubicacion", { waitUntil: "domcontentloaded" });
+    await page.locator(".map-shell").scrollIntoViewIfNeeded();
+    await firstTile;
+    // Start the timeout check after Leaflet begins requesting its delayed tiles.
+    await page.clock.fastForward(10000);
     const unavailable = page.getByText(messages.es.map.unavailable, { exact: true });
-    await expect(unavailable).toBeVisible({ timeout: 15000 });
+    await expect(unavailable).toBeVisible();
     release();
     await expect(page.locator(".leaflet-tile-loaded").first()).toBeVisible();
     await expect(unavailable).toBeHidden();
