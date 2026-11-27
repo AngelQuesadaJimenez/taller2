@@ -1,0 +1,237 @@
+{
+  "entorno": "Export estático local. Lighthouse con perfiles simulados. Archivos br con Brotli nivel 5, restantes con python http.server sin compresión.",
+  "lighthouse": [
+    {
+      "perfil": "antes-escritorio",
+      "version": "12.8.2",
+      "fecha": "2026-11-27T15:26:43.867Z",
+      "navegador": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/158.0.0.0 Safari/537.36",
+      "throttling": {
+        "rttMs": 40,
+        "throughputKbps": 10240,
+        "requestLatencyMs": 0,
+        "downloadThroughputKbps": 0,
+        "uploadThroughputKbps": 0,
+        "cpuSlowdownMultiplier": 1
+      },
+      "score": 0.97,
+      "LCP_ms": 1215.8955741068135,
+      "CLS": 0.0005251481141490898,
+      "TBT_ms": 0,
+      "FCP_ms": 449.39557410681357,
+      "JS_transferido_bytes": 592177,
+      "total_transferido_bytes": 945646
+    },
+    {
+      "perfil": "antes-movil",
+      "version": "12.8.2",
+      "fecha": "2026-11-27T14:34:38.747Z",
+      "navegador": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/158.0.0.0 Safari/537.36",
+      "throttling": {
+        "rttMs": 150,
+        "throughputKbps": 1638.4,
+        "requestLatencyMs": 562.5,
+        "downloadThroughputKbps": 1474.5600000000002,
+        "uploadThroughputKbps": 675,
+        "cpuSlowdownMultiplier": 4
+      },
+      "score": 0.74,
+      "LCP_ms": 6507.883693157595,
+      "CLS": 0.00001961588499383651,
+      "TBT_ms": 35,
+      "FCP_ms": 2279.8836931575966,
+      "JS_transferido_bytes": 592177,
+      "total_transferido_bytes": 944924
+    },
+    {
+      "perfil": "br-antes-movil",
+      "version": "12.8.2",
+      "fecha": "2026-11-27T15:47:03.476Z",
+      "navegador": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/158.0.0.0 Safari/537.36",
+      "throttling": {
+        "rttMs": 150,
+        "throughputKbps": 1638.4,
+        "requestLatencyMs": 562.5,
+        "downloadThroughputKbps": 1474.5600000000002,
+        "uploadThroughputKbps": 675,
+        "cpuSlowdownMultiplier": 4
+      },
+      "score": 0.92,
+      "LCP_ms": 3338.8442,
+      "CLS": 0.00001961588499383651,
+      "TBT_ms": 47.5,
+      "FCP_ms": 1356.6331500000001,
+      "JS_transferido_bytes": 170688,
+      "total_transferido_bytes": 386655
+    },
+    {
+      "perfil": "br-despues-escritorio",
+      "version": "12.8.2",
+      "fecha": "2026-11-27T15:47:50.168Z",
+      "navegador": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/158.0.0.0 Safari/537.36",
+      "throttling": {
+        "rttMs": 40,
+        "throughputKbps": 10240,
+        "requestLatencyMs": 0,
+        "downloadThroughputKbps": 0,
+        "uploadThroughputKbps": 0,
+        "cpuSlowdownMultiplier": 1
+      },
+      "score": 1,
+      "LCP_ms": 692.1741999999999,
+      "CLS": 0.0005251481141490898,
+      "TBT_ms": 0,
+      "FCP_ms": 323.88065000000006,
+      "JS_transferido_bytes": 171622,
+      "total_transferido_bytes": 388595
+    },
+    {
+      "perfil": "br-despues-movil",
+      "version": "12.8.2",
+      "fecha": "2026-11-27T15:47:19.222Z",
+      "navegador": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/158.0.0.0 Safari/537.36",
+      "throttling": {
+        "rttMs": 150,
+        "throughputKbps": 1638.4,
+        "requestLatencyMs": 562.5,
+        "downloadThroughputKbps": 1474.5600000000002,
+        "uploadThroughputKbps": 675,
+        "cpuSlowdownMultiplier": 4
+      },
+      "score": 0.92,
+      "LCP_ms": 3290.4574000000002,
+      "CLS": 0.00001961588499383651,
+      "TBT_ms": 22.5,
+      "FCP_ms": 1354.4574000000002,
+      "JS_transferido_bytes": 171622,
+      "total_transferido_bytes": 387887
+    },
+    {
+      "perfil": "despues-escritorio",
+      "version": "12.8.2",
+      "fecha": "2026-11-27T15:47:34.580Z",
+      "navegador": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/158.0.0.0 Safari/537.36",
+      "throttling": {
+        "rttMs": 40,
+        "throughputKbps": 10240,
+        "requestLatencyMs": 0,
+        "downloadThroughputKbps": 0,
+        "uploadThroughputKbps": 0,
+        "cpuSlowdownMultiplier": 1
+      },
+      "score": 0.97,
+      "LCP_ms": 1214.6789798385375,
+      "CLS": 0.0005251481141490898,
+      "TBT_ms": 0,
+      "FCP_ms": 446.67897983853743,
+      "JS_transferido_bytes": 593443,
+      "total_transferido_bytes": 948324
+    },
+    {
+      "perfil": "despues-movil",
+      "version": "12.8.2",
+      "fecha": "2026-11-27T15:43:45.851Z",
+      "navegador": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/158.0.0.0 Safari/537.36",
+      "throttling": {
+        "rttMs": 150,
+        "throughputKbps": 1638.4,
+        "requestLatencyMs": 562.5,
+        "downloadThroughputKbps": 1474.5600000000002,
+        "uploadThroughputKbps": 675,
+        "cpuSlowdownMultiplier": 4
+      },
+      "score": 0.75,
+      "LCP_ms": 6487.747781545348,
+      "CLS": 0.00001961588499383651,
+      "TBT_ms": 52.5,
+      "FCP_ms": 2260.2477815453476,
+      "JS_transferido_bytes": 593443,
+      "total_transferido_bytes": 947602
+    }
+  ],
+  "interacciones": {
+    "metodo": "Event Timing duración >=16 ms; CPU x4 en móvil y x1 en escritorio. Los muestreos son locales. ready indica ms hasta que habilitó el botón del formulario.",
+    "unidades": "ms",
+    "sesiones": [
+      {
+        "profile": "movil",
+        "run": 1,
+        "samples": [
+          72,
+          216,
+          304,
+          136,
+          24,
+          80
+        ],
+        "ready": 1140.6000000005588,
+        "maxMs": 304
+      },
+      {
+        "profile": "movil",
+        "run": 2,
+        "samples": [
+          24,
+          216,
+          144,
+          40,
+          24,
+          96
+        ],
+        "ready": 984.7000000001863,
+        "maxMs": 216
+      },
+      {
+        "profile": "movil",
+        "run": 3,
+        "samples": [
+          32,
+          208,
+          152,
+          40,
+          24,
+          96
+        ],
+        "ready": 978.5,
+        "maxMs": 208
+      },
+      {
+        "profile": "escritorio",
+        "run": 1,
+        "samples": [
+          40,
+          56,
+          24,
+          16,
+          24
+        ],
+        "ready": 213.40000000037253,
+        "maxMs": 56
+      },
+      {
+        "profile": "escritorio",
+        "run": 2,
+        "samples": [
+          40,
+          40,
+          16,
+          16
+        ],
+        "ready": 206.8999999994412,
+        "maxMs": 40
+      },
+      {
+        "profile": "escritorio",
+        "run": 3,
+        "samples": [
+          40,
+          32,
+          16,
+          16
+        ],
+        "ready": 206.29999999981374,
+        "maxMs": 40
+      }
+    ]
+  }
+}

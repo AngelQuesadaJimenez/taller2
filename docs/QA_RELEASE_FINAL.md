@@ -30,6 +30,34 @@ Se partió del [main fusionado 16734fa](https://github.com/AngelQuesadaJimenez/t
 | R07 | Cabeceras de alojamiento | Faltan garantías de seguridad y caché del frontend definitivo | Medio | El servidor local y el dominio antiguo tienen configuraciones diferentes de la futura vista previa | Verificar HSTS, CSP efectiva, frame-ancestors, Permissions-Policy con geolocalización por acción del usuario, tipos, caché y compresión en el host real | Inspección HTTPS del sitio actual y políticas HTML del candidato | Pendiente del alojamiento |
 | R08 | Rendimiento móvil | La carga móvil simulada supera 2,5 s | Medio | Conexión móvil simulada, bytes iniciales y retraso hasta presentar el Hero | Descubrir temprano el AVIF de tamaño correcto con prioridad alta. Mostrar la primera foto sin transición de entrada; medir con y sin compresión | Tabla Lighthouse y comprobación de una única descarga AVIF | Mitigado; persiste sobre el objetivo |
 | R09 | Cobertura de aceptación | Faltaba trazabilidad por recorrido, perfil y duración | Bajo | Los casos anteriores agrupaban varias acciones comerciales | Añadir A–F con aserciones de destino, contenido y registro JSON por prueba | Edge, Pixel 7 emulado y WebKit con iPhone 13 emulado | Corregido y probado |
+| R10 | Interacción móvil | Las sesiones sintéticas superaron 200 ms en la interacción más lenta | Medio | El cambio de idioma y las fichas actualizan una página hidratada extensa bajo CPU limitada | Registrar la distribución medida y comprobar en teléfono real y en el host definitivo | Máximos móviles de 208–304 ms; falta INP de campo | Observación abierta |
+
+## Resultados de ejecución
+
+| Control | Resultado observado | Evidencia |
+|---|---|---|
+| Instalación limpia, lint, TypeScript y build | Aprobados en Windows y Ubuntu. El export generó 17 páginas y endpoints estáticos. | [Calidad y build](https://github.com/AngelQuesadaJimenez/taller2/actions/runs/46030272707/job/140612000898) |
+| Pruebas unitarias | 9 de 9 en GitHub, 1,8 s. Formularios, codificación ES/EN, destinos, metadatos y decisiones de despliegue. | Mismo job de calidad y `tests/unit/` |
+| E2E, axe y capturas en CI | 90 de 90 en Chromium Linux en 7,9 min, con un worker. 38 casos de escritorio, 38 con perfil móvil y 14 visuales/responsive. | [Playwright](https://github.com/AngelQuesadaJimenez/taller2/actions/runs/46030272707/job/140612420077) |
+| Verificación local | Edge 158 en Windows aprobó los 76 casos funcionales de escritorio/móvil y los 14 de la matriz visual ampliada. Se ejecutaron aparte los seis recorridos y dos casos de modal en WebKit 27.2 para Windows con perfil iPhone 13. | [Seis recorridos simulados](#aceptación-comercial) |
+| Comparaciones | Las seis referencias Linux versionadas (cabecera y modal a 375, 768 y 1440 px) pasaron con el umbral existente. Se conservaron todas las referencias. Las vistas restantes tienen evidencia visual y aserciones de comportamiento. | [Informe HTML con capturas](https://github.com/AngelQuesadaJimenez/taller2/actions/runs/46030272707/artifacts/15214348303) |
+| Despliegue | Job Wix omitido por diseño en PR. La prueba de humo local verificó contenido ES/EN, contacto y tipos de CSS/JS. | [Export del candidato](https://github.com/AngelQuesadaJimenez/taller2/actions/runs/46030272707/artifacts/15213093969) · [Checks de la última revisión del PR](https://github.com/AngelQuesadaJimenez/taller2/pull/7/checks) |
+
+Los enlaces a los artefactos de GitHub tienen retención de siete días y pueden requerir iniciar sesión. La evidencia seleccionada en este documento está versionada.
+
+## Responsive y revisión de la interfaz
+
+| Anchos probados | Acciones verificadas en cada ancho | Resultado |
+|---|---|---|
+| 320, 360, 375, 390 y 428 px | Abrir el selector de idioma y recorrerlo, cerrar con Escape, abrir una ficha, escribir la placa, confirmar visibilidad completa del CTA y recuperar el foco | 5 de 5. Ancho del documento igual al viewport y sin exceso horizontal en las ocho zonas medidas. |
+| 768 y 1024 px | Mismas acciones con controles y distribución de tablet; inspección de navegación, mapa y pie | 2 de 2. Sin cortes del menú ni del diálogo en las comprobaciones. |
+| 1280, 1440 y 1920 px | Mismas acciones con menú extendido, tarjetas, cinco pagos y formulario | 3 de 3. CTA visible y foco restaurado. |
+
+A 320, 390 y 428 px también se redujo la altura del viewport de 820 a 370 px mientras la placa tenía foco. El límite inferior del campo quedó en 282 px, el área desplazable llegó a 290 px y el botón terminó en 357 px en los tres casos. Es una simulación del espacio disponible cuando aparece el teclado móvil.
+
+Se revisaron 40 capturas de portada, servicios, catálogo, proceso, reparaciones, pagos, mapa, contacto, pie y modal de repuesto. Las cuatro láminas muestran la navegación fija, las superficies Glass, la fotografía y la burbuja en contexto. El mapa de estas láminas usa teselas locales deterministas. Las fotografías de cartografía real se enlazan en el apartado de mapa.
+
+[Móvil claro](evidencia-release/secciones-390-light.webp) · [Móvil oscuro](evidencia-release/secciones-390-dark.webp) · [Escritorio claro](evidencia-release/secciones-1440-light.webp) · [Escritorio oscuro](evidencia-release/secciones-1440-dark.webp)
 
 ## Aceptación comercial
 
@@ -81,6 +109,8 @@ Lighthouse 12.8.2 en Chrome 158. Una carga fría por fila con perfil móvil o es
 | Escritorio candidato, Brotli | 100 | 0,69 s | 0,00053 | 0 ms | 168 KiB | 379 KiB |
 
 La foto prioritaria llegó en una única petición AVIF de ~10,2 kB. Las fuentes WOFF2 son propias del bundle y usan intercambio de fuente. La principal oportunidad restante en la simulación móvil es el intervalo hasta la presentación del Hero. La diferencia de centésimas entre antes y después no demuestra por sí sola una mejora sostenida. Falta el percentil 75 de usuarios reales para LCP, CLS e INP del nuevo sitio. [Criterios de Web Vitals](https://web.dev/articles/vitals)
+
+**Interacción y disponibilidad del formulario.** En seis sesiones de Edge se midieron eventos reales de puntero y teclado (idioma, apertura de servicio, pestaña, identificación y Escape). Usando Event Timing, los máximos por sesión fueron **304, 216 y 208 ms** en móvil con CPU ×4, y **56, 40 y 40 ms** en escritorio. Las medianas de esos máximos fueron 216 y 40 ms. El formulario inicial se habilitó en 0,98–1,14 s en móvil y 0,21 s en escritorio. Esta señal mide el instante utilizable del formulario; no representa la hidratación de toda la aplicación. La muestra móvil sobrepasa los 200 ms de referencia y debe repetirse en un dispositivo real y en Wix. [Datos de laboratorio](evidencia-release/rendimiento-lab.json)
 
 ## Evidencia visual y accesibilidad
 
