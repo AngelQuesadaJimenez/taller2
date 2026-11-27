@@ -1,0 +1,129 @@
+{
+  "nota": "Medianas de tres contextos fríos por perfil. Edge headless, GPU NVIDIA GeForce RTX 3060 Ti, escritorio 1440x900. Móvil emulado 390x844 DPR 1, 120 ms latencia, 4 Mbps descarga y 1 Mbps subida, CPU ×4 en hilo principal. Ortofoto y vectores interceptados con fixtures locales. Medidor requestAnimationFrame durante ancla, ficha, controles de formulario, Escape y proceso; luego giro y zoom del mapa. FPS rAF representa la cadencia observada, no cuadros efectivamente presentados al panel. Event Timing máximo por sesión es proxy de interacción. CLS máximo por ventana de sesión. TaskDuration/tiempo de etapa expresa ocupación de tareas del hilo principal, no uso global de CPU. JS por encodedDataLength en el target de la página en servidor estático HTTP/1, sin compresión; trabajadores no incluidos.",
+  "perfiles": [
+    {
+      "fase": "antes-gpu",
+      "perfil": "escritorio",
+      "recorrido": {
+        "meanRafFps": 142.97,
+        "p95FrameMs": 7,
+        "rafGapsOver50ms": 0,
+        "longTasks": 0,
+        "rendererMainTaskPercent": 18.08,
+        "scriptMs": 40.49,
+        "layoutMs": 5.07,
+        "styleMs": 109.23
+      },
+      "camara": {
+        "meanRafFps": 144.01,
+        "p95FrameMs": 7,
+        "rafGapsOver50ms": 0,
+        "longTasks": 0,
+        "rendererMainTaskPercent": 20.97,
+        "scriptMs": 162.84,
+        "layoutMs": 0,
+        "styleMs": 12.03
+      },
+      "CLS": 0.000471,
+      "maxInteraccionMs": 40,
+      "JSInicialB": 593443,
+      "JSTotalB": 1670937,
+      "mapaListoMs": 858,
+      "desbordamientoMaxPx": 0,
+      "errores": []
+    },
+    {
+      "fase": "antes-gpu",
+      "perfil": "movil",
+      "recorrido": {
+        "meanRafFps": 121.92,
+        "p95FrameMs": 13.9,
+        "rafGapsOver50ms": 2,
+        "longTasks": 2,
+        "rendererMainTaskPercent": 68.62,
+        "scriptMs": 215.08,
+        "layoutMs": 26.58,
+        "styleMs": 589.72
+      },
+      "camara": {
+        "meanRafFps": 126.66,
+        "p95FrameMs": 13.9,
+        "rafGapsOver50ms": 0,
+        "longTasks": 0,
+        "rendererMainTaskPercent": 61.19,
+        "scriptMs": 520.21,
+        "layoutMs": 0,
+        "styleMs": 40.16
+      },
+      "CLS": 0.000599,
+      "maxInteraccionMs": 200,
+      "JSInicialB": 593443,
+      "JSTotalB": 1670937,
+      "mapaListoMs": 5964,
+      "desbordamientoMaxPx": 0,
+      "errores": []
+    },
+    {
+      "fase": "final-gpu",
+      "perfil": "escritorio",
+      "recorrido": {
+        "meanRafFps": 142.95,
+        "p95FrameMs": 7,
+        "rafGapsOver50ms": 0,
+        "longTasks": 0,
+        "rendererMainTaskPercent": 20.79,
+        "scriptMs": 41.35,
+        "layoutMs": 9.22,
+        "styleMs": 131.59
+      },
+      "camara": {
+        "meanRafFps": 144.02,
+        "p95FrameMs": 7,
+        "rafGapsOver50ms": 0,
+        "longTasks": 0,
+        "rendererMainTaskPercent": 23.97,
+        "scriptMs": 183.85,
+        "layoutMs": 0,
+        "styleMs": 17.32
+      },
+      "CLS": 0.000471,
+      "maxInteraccionMs": 40,
+      "JSInicialB": 593954,
+      "JSTotalB": 1671542,
+      "mapaListoMs": 858,
+      "desbordamientoMaxPx": 0,
+      "errores": []
+    },
+    {
+      "fase": "final-gpu",
+      "perfil": "movil",
+      "recorrido": {
+        "meanRafFps": 115.38,
+        "p95FrameMs": 14,
+        "rafGapsOver50ms": 2,
+        "longTasks": 2,
+        "rendererMainTaskPercent": 77.21,
+        "scriptMs": 219.63,
+        "layoutMs": 45.6,
+        "styleMs": 665.81
+      },
+      "camara": {
+        "meanRafFps": 122.35,
+        "p95FrameMs": 13.9,
+        "rafGapsOver50ms": 0,
+        "longTasks": 0,
+        "rendererMainTaskPercent": 62.56,
+        "scriptMs": 568.2,
+        "layoutMs": 1.21,
+        "styleMs": 52.64
+      },
+      "CLS": 0.000599,
+      "maxInteraccionMs": 208,
+      "JSInicialB": 593954,
+      "JSTotalB": 1671542,
+      "mapaListoMs": 6004,
+      "desbordamientoMaxPx": 0,
+      "errores": []
+    }
+  ]
+}
