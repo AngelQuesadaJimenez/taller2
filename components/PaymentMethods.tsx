@@ -23,7 +23,7 @@ export function PaymentMethods() {
         {business.payments.methods.map((method) => {
           const { name, description } = copy.methods[method.id];
           return (
-            <li key={method.id}>
+            <li key={method.id} data-reveal="item">
               <GlassCard className="payment-card" variant="subtle" title={name}
                 description={"months" in method ? description.replace("{months}", String(method.months)) : description}
                 icon={

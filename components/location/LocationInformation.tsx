@@ -13,7 +13,7 @@ export function LocationInformation() {
   return (
     <>
       <div className="location-primary">
-        <div className="location-detail">
+        <div className="location-detail" data-reveal="item">
           <AppIcon icon={MapPin} />
           <div>
             <h3>{business.name}</h3>

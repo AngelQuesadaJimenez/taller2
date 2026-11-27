@@ -35,7 +35,7 @@ export function Catalog({ onSelect }: { onSelect: (product: CatalogProduct, trig
           </div>
           <GlassButton href="#despiece" variant="outline">{t.breakdown.title}</GlassButton>
         </div>
-        <div className="catalog-grid" id="catalogo-resultados">
+        <div className="catalog-grid" id="catalogo-resultados" data-reveal="group">
           {products.map((product) => {
             const title = t.catalog.titles[product.id];
             const { asset, angle } = product.images[0];

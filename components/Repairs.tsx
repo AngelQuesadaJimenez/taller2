@@ -45,7 +45,7 @@ export function Repairs() {
   return (
     <GlassSection id="reparaciones" className="wrap repair-gallery" aria-labelledby="reparaciones-titulo">
       <SectionHeading id="reparaciones-titulo" title={copy.repairs} description={copy.repairGallery} />
-      <div className="repair-cases" data-reveal="">
+      <div className="repair-cases" data-reveal="group">
         {repairs.filter(({ featured }) => featured).map((item) => <RepairComparison key={item.id} item={item} />)}
       </div>
       <details className="repair-more">

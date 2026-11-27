@@ -22,7 +22,7 @@ export function CommercialServices() {
       <GlassSection id="servicios" className="wrap" aria-labelledby="servicios-titulo">
         <SectionHeading id="servicios-titulo" {...copy.services} />
         <p className="service-scope">{t.serviceDetail.scope}</p>
-        <div className="services-grid" data-reveal="">
+        <div className="services-grid" data-reveal="group">
           {services.map((service) => (
             <GlassCard key={service.id} id={service.id} className="service-card"
               title={t.parts[service.component].plural} description={t.parts[service.component].description}

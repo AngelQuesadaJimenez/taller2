@@ -18,11 +18,11 @@ export function Footer({ copyrightYear }: { copyrightYear: number }) {
     <footer className="site-footer">
       <div className="wrap">
         <div className="footer-grid">
-          <div className="footer-identity">
+          <div className="footer-identity" data-reveal="item">
             <a href="#inicio" className="footer-brand"><BrandLogo size="large" name={business.tradeName} /></a>
             <p>{footer.description}</p>
           </div>
-          <nav className="footer-column" aria-labelledby="footer-links-title">
+          <nav className="footer-column" data-reveal="item" aria-labelledby="footer-links-title">
             <h2 id="footer-links-title">{footer.links}</h2>
             <ul className="footer-list">
               {navigation.map(({ id }) => <li key={id}><a href={"#" + id}>{t.nav.labels[id]}</a></li>)}
@@ -30,7 +30,7 @@ export function Footer({ copyrightYear }: { copyrightYear: number }) {
               <li><a href="#pagos">{t.payments.title}</a></li>
             </ul>
           </nav>
-          <section className="footer-column" aria-labelledby="footer-contact-title">
+          <section className="footer-column" data-reveal="item" aria-labelledby="footer-contact-title">
             <h2 id="footer-contact-title">{t.nav.labels.contacto}</h2>
             <ul className="footer-list">
               <li><a href={"tel:" + business.voice.mobile.tel} aria-label={common.call + " " + business.voice.mobile.display}>
@@ -52,7 +52,7 @@ export function Footer({ copyrightYear }: { copyrightYear: number }) {
               ))}
             </div>
           </section>
-          <section className="footer-column" aria-labelledby="footer-location-title">
+          <section className="footer-column" data-reveal="item" aria-labelledby="footer-location-title">
             <h2 id="footer-location-title">{t.nav.labels.ubicacion}</h2>
             <address className="footer-address"><AppIcon icon={MapPin} size="small" />{businessLocation.address}</address>
             <h3>{footer.hours}</h3>

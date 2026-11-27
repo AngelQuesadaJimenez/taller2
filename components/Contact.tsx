@@ -39,7 +39,7 @@ export function Contact() {
       <div className="wrap contact-layout">
         <div>
           <SectionHeading id="contacto-titulo" {...t.home.contact} />
-          <div className="contact-phones">
+          <div className="contact-phones" data-reveal="group">
             {[business.whatsapp, business.whatsappSecondary].map(({ number, display }) => (
               <ContactMethod key={number} href={waLink(undefined, locale, number)} newTab label="WhatsApp" number={display}
                 icon={<BrandIcon brand="whatsapp" />} />

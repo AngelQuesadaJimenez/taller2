@@ -16,10 +16,30 @@ html:has(.service-dialog[open]) { overflow: hidden; }
 .service-dialog::backdrop {
   background: color-mix(in srgb, var(--dialog-scrim) 73%, transparent);
 }
-.service-dialog[open] { animation: dialog-enter var(--duration-menu) var(--easing) both; }
-@keyframes dialog-enter {
-  from { opacity: 0; transform: translateY(.4rem); }
-  to { opacity: 1; transform: translateY(0); }
+@media (prefers-reduced-motion: no-preference) {
+  .service-dialog[open] {
+    --dialog-from: scale(.975);
+    opacity: 1;
+    transform: none;
+    transition: opacity var(--duration-modal) var(--easing), transform var(--duration-modal) var(--easing);
+  }
+  .service-dialog[open]::backdrop {
+    opacity: 1;
+    transition: opacity var(--duration-modal) var(--easing);
+  }
+  .service-dialog[open][data-closing] {
+    opacity: 0;
+    transform: var(--dialog-from);
+    transition-duration: var(--duration-exit);
+  }
+  .service-dialog[open][data-closing]::backdrop {
+    opacity: 0;
+    transition-duration: var(--duration-exit);
+  }
+  @starting-style {
+    .service-dialog[open] { opacity: 0; transform: var(--dialog-from); }
+    .service-dialog[open]::backdrop { opacity: 0; }
+  }
 }
 
 .glass-panel.service-dialog-frame {
@@ -182,7 +202,9 @@ html:has(.service-dialog[open]) { overflow: hidden; }
 }
 @media (prefers-reduced-motion: no-preference) {
   .vehicle-mode, .vehicle-mode svg { transition: background-color var(--duration) var(--easing), transform var(--duration) var(--easing); }
-  .vehicle-mode-fields:not([hidden]) { animation: vehicle-fields-enter var(--duration) var(--easing) both; }
+  .vehicle-mode-fields:not([hidden]), .service-tab-panel:not([hidden]) .service-detail-intro {
+    animation: vehicle-fields-enter var(--duration-hover) var(--easing) backwards;
+  }
 }
 @keyframes vehicle-fields-enter {
   from { opacity: .7; transform: translateY(.2rem); }
@@ -198,6 +220,7 @@ html:has(.service-dialog[open]) { overflow: hidden; }
 }
 
 @screen mobile {
+  .service-dialog[open] { --dialog-from: translateY(min(3rem, 12%)); }
   .service-dialog {
     --dialog-max-block: min(48rem, calc(var(--dialog-visible-height, 100dvh) - max(var(--safe-top), var(--space-2))));
     inset: auto 0 var(--dialog-visible-bottom, 0px);
@@ -214,8 +237,4 @@ html:has(.service-dialog[open]) { overflow: hidden; }
 @screen compact {
   .service-detail-intro { grid-template-columns: minmax(0, .43fr) minmax(0, 1fr); }
   .service-inquiry .service-disclosure > .fields { grid-template-columns: minmax(0, 1fr); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .service-dialog[open] { animation: none; }
 }

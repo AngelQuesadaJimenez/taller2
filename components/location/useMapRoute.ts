@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState, type RefObject } from "react"
 import type { GeoJSONSource, Map } from "maplibre-gl";
 import { businessLocation } from "@/data/business.config";
 import { lngLat, mapConfig } from "@/data/map.config";
+import { minimizeMapMotion } from "./useMapCamera";
 
 type Position = [number, number];
 type RouteState = "idle" | "playing" | "paused" | "complete";
@@ -70,7 +71,7 @@ export function useMapRoute(instance: RefObject<Map | null>, onFinish: () => voi
       if (!routeAvailable) return;
       cancel();
       if (restart || progress.current >= 1) progress.current = 0;
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      if (minimizeMapMotion()) {
         paint(positions);
         setState("complete");
         onFinish();

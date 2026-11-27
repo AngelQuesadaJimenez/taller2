@@ -127,10 +127,17 @@
   --icon-large: 1.375rem;
   --icon-box: 2.75rem;
 
-  --duration: 170ms;
-  --duration-menu: 220ms;
-  --duration-reveal: 340ms;
-  --delay-reveal: 55ms;
+  --duration-micro: 140ms;
+  --duration-hover: 180ms;
+  --duration-menu: 200ms;
+  --duration-modal: 250ms;
+  --duration-exit: 150ms;
+  --duration-reveal: 400ms;
+  --duration: var(--duration-hover);
+  --delay-reveal: 45ms;
+  --motion-enter: .45rem;
+  --motion-lift: -.25rem;
+  --motion-press: .988;
   --motion-shift: .25rem;
   --easing: cubic-bezier(.22, .65, .33, 1);
   --z-local-overlay: 1;
