@@ -4,6 +4,7 @@ import { messages } from "../i18n/messages";
 
 for (const locale of locales) {
   test(`despiece y formas de pago en ${locale}`, async ({ page, isMobile }) => {
+    test.setTimeout(60000);
     const t = messages[locale];
     await page.emulateMedia({ reducedMotion: "reduce", colorScheme: locale === "es" ? "light" : "dark" });
     if (isMobile) await page.setViewportSize({ width: 320, height: 740 });
@@ -15,6 +16,7 @@ for (const locale of locales) {
     });
     const readUrl = async () => new URL((await page.locator("html").getAttribute("data-part-inquiry"))!);
     await page.goto("/" + locale + "/#repuestos");
+    await expect(page.locator('#contacto button[type="submit"]')).toBeEnabled();
     await page.getByRole("link", { name: t.breakdown.title, exact: true }).click();
     await expect(page).toHaveURL(/#despiece$/);
     const breakdown = page.getByRole("region", { name: t.breakdown.title, exact: true });
@@ -117,8 +119,24 @@ for (const locale of locales) {
     await expect(payments.getByText(t.payments.methods.bac.description.replace("{months}", "3"))).toBeVisible();
     const markHeights = await payments.locator(".payment-mark").evaluateAll((marks) => marks.map((mark) => mark.getBoundingClientRect().height));
     expect(new Set(markHeights).size).toBe(1);
-    const logo = payments.locator(".payment-brand-logo img:visible");
-    await expect(logo).toHaveCount(1);
+    const logos = payments.locator(".payment-brand-logo img:visible");
+    await expect(logos).toHaveCount(2);
+    const bac = payments.getByRole("article").filter({
+      has: page.getByRole("heading", { name: t.payments.methods.bac.name, exact: true }),
+    });
+    const bacLogo = bac.locator(".payment-brand-logo img:visible");
+    await bacLogo.scrollIntoViewIfNeeded();
+    await expect(bacLogo).toHaveAttribute("src", locale === "es" ? "/brands/bac-rojo.svg" : "/brands/bac.svg");
+    await expect(bacLogo).toHaveCSS("object-fit", "contain");
+    await expect.poll(() => bacLogo.evaluate(async (img: HTMLImageElement) => {
+      await img.decode();
+      return [img.naturalWidth, img.naturalHeight];
+    })).toEqual([157, 42]);
+
+    const sinpe = payments.getByRole("article").filter({
+      has: page.getByRole("heading", { name: t.payments.methods.sinpe.name, exact: true }),
+    });
+    const logo = sinpe.locator(".payment-brand-logo img:visible");
     await logo.scrollIntoViewIfNeeded();
     await expect(logo).toHaveAttribute("src", locale === "es" ? "/brands/sinpe-movil.png" : "/brands/sinpe-movil-invertido.png");
     await expect(logo).toHaveCSS("object-fit", "contain");

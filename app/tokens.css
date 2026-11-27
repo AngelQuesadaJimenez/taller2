@@ -7,8 +7,8 @@
   --surface-elevated: light-dark(#FFFFFF, #202D3A);
   --background-secondary: var(--surface);
   --text: light-dark(#17212E, #F5F7FA);
-  --text-soft: light-dark(#17212E, #C8D0DA);
-  --muted: light-dark(#5D6875, #9AA7B5);
+  --muted: light-dark(#475569, #A6B3C2);
+  --text-soft: light-dark(var(--muted), #C8D0DA);
   --border: color-mix(in srgb, var(--text) 18%, var(--surface));
   --field-border: light-dark(#687482, #84909D);
   --field-fill: var(--surface-elevated);
@@ -129,8 +129,11 @@
 
   --duration: 170ms;
   --duration-menu: 220ms;
+  --duration-reveal: 340ms;
+  --delay-reveal: 55ms;
   --motion-shift: .25rem;
   --easing: cubic-bezier(.22, .65, .33, 1);
+  --z-local-overlay: 1;
   --z-map-overlay: 500;
   --z-map-fallback: 1000;
   --z-header: 20;

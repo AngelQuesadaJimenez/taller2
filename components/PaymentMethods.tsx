@@ -30,7 +30,7 @@ export function PaymentMethods() {
                   <div className="payment-mark" aria-hidden="true">
                     {"icon" in method
                       ? <AppIcon icon={paymentIcons[method.icon]} size="large" />
-                      : method.brand && <PaymentBrandLogo images={method.brand} />}
+                      : <PaymentBrandLogo images={method.brand} />}
                   </div>
                 } />
             </li>

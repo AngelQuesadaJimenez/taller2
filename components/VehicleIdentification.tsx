@@ -7,9 +7,7 @@ import { AppIcon } from "@/components/ui/AppIcon";
 
 const modes = ["plate", "details"] as const;
 
-export function VehicleIdentification({ yearValidation }: {
-  yearValidation?: { "aria-invalid"?: boolean; "aria-describedby"?: string };
-}) {
+export function VehicleIdentification({ yearErrorId }: { yearErrorId?: string }) {
   const { t } = usePreferences();
   const copy = t.vehicleIdentification;
   const group = useId();
@@ -32,7 +30,7 @@ export function VehicleIdentification({ yearValidation }: {
         <div className="fields"><VehiclePlateField /></div>
       </fieldset>
       <fieldset id={group + "-details"} className="vehicle-mode-fields" hidden={mode !== "details"} disabled={mode !== "details"}>
-        <div className="fields vehicle-details-fields"><VehicleDetailsFields yearValidation={yearValidation} /></div>
+        <div className="fields vehicle-details-fields"><VehicleDetailsFields yearErrorId={yearErrorId} /></div>
       </fieldset>
     </fieldset>
   );

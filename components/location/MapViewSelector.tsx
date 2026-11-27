@@ -18,7 +18,7 @@ export function MapViewSelector({ view, onChange, available }: {
       {mapViews.map((id) => {
         const Icon = icons[id];
         return (
-          <Button key={id} variant="glass" className="map-view-option" disabled={!available}
+          <Button key={id} variant="glass" size="small" className="map-view-option" disabled={!available}
             aria-pressed={available && id === view} onClick={() => onChange(id)}>
             <AppIcon icon={Icon} /> {t.views[id]}
           </Button>

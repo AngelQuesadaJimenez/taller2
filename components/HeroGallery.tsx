@@ -65,12 +65,12 @@ export function HeroGallery() {
           <span>{view} · {index + 1}/{heroPhotos.length}</span>
         </span>
         <span className="hero-gallery-controls">
-          <GlassButton variant="glass" aria-label={rotationLabel} title={rotationLabel} data-rotation-control
+          <GlassButton variant="glass" size="icon" aria-label={rotationLabel} title={rotationLabel} data-rotation-control
             onClick={() => setRotation(!rotating)}><AppIcon icon={rotating ? Pause : Play} /></GlassButton>
-          <GlassButton variant="glass" aria-label={copy.previous} title={copy.previous} onClick={() => changePhoto(-1)}>
+          <GlassButton variant="glass" size="icon" aria-label={copy.previous} title={copy.previous} onClick={() => changePhoto(-1)}>
             <AppIcon icon={ChevronLeft} />
           </GlassButton>
-          <GlassButton variant="glass" aria-label={copy.next} title={copy.next} onClick={() => changePhoto(1)}>
+          <GlassButton variant="glass" size="icon" aria-label={copy.next} title={copy.next} onClick={() => changePhoto(1)}>
             <AppIcon icon={ChevronRight} />
           </GlassButton>
         </span>

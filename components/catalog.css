@@ -13,9 +13,18 @@
 .glass-panel.catalog-card {
   --panel-background: var(--glass-elevated);
   --panel-fallback: var(--surface-elevated);
+  position: relative;
   display: flex;
   flex-direction: column;
-  border-radius: 1.25rem;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .glass-panel.catalog-card {
+    transition: transform var(--duration-menu) var(--easing), border-color var(--duration) var(--easing), box-shadow var(--duration) var(--easing);
+  }
+  @media (hover: hover) {
+    .glass-panel.catalog-card:hover:not(:active) { transform: translateY(calc(-1 * var(--space-05))); }
+  }
+  .glass-panel.catalog-card:active { transform: translateY(1px); }
 }
 .catalog-card .glass-card-copy { flex: 1; gap: var(--space-05); }
 .catalog-photo { aspect-ratio: 4 / 3; background: var(--photo-background); }
@@ -27,7 +36,7 @@
 .product-detail--zoomed { grid-template-columns: minmax(0, 1fr); }
 .product-gallery { min-width: 0; }
 .product-gallery-photo { position: relative; max-inline-size: 30rem; border-radius: var(--radius-medium); overflow: hidden; }
-.product-zoom { position: absolute; inset: auto var(--space-1) var(--space-1) auto; min-inline-size: var(--control-height); padding: 0; }
+.product-zoom { position: absolute; inset: auto var(--space-1) var(--space-1) auto; }
 .product-thumbnails { display: flex; gap: var(--space-1); flex-wrap: wrap; margin-block-start: var(--space-1); }
 .product-thumbnails .button { flex: 0 1 4.5rem; padding: var(--space-05); overflow: hidden; }
 .product-thumbnails .photo-frame { overflow: hidden; border-radius: calc(var(--radius-small) / 2); }

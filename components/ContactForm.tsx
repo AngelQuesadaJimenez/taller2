@@ -31,6 +31,7 @@ export function ContactForm({ context, formId }: ContactFormProps) {
   const errorId = id + "-error";
   const [prepared, setPrepared] = useState<ReturnType<typeof readConsultation>>(null);
   const [error, setError] = useState<ValidationError | null>(null);
+  const yearErrorId = error === "invalidYear" ? errorId : undefined;
   const messageUrl = prepared && (!service || prepared.intent === service.intent) ? waLink(prepared, locale) : null;
   const repair = service?.intent === "reparacion";
 
@@ -89,7 +90,7 @@ export function ContactForm({ context, formId }: ContactFormProps) {
           <VehiclePlateField />
         </>
       )}
-      {!context && <VehicleDetailsFields yearValidation={validationProps("invalidYear")} />}
+      {!context && <VehicleDetailsFields yearErrorId={yearErrorId} />}
       {service && (
         <label>{detail.engine}
           <input name="engine" placeholder={detail.engineExample} maxLength={80} />
@@ -115,7 +116,7 @@ export function ContactForm({ context, formId }: ContactFormProps) {
             <summary>{detail.addDetails}</summary>
             {fields}
           </details>
-          <VehicleIdentification yearValidation={validationProps("invalidYear")} />
+          <VehicleIdentification yearErrorId={yearErrorId} />
         </>
       ) : (
         <>
@@ -129,7 +130,7 @@ export function ContactForm({ context, formId }: ContactFormProps) {
           <Button type="submit" variant="whatsapp" disabled={!interactive}><BrandIcon brand="whatsappFilled" /> {copy.submit}</Button>
         </>
       )}
-      {error && <p role="alert" id={errorId} className="form-error">{copy[error]}</p>}
+      {error && !yearErrorId && <p role="alert" id={errorId} className="form-error">{copy[error]}</p>}
       {messageUrl && (
         <p role="status" className="form-feedback">
           <AppIcon icon={CheckCircle2} />

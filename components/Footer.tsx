@@ -44,7 +44,7 @@ export function Footer({ copyrightYear }: { copyrightYear: number }) {
             </WhatsAppCTA>
             <div className="footer-socials">
               {business.socials.map(({ brand, label, url }) => (
-                <GlassButton key={brand} href={url} target="_blank" rel="noopener noreferrer" variant="glass"
+                <GlassButton key={brand} href={url} target="_blank" rel="noopener noreferrer" variant="glass" size="icon"
                   aria-label={label + " " + common.socialSuffix} title={label}>
                   <BrandIcon brand={brand} />
                 </GlassButton>

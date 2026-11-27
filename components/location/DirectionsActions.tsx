@@ -57,7 +57,7 @@ export function DirectionsActions() {
           <BrandIcon brand="googleMaps" /> Google Maps
         </Button>}
       </div>
-      <Button onClick={locate} disabled={pending} variant="ghost">
+      <Button onClick={locate} loading={pending} variant="ghost">
         <AppIcon icon={pending ? LoaderCircle : LocateFixed} className={pending ? "is-loading" : ""} />
         {pending ? copy.pending : copy.fromHere}
       </Button>

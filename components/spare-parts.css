@@ -72,7 +72,6 @@
 .part-availability svg { flex: none; }
 
 @media (hover: hover) {
-  .glass-panel.part-card:hover { border-color: var(--accent); box-shadow: var(--shadow-elevated); }
   .part-card:hover .part-availability { text-decoration: underline; text-underline-offset: .23em; }
 }
 
