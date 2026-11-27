@@ -55,7 +55,8 @@ test("portada responsive, imágenes, navegación y carga diferida", async ({ pag
   await expect(header.locator(".header-whatsapp img")).toHaveAttribute("src", "/brands/whatsapp.webp");
   const footer = page.getByRole("contentinfo");
   const footerNav = footer.getByRole("navigation", { name: messages.es.footer.links });
-  await expect(footerNav.getByRole("link")).toHaveCount(navigation.length + 1);
+  await expect(footerNav.getByRole("link")).toHaveCount(navigation.length + 2);
+  await expect(footerNav.getByRole("link", { name: messages.es.payments.title, exact: true })).toHaveAttribute("href", "#pagos");
   await expect(footerNav.getByRole("link", { name: messages.es.footer.repairs, exact: true })).toHaveAttribute("href", "#reparaciones");
   for (const { id } of navigation) {
     await expect(footerNav.getByRole("link", { name: messages.es.nav.labels[id], exact: true })).toHaveAttribute("href", "#" + id);

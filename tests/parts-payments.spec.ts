@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import { sparePartGroups, type SparePart } from "../data/services.config";
 import { locales } from "../i18n/config";
 import { messages } from "../i18n/messages";
 
@@ -22,11 +23,21 @@ for (const locale of locales) {
     const breakdown = page.getByRole("region", { name: t.breakdown.title, exact: true });
     await expect(breakdown.getByRole("button")).toHaveCount(9);
     await expect(breakdown.locator(".part-card-number")).toHaveText(["01", "02", "03", "04", "05", "06", "07", "08", "09"]);
-    for (const [index, item] of Object.values(t.breakdown.items).entries()) {
+    const configuredParts: SparePart[] = sparePartGroups.flatMap(({ parts }) => [...parts] as SparePart[]);
+    for (const [index, [id, item]] of Object.entries(t.breakdown.items).entries()) {
       const trigger = breakdown.getByRole("button", { name: t.catalog.availability + " · " + item.name, exact: true });
       const card = breakdown.getByRole("article").filter({
         has: page.getByRole("heading", { name: item.name, exact: true }),
       });
+      const part = configuredParts.find((entry) => entry.id === id);
+      if (!part) throw new Error("Missing catalog entry for " + id);
+      const visual = card.locator(".part-card-visual");
+      if (part.photo) {
+        await expect(visual.getByRole("img", { name: item.name })).toHaveAttribute("src", part.photo.src);
+      } else {
+        await expect(visual.locator("img")).toHaveCount(0);
+        await expect(visual.locator("svg")).toBeVisible();
+      }
       if (index === 0) {
         const body = card.getByText(item.description);
         await body.scrollIntoViewIfNeeded();

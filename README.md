@@ -28,16 +28,17 @@ Los datos comerciales y el WhatsApp **8939-1999** se gestionan en [data/business
 2. Publicá la rama y abrí un PR a `main`. Usá la plantilla para explicar cómo probarlo y adjuntar comparaciones visuales.
 3. Revisá **Calidad y build** y **Playwright**. Resuelve las conversaciones y fusioná por squash cuando el cambio esté aprobado.
 
-**Calidad y build** ejecuta `npm ci`, lint, TypeScript y el export estático. **Playwright** prueba ese mismo artefacto en Chromium, con escritorio, móvil y comprobaciones de 320, 375, 390, 768, 1024 y 1440 px. Las comparaciones visuales versionadas usan 375, 768 y 1440 px. Las teselas de prueba son locales y los enlaces de WhatsApp se verifican sin enviar mensajes. Axe cubre contraste y accesibilidad en los flujos de prueba. La validación manual sigue siendo necesaria para una auditoría WCAG completa.
+**Calidad y build** ejecuta `npm ci`, lint, TypeScript, pruebas unitarias, auditoría npm con umbral crítico y el export estático. **Playwright** prueba ese mismo artefacto en Chromium, con escritorio, móvil y comprobaciones de 320, 360, 375, 390, 428, 768, 1024, 1280, 1440 y 1920 px. Las comparaciones visuales versionadas usan 375, 768 y 1440 px. El informe HTML adjunta capturas de las secciones y el modal en claro y oscuro a 390 y 1440 px. Consultá la [auditoría de entrega](docs/QA_RELEASE_FINAL.md). Las teselas de prueba son locales y los enlaces de WhatsApp se verifican sin enviar mensajes. Axe cubre contraste y accesibilidad en los flujos de prueba. La validación manual sigue siendo necesaria para una auditoría WCAG completa.
 
 ```sh
 npm run lint
 npm run typecheck
+npm run test:unit
 npx playwright install chromium
 npm test
 ```
 
-Para ejecutar las pruebas contra el export, definí `PLAYWRIGHT_BASE_URL=http://127.0.0.1:4317` con el servidor estático activo. Las comparaciones de píxeles usan Ubuntu 24.04 y el Chromium del lockfile. Aprobá el diff en GitHub antes de regenerar una referencia con `npx playwright test --project=visual --update-snapshots=changed` en ese entorno. Los PR comparan los PNG versionados y las fallas guardan informe HTML, capturas y trazas durante siete días.
+Para ejecutar las pruebas contra el export, definí `PLAYWRIGHT_BASE_URL=http://127.0.0.1:4317` con el servidor estático activo. Las comparaciones de píxeles usan Ubuntu 24.04 y el Chromium del lockfile. Aprobá el diff en GitHub antes de regenerar una referencia con `npx playwright test --project=visual --update-snapshots=changed` en ese entorno. Los PR comparan los PNG versionados y archivan el informe HTML durante siete días. Los fallos incluyen capturas y trazas.
 
 ## Wix y rollback
 
@@ -53,7 +54,7 @@ Cuando se haya validado la vista previa y autorizado el cambio público, complet
 | Secreto de `wix-production` | `WIX_API_KEY` con el acceso necesario al sitio |
 | Variable del repositorio | `WIX_DEPLOY_ENABLED=true` activa la publicación al actualizar `main` |
 
-El job **Producción en Wix** publica el artefacto validado por los dos checks. Comprueba el SHA público, la portada, las secciones, el enlace de contacto y los recursos CSS y JavaScript. Las publicaciones se serializan por entorno y se omite una revisión que ya esté publicada. [CLI de Wix](https://dev.wix.com/docs/go-headless/wix-managed-headless/other-frameworks/your-own-frontend/deploy-your-own-frontend-with-the-cli) · [Variables y secretos de entorno](https://docs.github.com/en/actions/how-tos/deploy/configure-and-manage-deployments/manage-environments)
+El job **Producción en Wix** publica el artefacto validado por los dos checks. Comprueba el SHA público, las portadas en español e inglés, sus secciones, el enlace de contacto y los recursos CSS y JavaScript. Solo un marcador HTTP 404 o un SHA válido distinto habilita una publicación autorizada. Una respuesta ambigua aborta el job. Las publicaciones se serializan por entorno y se omite una revisión que ya esté publicada. [CLI de Wix](https://dev.wix.com/docs/go-headless/wix-managed-headless/other-frameworks/your-own-frontend/deploy-your-own-frontend-with-the-cli) · [Variables y secretos de entorno](https://docs.github.com/en/actions/how-tos/deploy/configure-and-manage-deployments/manage-environments)
 
 Para **revertir una versión**, abrí un PR con `git revert <commit>` sobre una rama de corrección. Cuando se fusione, el pipeline validará y publicará el estado restaurado. Si necesitás revertir la transición completa hacia Headless, Wix permite **Switch back** en Headless Settings. Ese cambio restaura el frontend del Editor y elimina el frontend Headless, por lo que se reserva para esa reversión. [Reversión de Wix](https://support.wix.com/en/article/wix-headless-moving-your-site-to-a-custom-frontend#faqs)
 

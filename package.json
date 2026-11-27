@@ -8,6 +8,7 @@
     "build": "next build",
     "typecheck": "tsc --noEmit",
     "test": "playwright test",
+    "test:unit": "playwright test --config=playwright.unit.config.ts",
     "lint": "eslint .",
     "prebuild": "node scripts/prepare-map-worker.mjs",
     "predev": "node scripts/prepare-map-worker.mjs"

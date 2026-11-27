@@ -4,29 +4,38 @@ import { setTimeout } from "node:timers/promises";
 const base = new URL(process.env.SITE_SMOKE_URL ?? "http://127.0.0.1:4317");
 const revision = process.env.GITHUB_SHA;
 const revisionOnly = process.argv.includes("--revision-only");
+const gitSha = /^[0-9a-f]{40}$/;
 const configure = (pathname) => new URL(pathname, base);
 
+async function request(url) {
+  return fetch(url, { signal: AbortSignal.timeout(10000), cache: "no-store", redirect: "error" });
+}
+
 async function get(url) {
-  const response = await fetch(url, { signal: AbortSignal.timeout(10000), cache: "no-store" });
+  const response = await request(url);
   assert.ok(response.ok, `${url.pathname} respondió con HTTP ${response.status}`);
   return response;
 }
 
-async function checkRevision() {
-  if (!revision) return;
+async function revisionState() {
+  assert.ok(gitSha.test(revision ?? ""), "Falta un SHA de Git válido para comprobar la revisión.");
   const marker = configure("/release.txt");
   marker.searchParams.set("revision", revision);
-  assert.equal((await (await get(marker)).text()).trim(), revision, "La revisión publicada todavía no coincide.");
+  const response = await request(marker);
+  if (response.status === 404) return "missing";
+
+  assert.equal(response.status, 200, `El marcador respondió con HTTP ${response.status}.`);
+  const published = (await response.text()).trim();
+  assert.ok(gitSha.test(published), "El marcador publicado no contiene un SHA de Git válido.");
+  return published === revision ? "current" : "outdated";
 }
 
-async function smoke() {
-  await checkRevision();
-  if (revisionOnly) return;
-
-  const page = await get(configure("/es/"));
+async function smokePage(locale, lang) {
+  const page = await get(configure(`/${locale}/`));
   const html = await page.text();
+  assert.equal(html.match(/<html\b[^>]*\blang="([^"]+)"/i)?.[1], lang, `Idioma incorrecto en /${locale}/.`);
   for (const id of ["inicio", "servicios", "contacto"]) {
-    assert.ok(html.includes(`id="${id}"`), `Falta la sección ${id}.`);
+    assert.ok(html.includes(`id="${id}"`), `Falta la sección ${id} en /${locale}/.`);
   }
   assert.ok(html.includes("https://wa.me/50689391999?"), "Falta el enlace de contacto del taller.");
 
@@ -41,14 +50,19 @@ async function smoke() {
   }
 }
 
-const attempts = revision && !revisionOnly ? 12 : 1;
-for (let attempt = 1; attempt <= attempts; attempt++) {
-  try {
-    await smoke();
-    console.log(revisionOnly ? "Revisión publicada." : "Página, secciones, contacto y recursos verificados.");
-    break;
-  } catch (error) {
-    if (attempt === attempts) throw error;
-    await setTimeout(5000);
+if (revisionOnly) {
+  console.log(await revisionState());
+} else {
+  const attempts = revision ? 12 : 1;
+  for (let attempt = 1; attempt <= attempts; attempt++) {
+    try {
+      if (revision) assert.equal(await revisionState(), "current", "La revisión publicada todavía no coincide.");
+      await Promise.all([smokePage("es", "es-CR"), smokePage("en", "en-US")]);
+      console.log("Portadas ES/EN, secciones, contacto y recursos verificados.");
+      break;
+    } catch (error) {
+      if (attempt === attempts) throw error;
+      await setTimeout(5000);
+    }
   }
 }

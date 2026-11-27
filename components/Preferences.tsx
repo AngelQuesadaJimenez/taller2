@@ -3,7 +3,7 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import { business } from "@/data/business.config";
 import { languages, isLocale, isTheme, localizedPath, localeKey, themeKey, type Locale, type SitePage, type Theme } from "@/i18n/config";
-import { pageMetadata } from "@/i18n/metadata";
+import { businessSchema, pageMetadata } from "@/i18n/metadata";
 import { messages } from "@/i18n/messages";
 
 function readPreference(key: string) {
@@ -23,6 +23,8 @@ function updateLanguage(locale: Locale, page: SitePage) {
 
   const { title, description, imageAlt, path } = pageMetadata(locale, page);
   document.title = title;
+  const schema = document.getElementById("business-schema");
+  if (schema) schema.textContent = JSON.stringify(businessSchema(locale));
   const setMeta = (selector: string, value: string) => document.head.querySelector(selector)?.setAttribute("content", value);
   setMeta('meta[name="description"]', description);
   setMeta('meta[property="og:title"]', title);

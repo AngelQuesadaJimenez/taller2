@@ -30,6 +30,8 @@ jobs:
       - run: npm ci
       - run: npm run lint
       - run: npm run typecheck
+      - run: npm run test:unit
+      - run: npm audit --audit-level=critical
       - run: npm run build
       - name: Identificar el artefacto
         run: printf '%s\n' "$GITHUB_SHA" > out/release.txt
@@ -60,8 +62,8 @@ jobs:
           path: out/
       - run: npx --no-install playwright install --with-deps chromium
       - run: npm test -- --workers=1
-      - name: Guardar evidencia de fallos
-        if: failure()
+      - name: Guardar informe y evidencia de Playwright
+        if: ${{ !cancelled() }}
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: informe-playwright
@@ -107,10 +109,13 @@ jobs:
             exit 0
           fi
           node scripts/wix-config.mjs
-          if node scripts/smoke.mjs --revision-only; then
-            echo "Esta revisión ya está publicada."
-          else
-            npm exec --yes --package=@wix/cli@1.2.20 -- wix login --api-key "$WIX_API_KEY"
-            npm exec --yes --package=@wix/cli@1.2.20 -- wix release --comment "$GITHUB_SHA"
-          fi
+          deployment_state="$(node scripts/smoke.mjs --revision-only)"
+          case "$deployment_state" in
+            current) echo "Esta revisión ya está publicada." ;;
+            missing|outdated)
+              npm exec --yes --package=@wix/cli@1.2.20 -- wix login --api-key "$WIX_API_KEY"
+              npm exec --yes --package=@wix/cli@1.2.20 -- wix release --comment "$GITHUB_SHA"
+              ;;
+            *) echo "No se pudo determinar la revisión publicada." >&2; exit 1 ;;
+          esac
           node scripts/smoke.mjs
