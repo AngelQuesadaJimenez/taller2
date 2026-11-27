@@ -16,19 +16,22 @@ export function cameraAngle(view: MapView): CameraOptions {
 
 export function useMapCamera(instance: RefObject<Map | null>) {
   return useMemo(() => {
-    function move(options: CameraOptions, fly = false) {
+    function move(options: CameraOptions, fly = false, duration: number = camera.duration) {
       const map = instance.current;
       if (!map) return;
       map.stop();
       if (minimizeMapMotion()) map.jumpTo(options);
       else if (fly) map.flyTo({ ...options, duration: camera.introDuration });
-      else map.easeTo({ ...options, duration: camera.duration });
+      else map.easeTo({ ...options, duration });
     }
 
     return {
       zoomBy(step: number) {
         const map = instance.current;
-        if (map) move({ zoom: Math.max(camera.minZoom, Math.min(camera.maxZoom, map.getZoom() + step)) });
+        if (map) {
+          const zoom = Math.max(camera.minZoom, Math.min(camera.maxZoom, map.getZoom() + step));
+          move({ zoom }, false, camera.zoomDuration);
+        }
       },
       focusLandmark(center: [number, number]) {
         const map = instance.current;

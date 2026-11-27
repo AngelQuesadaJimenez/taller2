@@ -588,6 +588,14 @@ main :where(section, article, div)[id] { scroll-margin-top: var(--space-2); }
     to { transform: scaleX(1); }
   }
 }
+@media (pointer: coarse) and (prefers-reduced-motion: no-preference) {
+  /* Keep photo and frosted surface stationary while each card's copy comes into view. */
+  :is(.services-grid, .catalog-grid)[data-entered] > .glass-card { animation: none; }
+  :is(.services-grid, .catalog-grid)[data-entered] > .glass-card .glass-card-title,
+  :is(.services-grid, .catalog-grid)[data-entered] > .glass-card .glass-card-copy > p {
+    animation: section-enter var(--duration-reveal) var(--easing) var(--reveal-delay, 0ms) backwards;
+  }
+}
 .service-photo { min-width: 0; aspect-ratio: 4 / 3; overflow: hidden; background: var(--photo-background); }
 .service-photo .photo-frame, .service-photo .automotive-photo, .service-photo img { height: 100%; }
 .service-photo img { object-fit: cover; }

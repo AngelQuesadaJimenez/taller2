@@ -4,7 +4,7 @@
 }
 .site-header[data-scrolled] .header-glass {
   --panel-background: var(--glass-elevated);
-  box-shadow: var(--shadow-elevated);
+  box-shadow: var(--shadow-control);
 }
 @media (prefers-reduced-motion: no-preference) {
   .nav-dropdown:not([hidden]), .map-selection {
