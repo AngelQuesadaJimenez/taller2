@@ -2,6 +2,7 @@
 
 import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
 import { useEffect, useState, useSyncExternalStore } from "react";
+import { preload } from "react-dom";
 import { usePreferences } from "@/components/Preferences";
 import { AppIcon } from "@/components/ui/AppIcon";
 import { AutomotivePhoto } from "@/components/ui/AutomotivePhoto";
@@ -9,6 +10,7 @@ import { GlassButton } from "@/components/ui/Button";
 import { heroPhotos } from "@/data/photos";
 
 const interval = 6500;
+const heroSizes = "(max-width: 767px) 94vw, (max-width: 1279px) 46vw, 575px";
 const motionQuery = "(prefers-reduced-motion: reduce)";
 
 function subscribeToMotion(notify: () => void) {
@@ -21,6 +23,13 @@ const prefersReducedMotion = () => window.matchMedia(motionQuery).matches;
 const deferRotationUntilHydrated = () => true;
 
 export function HeroGallery() {
+  const firstPhoto = heroPhotos[0].asset;
+  if (firstPhoto.avifSrcSet) {
+    preload(firstPhoto.src, {
+      as: "image", type: "image/avif", imageSrcSet: firstPhoto.avifSrcSet,
+      imageSizes: heroSizes, fetchPriority: "high",
+    });
+  }
   const { t } = usePreferences();
   const copy = t.home.hero.gallery;
   const [index, setIndex] = useState(0);
@@ -58,7 +67,7 @@ export function HeroGallery() {
         }
       }}>
       <AutomotivePhoto photo={{ ...asset, alt: title + " · " + view }}
-        sizes="(max-width: 767px) 94vw, (max-width: 1279px) 46vw, 575px" priority={index === 0} />
+        sizes={heroSizes} priority={index === 0} />
       <figcaption className="hero-gallery-bar">
         <span className="hero-gallery-caption" aria-live={autoAdvance ? "off" : "polite"} aria-atomic="true">
           <strong>{title}</strong>

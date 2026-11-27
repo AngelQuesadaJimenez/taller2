@@ -27,6 +27,7 @@ export function Footer({ copyrightYear }: { copyrightYear: number }) {
             <ul className="footer-list">
               {navigation.map(({ id }) => <li key={id}><a href={"#" + id}>{t.nav.labels[id]}</a></li>)}
               <li><a href="#reparaciones">{footer.repairs}</a></li>
+              <li><a href="#pagos">{t.payments.title}</a></li>
             </ul>
           </nav>
           <section className="footer-column" aria-labelledby="footer-contact-title">

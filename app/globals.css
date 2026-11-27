@@ -424,8 +424,8 @@ html { scroll-padding-block-start: calc(var(--sticky-header-height, var(--header
   margin-inline-start: auto;
 }
 @media (prefers-reduced-motion: no-preference) {
-  .hero h1, .hero-intro, .hero-visual { animation: hero-arrival var(--duration-reveal) var(--easing) both; }
-  .hero-intro, .hero-visual { animation-delay: var(--delay-reveal); }
+  .hero h1, .hero-intro { animation: hero-arrival var(--duration-reveal) var(--easing) both; }
+  .hero-intro { animation-delay: var(--delay-reveal); }
   .hero-actions .button { transition-property: color, background, border-color, transform; }
   .hero-actions .button:hover { transform: translateY(-2px); }
   @keyframes hero-arrival {
