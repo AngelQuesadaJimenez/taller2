@@ -1,6 +1,7 @@
 "use client";
 
 import { ChevronDown } from "lucide-react";
+import "./header-motion.css";
 import { useEffect, useRef, useState } from "react";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { usePreferences } from "@/components/Preferences";
@@ -59,6 +60,7 @@ export function Header() {
       frame = requestAnimationFrame(() => {
         const readingLine = Math.max(headerHeight + 16, Math.min(window.innerHeight * 0.28, 180));
         const active = sections.find((section) => section && section.getBoundingClientRect().top <= readingLine);
+        sticky?.toggleAttribute("data-scrolled", window.scrollY > 8);
         setCurrent(active?.id ?? "inicio");
         frame = 0;
       });

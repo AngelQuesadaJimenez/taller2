@@ -90,16 +90,14 @@ export function ServiceModal({ title, emblem, footer, children, compact = false,
       element.close();
       onDismiss();
     };
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !element.animate) {
+    element.dataset.closing = "";
+    const transitions = element.getAnimations?.() ?? [];
+    if (!transitions.length || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       finish();
       return;
     }
-    const exit = element.animate([{ opacity: 1 }, { opacity: 0 }], {
-      duration: 120,
-      easing: "ease-out",
-      fill: "forwards",
-    });
-    void exit.finished.then(finish, finish);
+    // Keep the native dialog and its focus trap until the exit settles or is cancelled.
+    void Promise.allSettled(transitions.map(transition => transition.finished)).then(finish);
   }
 
   return (

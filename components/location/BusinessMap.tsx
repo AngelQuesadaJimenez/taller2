@@ -18,7 +18,7 @@ import { RouteControls } from "./RouteControls";
 import { layers, mapStyle } from "./mapStyle";
 import { mapLocale, renderMapLocale } from "./mapLocale";
 import { messages, type MapNotice } from "@/i18n/messages";
-import { cameraAngle, useMapCamera } from "./useMapCamera";
+import { cameraAngle, minimizeMapMotion, useMapCamera } from "./useMapCamera";
 import { routeAvailable, routeBounds, useMapRoute } from "./useMapRoute";
 import "maplibre-gl/dist/maplibre-gl.css";
 
@@ -41,6 +41,7 @@ export function BusinessMap({ view, onViewChange, onUnavailable, onReadyChange }
   const businessTrigger = useRef<HTMLButtonElement>(null);
   const instance = useRef<LibreMap | null>(null);
   const introduced = useRef(false);
+  const appliedView = useRef<MapView>("oblique");
   const drawnSources = useRef(new Set<string>());
   const [readyMap, setReadyMap] = useState<LibreMap | null>(null);
   const [styled, setStyled] = useState(false);
@@ -61,7 +62,8 @@ export function BusinessMap({ view, onViewChange, onUnavailable, onReadyChange }
     const target = container.current;
     if (!target) return;
     let map: LibreMap;
-    const animateIntro = !!coordinates && window.matchMedia("(pointer: fine) and (prefers-reduced-motion: no-preference)").matches;
+    const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const animateIntro = !!coordinates && !minimizeMapMotion() && window.matchMedia("(pointer: fine)").matches;
     setWorkerUrl("/maplibre/maplibre-gl-worker.js");
     setWorkerCount(2);
     try {
@@ -86,14 +88,20 @@ export function BusinessMap({ view, onViewChange, onUnavailable, onReadyChange }
       return () => cancelAnimationFrame(frame);
     }
     instance.current = map;
+    appliedView.current = "oblique";
     let interacted = false;
     function trackInput() {
       if (!introduced.current) interacted = true;
       if (map.isMoving()) mapCamera.stopCameraAnimation();
     }
-    target.addEventListener("pointerdown", trackInput, { passive: true });
-    target.addEventListener("wheel", trackInput, { passive: true });
-    target.addEventListener("keydown", trackInput);
+    const surface = target.closest(".map-shell") ?? target;
+    function syncMotion() {
+      if (motion.matches) trackInput();
+    }
+    motion.addEventListener("change", syncMotion);
+    surface.addEventListener("pointerdown", trackInput, { passive: true, capture: true });
+    surface.addEventListener("wheel", trackInput, { passive: true, capture: true });
+    surface.addEventListener("keydown", trackInput, true);
     function recordTile(event: MapSourceDataEvent) {
       if (event.tile?.state !== "loaded" || drawnSources.current.has(event.sourceId)) return;
       drawnSources.current.add(event.sourceId);
@@ -116,9 +124,10 @@ export function BusinessMap({ view, onViewChange, onUnavailable, onReadyChange }
 
     return () => {
       observer.disconnect();
-      target.removeEventListener("pointerdown", trackInput);
-      target.removeEventListener("wheel", trackInput);
-      target.removeEventListener("keydown", trackInput);
+      motion.removeEventListener("change", syncMotion);
+      surface.removeEventListener("pointerdown", trackInput, true);
+      surface.removeEventListener("wheel", trackInput, true);
+      surface.removeEventListener("keydown", trackInput, true);
       map.remove();
       instance.current = null;
     };
@@ -137,9 +146,8 @@ export function BusinessMap({ view, onViewChange, onUnavailable, onReadyChange }
     readyMap.setLayoutProperty(layers.focusMask, "visibility", streets ? "none" : "visible");
     readyMap.setLayoutProperty(layers.labels, "visibility", streets ? "none" : "visible");
     readyMap.setLayoutProperty(layers.streets, "visibility", streets ? "visible" : "none");
-    if (!readyMap.isMoving() && (view !== "oblique" || !coordinates || introduced.current || readyMap.getZoom() !== camera.contextZoom)) {
-      mapCamera.switchView(view);
-    } else if (view !== "oblique") {
+    if (view !== appliedView.current) {
+      appliedView.current = view;
       mapCamera.switchView(view);
     }
   }, [view, readyMap, mapCamera]);
@@ -248,8 +256,8 @@ export function BusinessMap({ view, onViewChange, onUnavailable, onReadyChange }
         {readyMap && hasTiles && (
           <>
             <MapControls zoom={zoom} minZoom={camera.minZoom} maxZoom={camera.maxZoom} expanded={expanded}
-              onZoomIn={() => readyMap.zoomIn({ duration: 0 })}
-              onZoomOut={() => readyMap.zoomOut({ duration: 0 })}
+              onZoomIn={() => mapCamera.zoomBy(1)}
+              onZoomOut={() => mapCamera.zoomBy(-1)}
               onReset={reset} onExpand={expand} canCenter={coordinates !== null} onCenter={(event) => focusBusiness(event.currentTarget)}
               rotation={<Button className="map-tool" variant="glass" size="icon" aria-label={copy.rotate} title={copy.rotate} onClick={mapCamera.rotate}><AppIcon icon={RotateCw} /></Button>} />
             {coordinates && <MapLocationMarker map={readyMap} point={coordinates} kind="business"
@@ -261,11 +269,7 @@ export function BusinessMap({ view, onViewChange, onUnavailable, onReadyChange }
                 label={landmark.name} selected={selected === landmark.name}
                 onSelect={() => {
                   setSelected(landmark.name);
-                  readyMap.easeTo({
-                    center: lngLat(landmark.coordinates),
-                    zoom: Math.max(readyMap.getZoom(), camera.zoom),
-                    duration: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : camera.duration,
-                  });
+                  mapCamera.focusLandmark(lngLat(landmark.coordinates));
                 }} />
             ))}
           </>

@@ -51,7 +51,7 @@ export function PartsBreakdown() {
 
   return (
     <section id="despiece" className="parts-breakdown" aria-labelledby="despiece-titulo">
-      <div className="section-heading parts-heading">
+      <div className="section-heading parts-heading" data-reveal="item">
         <h3 id="despiece-titulo">{copy.title}</h3>
         <p>{copy.description}</p>
       </div>
@@ -59,7 +59,7 @@ export function PartsBreakdown() {
         {entries.map(({ part, group }, index) => {
           const item = copy.items[part.id];
           return (
-            <li key={part.id}>
+            <li key={part.id} data-reveal="item">
               <GlassCard title={item.name} description={item.description} heading="h4" eyebrow={copy.groups[group]}
                 className="part-card"
                 image={

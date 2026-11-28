@@ -49,9 +49,9 @@ for (const locale of locales) {
         } else {
           await page.emulateMedia({ reducedMotion: "no-preference" });
           await page.mouse.move(x, y);
-          await expect(card).toHaveCSS("transform", "matrix(1, 0, 0, 1, 0, -3)");
+          await expect(card).toHaveCSS("transform", "matrix(1, 0, 0, 1, 0, -4)");
           await page.mouse.down();
-          await expect(card).toHaveCSS("transform", "matrix(1, 0, 0, 1, 0, 1)");
+          await expect(card).toHaveCSS("transform", "matrix(0.988, 0, 0, 0.988, 0, 0)");
           await page.mouse.up();
           await page.emulateMedia({ reducedMotion: "reduce" });
         }

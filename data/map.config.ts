@@ -40,6 +40,7 @@ export const mapConfig = {
     bearing: -22,
     turn: 30,
     duration: 600,
+    zoomDuration: 260,
     introDuration: 1400,
   },
   route: {

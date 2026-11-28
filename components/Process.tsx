@@ -16,7 +16,7 @@ export function Process() {
   return (
     <GlassSection className="wrap process" id="proceso" aria-labelledby="proceso-titulo">
       <SectionHeading id="proceso-titulo" {...copy.process} />
-      <GlassPanel variant="elevated" className="process-panel" data-reveal="">
+      <GlassPanel variant="elevated" className="process-panel" data-reveal="process">
         <ol className="process-grid" role="list">
           {process.map((id, index) => (
             <li className="process-step" key={id}>

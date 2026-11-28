@@ -75,16 +75,9 @@
   .part-card:hover .part-availability { text-decoration: underline; text-underline-offset: .23em; }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .glass-panel.part-card {
-    transition: transform var(--duration-menu) var(--easing), border-color var(--duration) var(--easing), box-shadow var(--duration) var(--easing);
-  }
-  .part-availability svg { transition: transform var(--duration-menu) var(--easing); }
-  .glass-panel.part-card:active { transform: translateY(1px); }
-  @media (hover: hover) {
-    .glass-panel.part-card:hover:not(:active) { transform: translateY(-3px); }
-    .part-card:hover .part-availability svg { transform: translate(2px, -2px); }
-  }
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .part-availability svg { transition: transform var(--duration-hover) var(--easing); }
+  .part-card:hover .part-availability svg { transform: translate(2px, -2px); }
 }
 
 .part-detail-photo { max-inline-size: 15rem; margin-block-end: var(--space-3); border-radius: var(--radius-medium); overflow: hidden; }

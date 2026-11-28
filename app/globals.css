@@ -10,7 +10,8 @@ h1, h2, h3, p, ol, dl, dd { margin: 0; }
 h1, h2, h3 { font-family: var(--heading-font); line-height: var(--leading-tight); font-weight: 700; }
 :focus-visible { outline: 2px solid var(--secondary-accent); outline-offset: var(--space-05); }
 main:focus { outline: none; }
-html { scroll-padding-block-start: calc(var(--sticky-header-height, var(--header-space)) + var(--space-2)); }
+html { scroll-padding-block-start: var(--sticky-header-height, var(--header-space)); }
+main :where(section, article, div)[id] { scroll-margin-top: var(--space-2); }
 
 .wrap { width: min(calc(100% - var(--gutter) * 2), var(--wrap)); margin-inline: auto; }
 .section { padding-block: var(--section-space); }
@@ -104,6 +105,13 @@ html { scroll-padding-block-start: calc(var(--sticky-header-height, var(--header
   text-decoration: none;
 }
 .whatsapp-bubble:hover { background: var(--whatsapp-hover); }
+.whatsapp-bubble:active { background: var(--whatsapp-active); }
+@media (prefers-reduced-motion: no-preference) {
+  .whatsapp-bubble {
+    transition: background-color var(--duration-hover) var(--easing), transform var(--duration-micro) var(--easing);
+  }
+  .whatsapp-bubble:active { transform: scale(var(--motion-press)); }
+}
 .whatsapp-bubble-icon {
   inline-size: 1.6rem;
   block-size: 1.6rem;
@@ -317,6 +325,11 @@ html { scroll-padding-block-start: calc(var(--sticky-header-height, var(--header
   background-size: contain;
 }
 .contact-form .form-error { color: var(--error-text); }
+.contact-form [aria-invalid="true"] { border-color: var(--error-text); }
+@media (prefers-reduced-motion: no-preference) {
+  .contact-form :is(.form-error, .form-feedback) { animation: field-feedback var(--duration-micro) ease-out; }
+}
+@keyframes field-feedback { from { opacity: .65; } to { opacity: 1; } }
 .vehicle-year-field { display: grid; align-content: start; gap: var(--space-05); min-inline-size: 0; }
 
 
@@ -427,7 +440,9 @@ html { scroll-padding-block-start: calc(var(--sticky-header-height, var(--header
   .hero h1, .hero-intro { animation: hero-arrival var(--duration-reveal) var(--easing) both; }
   .hero-intro { animation-delay: var(--delay-reveal); }
   .hero-actions .button { transition-property: color, background, border-color, transform; }
-  .hero-actions .button:hover { transform: translateY(-2px); }
+  @media (hover: hover) and (pointer: fine) {
+    .hero-actions .button:hover { transform: translateY(-2px); }
+  }
   @keyframes hero-arrival {
     from { opacity: .87; transform: translateY(var(--motion-shift)); }
     to { opacity: 1; transform: translateY(0); }
@@ -478,7 +493,6 @@ html { scroll-padding-block-start: calc(var(--sticky-header-height, var(--header
   --panel-background: var(--glass-elevated);
   --panel-fallback: var(--surface-elevated);
   border-radius: 1.25rem;
-  transition: border-color var(--duration) var(--easing), box-shadow var(--duration) var(--easing);
 }
 .glass-card-media { position: relative; }
 .glass-card-emblem {
@@ -512,25 +526,74 @@ html { scroll-padding-block-start: calc(var(--sticky-header-height, var(--header
 .service-card .service-explore:hover,
 .service-card .service-explore:focus-visible { background: transparent; text-decoration: underline; text-underline-offset: .23em; }
 
-@media (hover: hover) {
-  .glass-panel:is(.service-card, .part-card, .catalog-card):hover {
+.glass-panel:is(.service-card, .part-card, .catalog-card, .contact-method) {
+  cursor: pointer;
+  transition: transform var(--duration-hover) var(--easing), border-color var(--duration-hover) var(--easing),
+    box-shadow var(--duration-hover) var(--easing);
+}
+.glass-panel:is(.service-card, .part-card, .catalog-card, .contact-method):active { border-color: var(--accent); }
+@media (prefers-reduced-motion: no-preference) {
+  .glass-panel:is(.service-card, .part-card, .catalog-card, .contact-method):active {
+    transform: scale(var(--motion-press));
+    transition-duration: var(--duration-micro);
+  }
+}
+@media (hover: hover) and (pointer: fine) {
+  .glass-panel:is(.service-card, .part-card, .catalog-card, .contact-method):hover {
     border-color: var(--accent);
     box-shadow: var(--shadow-elevated);
   }
 }
-@media (hover: hover) and (prefers-reduced-motion: no-preference) {
-  .service-photo img, .service-explore svg { transition: transform var(--duration-menu) var(--easing); }
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .glass-panel:is(.service-card, .part-card, .catalog-card, .contact-method):hover:not(:active) {
+    transform: translateY(var(--motion-lift));
+  }
+  .service-photo img, .service-explore svg { transition: transform var(--duration-hover) var(--easing); }
   .service-card:hover .service-photo img { transform: scale(1.035); }
   .service-card:hover .service-explore svg { transform: translate(2px, -2px); }
 }
 .service-card-actions { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-1) var(--space-2); margin-top: var(--space-3); }
 .service-scope { margin-block-end: var(--space-4); padding-inline-start: var(--space-2); border-inline-start: 2px solid var(--rs-gold); color: var(--text-soft); font-size: var(--text-sm); }
 .service-card-actions .button { min-inline-size: 0; }
+/* Only the entrance is animated. Unobserved content is already visible. */
 @media (prefers-reduced-motion: no-preference) {
-  [data-reveal][data-entered] { animation: section-enter var(--duration-reveal) var(--easing) both; }
+  [data-reveal="item"][data-entered],
+  [data-reveal="group"][data-entered] > *,
+  .process-panel[data-entered] .step-copy {
+    animation: section-enter var(--duration-reveal) var(--easing) var(--reveal-delay, 0ms) backwards;
+  }
+  :is(.parts-grid, .payment-grid, .process-grid, [data-reveal="group"]) > :nth-child(3n + 2) {
+    --reveal-delay: var(--delay-reveal);
+  }
+  :is(.parts-grid, .payment-grid, .process-grid, [data-reveal="group"]) > :nth-child(3n) {
+    --reveal-delay: calc(2 * var(--delay-reveal));
+  }
+  .process-panel[data-entered] .step-icon .app-icon {
+    animation: node-appear var(--duration-reveal) var(--easing) var(--reveal-delay, 0ms) backwards;
+  }
+  @keyframes node-appear {
+    from { opacity: .65; }
+    to { opacity: 1; }
+  }
+  .process-panel[data-entered] .process-step:not(:last-child)::after {
+    transform-origin: left center;
+    animation: connect-steps var(--duration-reveal) var(--easing) var(--reveal-delay, 0ms) backwards;
+  }
   @keyframes section-enter {
-    from { opacity: .88; transform: translateY(var(--space-1)); }
-    to { opacity: 1; transform: translateY(0); }
+    from { opacity: .78; translate: 0 var(--motion-enter); }
+    to { opacity: 1; translate: 0 0; }
+  }
+  @keyframes connect-steps {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+}
+@media (pointer: coarse) and (prefers-reduced-motion: no-preference) {
+  /* Keep photo and frosted surface stationary while each card's copy comes into view. */
+  :is(.services-grid, .catalog-grid)[data-entered] > .glass-card { animation: none; }
+  :is(.services-grid, .catalog-grid)[data-entered] > .glass-card .glass-card-title,
+  :is(.services-grid, .catalog-grid)[data-entered] > .glass-card .glass-card-copy > p {
+    animation: section-enter var(--duration-reveal) var(--easing) var(--reveal-delay, 0ms) backwards;
   }
 }
 .service-photo { min-width: 0; aspect-ratio: 4 / 3; overflow: hidden; background: var(--photo-background); }
@@ -824,6 +887,16 @@ html { scroll-padding-block-start: calc(var(--sticky-header-height, var(--header
     height: auto;
   }
   .step-copy { margin-top: 0; }
+  @media (prefers-reduced-motion: no-preference) {
+    .process-panel[data-entered] .process-step:not(:last-child)::after {
+      transform-origin: center top;
+      animation-name: connect-steps-vertically;
+    }
+    @keyframes connect-steps-vertically {
+      from { transform: scaleY(0); }
+      to { transform: scaleY(1); }
+    }
+  }
 }
 
 @screen compact {
@@ -835,7 +908,7 @@ html { scroll-padding-block-start: calc(var(--sticky-header-height, var(--header
 }
 
 @media (max-height: 360px) {
-  html { scroll-padding-block-start: var(--space-2); }
+  html { scroll-padding-block-start: 0; }
   .site-header { position: relative; }
 }
 
